@@ -9,18 +9,18 @@ export class LoggerMiddleware implements NestMiddleware{
         const { ip, method, originalUrl } = req;
         const userAgent = req.get('user-agent') || '';
 
-        res.on('finish', () => { //응답이 끝난 경우 실행
+        console.log({
+            ip: ip,
+            url : req.url,
+            method : req.method,
+            body: req.body,
+        })
+        res.on('finish', () => { 
             const { statusCode } = res;
             const contentLength = res.get('content-length');
             this.logger.log(
                 `${method} ${originalUrl} ${statusCode} ${contentLength} - ${userAgent} ${ip}`,
             );
-            console.log({
-                ip: ip,
-                url : req.url,
-                method : req.method,
-                body: req.body,
-            })
         });
         next();
     }
