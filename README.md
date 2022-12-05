@@ -1,3 +1,5 @@
 # react-study-group
 
-FrontEnd: React. JS, TypeScript
+FrontEnd Stack: React. JS, TypeScript
+
+BacnEnd Stack: Nest.js, TypeScript
