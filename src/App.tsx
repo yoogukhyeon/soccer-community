@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       <h1>input and button</h1>
       <Input type="text" value={value} onChange={onChange} />
-      <Button type="button" onClick={onClick} />
+      <Button onClick={onClick} text="click alert" />
     </div>
   );
 }
