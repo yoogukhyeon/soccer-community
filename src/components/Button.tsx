@@ -5,10 +5,10 @@ interface IButton {
   onClick: () => void;
 }
 
-export function Button({text, onClick }: IButton) {
+export function Button({ text, onClick }: IButton) {
   return (
     <>
-      <button type='button' onClick={onClick}>
+      <button type="button" onClick={onClick}>
         {text}
       </button>
     </>
