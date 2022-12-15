@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { Input } from './components/common/Input';
-import { Button } from './components/common/Button';
+import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
 import Layout from './components/layout/Layout';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Board from './pages/Board';
+import MetaTag from './constants/SEOMetaTag';
 
 const Wrapper = styled.div`
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 10px;
+    width: 100%;
 
     ${({ theme }) => theme.media.desktop`
       border: 2px solid blue;
@@ -18,7 +16,7 @@ const Wrapper = styled.div`
     ${({ theme }) => theme.media.tablet`
       border: 2px solid yellow;
     `}
-        ${({ theme }) => theme.media.mobile`
+    ${({ theme }) => theme.media.mobile`
       border: 2px solid purple;
     `};
 `;
@@ -36,10 +34,10 @@ function App() {
   }; */
 
     return (
-        <div className="App">
+        <>
+            <MetaTag title="project" description="side-project with react" />
             <Wrapper>
                 <Layout>
-                    <h1>input and button</h1>
                     {/*     <Input type="text" value={value} onChange={onChange} />
                     <Button onClick={onClick} text="click alert" /> */}
                     <Routes>
@@ -48,7 +46,7 @@ function App() {
                     </Routes>
                 </Layout>
             </Wrapper>
-        </div>
+        </>
     );
 }
 

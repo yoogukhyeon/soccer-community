@@ -23,9 +23,10 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 100%;
       font: inherit;
       vertical-align: baseline;
-      color: red;
       font-size: 16px;
+      box-sizing: border-box;
   }
+
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure, 
   footer, header, hgroup, menu, nav, section {

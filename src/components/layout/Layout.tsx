@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import styled from 'styled-components';
+import { ContainerDiv } from '../../common/style/common';
 interface IProps {
     children: React.ReactNode;
 }
@@ -14,7 +15,9 @@ export default function Layout({ children }: IProps) {
     return (
         <div>
             <Header />
-            <main>{children}</main>
+            <ContainerDiv>
+                <Main>{children}</Main>
+            </ContainerDiv>
             <Footer />
         </div>
     );

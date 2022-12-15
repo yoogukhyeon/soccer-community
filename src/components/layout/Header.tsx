@@ -1,23 +1,81 @@
 import React from 'react';
 import styled from 'styled-components';
-
-const HeaderWrap = styled.div`
-    width: 100%;
-    height: 70px;
-    background-color: #eee;
-`;
+import { ContainerDiv } from '../../common/style/common';
+import { HeaderAndFooter } from '../../common/style/common';
 
 export default function Header() {
     return (
         <HeaderWrap>
-            <h2>This is Header</h2>
-
-            {/* 
-        1. navi 
-        2. react-router-dom V6 Router 정리해서 설명 
-        3. styled-components UI를 만든 파일에서 css 사용 
-        4. home, community /community, login /login
-      */}
+            <ContainerDiv>
+                <div className="header_left">
+                    <div className="logo">
+                        <img src="/img/logo.svg" alt="LOGO" />
+                    </div>
+                    <ul>
+                        <li>Home</li>
+                        <li>Community</li>
+                        <li>Contents</li>
+                    </ul>
+                </div>
+                <ul className="header_right">
+                    <li>
+                        <img src="/img/icon.svg" alt="ICON" />
+                    </li>
+                </ul>
+            </ContainerDiv>
         </HeaderWrap>
     );
 }
+
+const HeaderWrap = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 70px;
+    background-color: #29293f;
+    color: #fff;
+
+    > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header_left {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .header_left > ul {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header_left > ul > li {
+        cursor: pointer;
+    }
+
+    .logo {
+        width: 45px;
+        margin-right: 15px;
+        cursor: pointer;
+        transition: all 0.8s ease-in-out;
+    }
+
+    .header_right li {
+        width: 25px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    ${HeaderAndFooter}
+    @media screen and (max-width: 380px) {
+        .header_left ul {
+            display: none;
+        }
+    } ;
+`;
