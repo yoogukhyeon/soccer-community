@@ -17,6 +17,10 @@ export default function Home() {
             img: 'https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/udHvbKwV-IMG-Dubai-UAE-1.jpg',
             name: '사진2',
         },
+        {
+            img: 'https://miro.medium.com/max/1400/0*c43pw7UiQgpfjDCl.jpg',
+            name: '사진3',
+        },
     ];
 
     return (
@@ -36,10 +40,16 @@ const SwiperWrap = styled.div`
     overflow: hidden;
     object-fit: cover;
 
-    img {
+    .swiper_img {
         width: 100%;
         height: 210px;
-        object-fit: cover;
+
+        img {
+            width: inherit;
+            height: inherit;
+            object-fit: cover;
+            object-position: center;
+        }
     }
 
     .swiper-pagination-bullet-active {

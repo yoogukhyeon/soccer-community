@@ -15,7 +15,7 @@ export default function Footer() {
                 <div className="info_box">
                     <ul>
                         <li>React Project</li>
-                        <li>Make something you can</li>
+                        <li>Make Something You Can</li>
                     </ul>
                 </div>
             </ContainerDiv>

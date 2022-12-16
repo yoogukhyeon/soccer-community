@@ -6,18 +6,19 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Board from './pages/Board';
 import MetaTag from './constants/SEOMetaTag';
+import NotFound from './pages/NotFound';
 
 const Wrapper = styled.div`
     width: 100%;
 
     ${({ theme }) => theme.media.desktop`
-      border: 2px solid blue;
+    
     `}
     ${({ theme }) => theme.media.tablet`
-      border: 2px solid yellow;
+    
     `}
     ${({ theme }) => theme.media.mobile`
-      border: 2px solid purple;
+    
     `};
 `;
 
@@ -43,6 +44,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/boards" element={<Board />} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Layout>
             </Wrapper>

@@ -21,6 +21,7 @@ export default function SwiperList({ lists }: IItems): JSX.Element {
     const settings = {
         slidesPerView: 1,
         spaceBetween: 0,
+        loop: true,
         scrollbar: {
             draggable: true,
         },
@@ -36,7 +37,7 @@ export default function SwiperList({ lists }: IItems): JSX.Element {
         <Swiper {...settings}>
             {lists.map((list, idx) => (
                 <SwiperSlide key={idx}>
-                    <div>
+                    <div className="swiper_img">
                         <img src={list.img} alt={list.name} />
                     </div>
                 </SwiperSlide>

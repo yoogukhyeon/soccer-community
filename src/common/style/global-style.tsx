@@ -3,7 +3,7 @@ import reset from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
-  
+
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -17,6 +17,8 @@ export const GlobalStyle = createGlobalStyle`
   figure, figcaption, footer, header, hgroup, 
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
+      @import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
+      font-family: "Noto Sans KR", sans-serif !important;
       margin: 0;
       padding: 0;
       border: 0;
