@@ -76,7 +76,3 @@ const HeaderWrap = styled.div`
         }
     } ;
 `;
-
-const ActiveStyle = css`
-    color: #222;
-`;

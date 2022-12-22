@@ -13,12 +13,12 @@ const Main = styled.div`
 
 export default function Layout({ children }: IProps) {
     return (
-        <div>
+        <>
             <Header />
             <ContainerDiv>
                 <Main>{children}</Main>
             </ContainerDiv>
             <Footer />
-        </div>
+        </>
     );
 }

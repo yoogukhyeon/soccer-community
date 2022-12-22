@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Board from './pages/Board';
 import MetaTag from './constants/SEOMetaTag';
 import NotFound from './pages/NotFound';
+import Create from './pages/Board/Create';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -43,7 +44,10 @@ function App() {
                     <Button onClick={onClick} text="click alert" /> */}
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/boards" element={<Board />} />
+                        <Route path="/boards" element={<Board />}>
+                            <Route path=":category" element={<Board />} />
+                        </Route>
+                        <Route path="/boards/create" element={<Create />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Layout>
