@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import styled from 'styled-components';
-import { ContainerDiv } from '../../common/style/common';
+import { ContainerDiv } from '@/common/style/common';
 interface IProps {
     children: React.ReactNode;
 }

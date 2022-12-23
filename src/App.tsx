@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
-import Layout from './components/layout/Layout';
+import Layout from '@/components/layout/Layout';
 import { Routes, Route } from 'react-router-dom';
 import Home from '@/pages/Home';
-import Board from './pages/Board';
-import MetaTag from './constants/SEOMetaTag';
-import NotFound from './pages/NotFound';
-import Create from './pages/Board/Create';
+import Board from '@/pages/Board';
+import MetaTag from '@/constants/SEOMetaTag';
+import NotFound from '@/pages/NotFound';
+import Create from '@/pages/Board/Create';
 
 const Wrapper = styled.div`
     width: 100%;

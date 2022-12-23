@@ -1,6 +1,6 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import Select from 'react-select';
-import FroalaEditor from '../../components/common/FroalaEditor';
+import FroalaEditor from '@/components/common/FroalaEditor';
 import styled from 'styled-components';
 
 interface IOption {

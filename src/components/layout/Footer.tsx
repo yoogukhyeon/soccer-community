@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ContainerDiv } from '../../common/style/common';
-import { HeaderAndFooter } from '../../common/style/common';
+import { ContainerDiv } from '@/common/style/common';
+import { HeaderAndFooter } from '@/common/style/common';
 
 export default function Footer() {
     return (

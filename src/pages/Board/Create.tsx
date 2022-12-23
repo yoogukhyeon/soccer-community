@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { CgChevronLeft } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
-import Form from '../../components/board/Form';
+import Form from '@/components/board/Form';
 
 export default function Create() {
     const navigate = useNavigate();
