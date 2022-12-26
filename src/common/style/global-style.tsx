@@ -17,7 +17,6 @@ export const GlobalStyle = createGlobalStyle`
   figure, figcaption, footer, header, hgroup, 
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
-      @import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
       font-family: "Noto Sans KR", sans-serif !important;
       margin: 0;
       padding: 0;

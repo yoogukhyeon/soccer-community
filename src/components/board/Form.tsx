@@ -47,9 +47,13 @@ export default function Form() {
         setInputs({ ...inputs, ['content']: content });
     };
 
+    const handleSubmit = () => {
+        alert('123123');
+    };
+
     return (
         <>
-            <form action="">
+            <form onSubmit={(e) => e.preventDefault()}>
                 <TitleBox>
                     <div className="select_wrap">
                         <Cselect
@@ -72,6 +76,12 @@ export default function Form() {
                 <div className="editor_wrap">
                     <FroalaEditor inputs={inputs} handleModelInput={handleModelInput} setEditorInput={setEditorInput} />
                 </div>
+
+                <SubmitBtnBox>
+                    <button type="button" onClick={handleSubmit} className="btn_submit">
+                        등록
+                    </button>
+                </SubmitBtnBox>
             </form>
         </>
     );
@@ -143,6 +153,36 @@ const Input = styled.input`
 
         ::placeholder {
             font-size: 12px;
+        }
+    }
+`;
+
+const SubmitBtnBox = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+
+    .btn_submit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 55px;
+        border-radius: 10px;
+        background-color: #ff4c0e;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+        .btn_submit {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
         }
     }
 `;
