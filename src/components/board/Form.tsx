@@ -116,6 +116,14 @@ const Cselect = styled(Select)`
         .css-1dimb5e-singleValue {
             font-size: 14px;
         }
+
+        .css-1xc3v61-indicatorContainer {
+            padding: 0px !important;
+        }
+
+        .css-15lsz6c-indicatorContainer {
+            padding: 0px !important;
+        }
     }
 `;
 
