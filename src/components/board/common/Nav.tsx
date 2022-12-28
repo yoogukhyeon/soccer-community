@@ -18,6 +18,9 @@ export default function Nav({ category }: IProps) {
             <li className={category === 'free' ? 'active' : ''}>
                 <Link to="/boards/free">자유</Link>
             </li>
+            <li className={category === 'sports' ? 'active' : ''}>
+                <Link to="/boards/sports">스포츠</Link>
+            </li>
         </CategoryWrap>
     );
 }
