@@ -1,8 +1,10 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-import Select from 'react-select';
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import Select, { ActionMeta } from 'react-select';
 import FroalaEditor from '@/components/common/FroalaEditor';
 import styled from 'styled-components';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { api } from '@/api';
 interface IOption {
     readonly value: string;
     readonly label: string;
@@ -17,6 +19,14 @@ const option: IOption[] = [
 interface IInput {
     title: string;
     content: string;
+    category: string;
+}
+
+interface Config {
+    method: string;
+    type: string;
+    url: string;
+    data: any;
 }
 
 /* interface IProps {
@@ -27,12 +37,18 @@ interface IInput {
 }  */
 
 export default function Form() {
-    const [selected, setSelected] = useState<IOption | null | any>();
+    const navigate = useNavigate();
 
+    const selectedRef: any = useRef(null);
+    const titleRef: any = useRef(null);
+    const contentRef: any = useRef(null);
+
+    const [selected, setSelected] = useState<IOption | null | any>();
     const [inputs, setInputs] = useState<IInput>(() => {
         return {
             title: '',
             content: '',
+            category: '',
         };
     });
 
@@ -41,16 +57,81 @@ export default function Form() {
         setInputs({ ...inputs, [name]: value });
     };
 
+    const onChangeSelect = (newValue: IOption | any, actionMeta: ActionMeta<unknown> | any) => {
+        const { name } = actionMeta;
+        setSelected(newValue);
+        setInputs({ ...inputs, [name]: '' });
+
+        if (newValue) {
+            const { value } = newValue;
+
+            setInputs({ ...inputs, [name]: value });
+        }
+    };
+
+    //froala 글자수 예외처리
     const [editorInput, setEditorInput] = useState('');
     // editor
     const handleModelInput = (content: string) => {
         setInputs({ ...inputs, ['content']: content });
     };
 
-    const handleSubmit = () => {
-        alert('123123');
+    // 데이터 submit
+    const handleSubmit = async () => {
+        //랜덤 수
+        const random1 = Math.floor(Math.random() * 100);
+        const random2 = Math.floor(Math.random() * 100);
+        const random3 = Math.floor(Math.random() * 100);
+
+        if (inputs.category === '') {
+            alert('카테고리를 선택해주세요.');
+            return selectedRef.current.focus();
+        }
+
+        if (inputs.title === '') {
+            alert('제목을 입력해주세요.');
+            return titleRef.current.focus();
+        }
+
+        if (inputs.content === '') {
+            return alert('내용을 입력해주세요.');
+        }
+
+        const data = {
+            ...inputs,
+            views: random1,
+            likes: random2,
+            diffDate: '1분전',
+            commentCount: random3,
+        };
+        const res = await api.post({ url: 'http://localhost:8080/boards', data });
+
+        if (res.status === 201) {
+            alert('글작성을 완료했습니다.');
+            navigate('/boards');
+        } else {
+            return alert('오류가 발생했습니다. 관리자에게 문의바랍니다.');
+        }
     };
 
+    /*   useEffect(() => {
+        if (inputs.category === 'notice') {
+            const qqq = option.find((list) => list.value === inputs.category);
+            console.log('qqq ::', qqq);
+
+            setSelected(qqq);
+        }
+    }, []); */
+
+    /*    if (update) {
+        //통신
+
+        setInputs({
+            title: 'aaa',
+            content: 'aaa',
+        });
+    }
+ */
     return (
         <>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -59,10 +140,14 @@ export default function Form() {
                         <Cselect
                             isClearable={true}
                             isSearchable={false}
-                            options={option}
                             placeholder="선택"
-                            onChange={setSelected}
+                            options={option}
+                            value={selected}
+                            onChange={onChangeSelect}
                             autoFocus
+                            defaultValue={selected}
+                            name="category"
+                            ref={selectedRef}
                         />
                     </div>
                     <Input
@@ -71,6 +156,7 @@ export default function Form() {
                         value={inputs.title}
                         onChange={onChangeInput}
                         name="title"
+                        ref={titleRef}
                     />
                 </TitleBox>
                 <div className="editor_wrap">

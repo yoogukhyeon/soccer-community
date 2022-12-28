@@ -46,6 +46,12 @@ const Nav = styled.div`
         justify-content: flex-start;
         align-items: center;
         cursor: pointer;
+
+        i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
     span {
         font-weight: 600;

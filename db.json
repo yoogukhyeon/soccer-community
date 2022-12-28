@@ -1,58 +1,134 @@
 {
-    "boards": [
-        {
-            "id": 1,
-            "nickName": "피카추",
-            "title": "후기 남겨요 피카츄!",
-            "views": 21,
-            "likes": 24,
-            "diffDate": "1분전",
-            "commentCount": 3
-        },
-        {
-            "id": 2,
-            "nickName": "라이츄",
-            "title": "후기 남겨요 라이츄!",
-            "views": 2,
-            "likes": 31,
-            "diffDate": "30분전",
-            "commentCount": 27
-        },
-        {
-            "id": 3,
-            "nickName": "꼬북이",
-            "title": "후기 남겨요! 꼬북이",
-            "views": 30,
-            "likes": 2,
-            "diffDate": "1분전",
-            "commentCount": 3
-        },
-        {
-            "id": 4,
-            "nickName": "파이리",
-            "title": "후기 남겨요! 파이리",
-            "views": 50,
-            "likes": 100,
-            "diffDate": "1시간전",
-            "commentCount": 3
-        },
-        {
-            "id": 5,
-            "nickName": "이상해씨",
-            "title": "후기 남겨요! 이상해씨",
-            "views": 0,
-            "likes": 0,
-            "diffDate": "1분전",
-            "commentCount": 0
-        },
-        {
-            "id": 6,
-            "nickName": "만나뇽",
-            "title": "후기 남겨요! 만나뇽",
-            "views": 2,
-            "likes": 20,
-            "diffDate": "3분전",
-            "commentCount": 3
-        }
-    ]
+  "boards": [
+    {
+      "id": 1,
+      "category": "free",
+      "title": "후기 남겨요 피카츄!",
+      "views": 21,
+      "likes": 24,
+      "diffDate": "1분전",
+      "commentCount": 3
+    },
+    {
+      "id": 2,
+      "category": "notice",
+      "title": "후기 남겨요 라이츄!",
+      "views": 2,
+      "likes": 31,
+      "diffDate": "30분전",
+      "commentCount": 27
+    },
+    {
+      "id": 3,
+      "category": "free",
+      "title": "후기 남겨요! 꼬북이",
+      "views": 30,
+      "likes": 2,
+      "diffDate": "1분전",
+      "commentCount": 3
+    },
+    {
+      "id": 4,
+      "category": "sports",
+      "title": "후기 남겨요! 파이리",
+      "views": 50,
+      "likes": 100,
+      "diffDate": "1시간전",
+      "commentCount": 3
+    },
+    {
+      "id": 5,
+      "category": "notice",
+      "title": "후기 남겨요! 이상해씨",
+      "views": 0,
+      "likes": 0,
+      "diffDate": "1분전",
+      "commentCount": 0
+    },
+    {
+      "id": 6,
+      "category": "free",
+      "title": "후기 남겨요! 만나뇽",
+      "views": 2,
+      "likes": 20,
+      "diffDate": "3분전",
+      "commentCount": 3
+    },
+    {
+      "title": "안녕하세요! ",
+      "content": "<p>유국현 첫 insert 테스트</p>",
+      "category": "sports",
+      "id": 7
+    },
+    {
+      "title": "insert 테스트",
+      "content": "<p>insert테스트</p>",
+      "category": "notice",
+      "views": 53,
+      "likes": 99,
+      "diffDate": "1분전",
+      "commentCount": 17,
+      "id": 8
+    },
+    {
+      "title": "유국현 테스트 ",
+      "content": "<p>유국현 테스트 &nbsp;유국현 테스트&nbsp;</p>",
+      "category": "sports",
+      "views": 70,
+      "likes": 18,
+      "diffDate": "1분전",
+      "commentCount": 23,
+      "id": 9
+    },
+    {
+      "title": "유국현 글등록",
+      "content": "<p>유국현 글등록</p>",
+      "category": "free",
+      "views": 32,
+      "likes": 25,
+      "diffDate": "1분전",
+      "commentCount": 89,
+      "id": 10
+    },
+    {
+      "title": "안녕하세요!",
+      "content": "<p>안녕하세요!</p>",
+      "category": "free",
+      "views": 76,
+      "likes": 28,
+      "diffDate": "1분전",
+      "commentCount": 54,
+      "id": 11
+    },
+    {
+      "title": "오늘은 수요일 ",
+      "content": "<p>오늘은 수요일&nbsp;</p>",
+      "category": "free",
+      "views": 13,
+      "likes": 25,
+      "diffDate": "1분전",
+      "commentCount": 97,
+      "id": 12
+    },
+    {
+      "title": "123123",
+      "content": "<p>123123</p>",
+      "category": "free",
+      "views": 14,
+      "likes": 61,
+      "diffDate": "1분전",
+      "commentCount": 11,
+      "id": 13
+    },
+    {
+      "title": "axios custom instancs",
+      "content": "<p>axios custom instancs</p>",
+      "category": "free",
+      "views": 56,
+      "likes": 3,
+      "diffDate": "1분전",
+      "commentCount": 28,
+      "id": 14
+    }
+  ]
 }
