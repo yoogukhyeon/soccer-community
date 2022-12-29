@@ -24,7 +24,6 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 100%;
       font: inherit;
       vertical-align: baseline;
-      font-size: 16px;
       box-sizing: border-box;
   }
 

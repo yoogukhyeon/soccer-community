@@ -36,4 +36,14 @@ const BtnWrap = styled.div`
     top: 50%;
     right: 0;
     transform: translateY(-50%);
+
+    @media screen and (max-width: 768px) {
+        & {
+            position: fixed;
+            top: 80%;
+            right: 6%;
+            transform: none;
+            z-index: 9999;
+        }
+    }
 `;

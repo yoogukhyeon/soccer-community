@@ -53,8 +53,11 @@ const BtnMo = styled(CommonBtn)`
     }
 
     @media screen and (max-width: 768px) {
+        border-radius: 50%;
         & {
             display: block;
+            width: 50px;
+            height: 50px;
         }
     }
 
