@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import Loading from '../common/Loading';
+import { WordBreak } from '@/common/style/common';
 interface List {
     readonly category: string;
     readonly commentCount: number;
@@ -13,11 +14,14 @@ interface List {
 
 interface IProps {
     lists: List[];
+    status: string;
 }
 
-export default function BoardList({ lists }: IProps) {
+export default function BoardList({ lists, status }: IProps) {
     return (
         <ul>
+            {status === 'loading' && <Loading />}
+            {status === 'error' && <div>Server Error...</div>}
             {lists?.map((list) => (
                 <List key={list.id}>
                     <em>{list.category}</em>
@@ -58,9 +62,7 @@ const List = styled.li`
 
         p {
             font-size: 20px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            ${WordBreak};
             line-height: 28px;
             margin: 4px 0;
             font-weight: 600;
@@ -83,8 +85,12 @@ const List = styled.li`
             }
 
             .counter_box {
+                ${WordBreak};
                 margin-left: 12px;
             }
+        }
+        .option_box > div {
+            ${WordBreak};
         }
     }
 

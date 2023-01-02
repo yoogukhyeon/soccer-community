@@ -3,7 +3,7 @@ import BoardNav from '../../components/board/BoardNav';
 import MetaTag from '../../constants/SEOMetaTag';
 import { useParams } from 'react-router-dom';
 import BoardList from '@/components/board/BoardList';
-import { getList } from '@/api/board';
+import { useBoardQuery } from '@/api/board';
 
 interface IList {
     readonly category: string;
@@ -17,22 +17,15 @@ interface IList {
 
 function Board() {
     const { category = '' } = useParams<string | ''>();
-    const [list, setList] = useState<IList[]>([]);
 
-    async function apiResult() {
-        const res = await getList();
-        setList(res?.data);
-    }
-
-    useEffect(() => {
-        apiResult();
-    }, []);
+    //useQuery list
+    const { data, status } = useBoardQuery();
 
     return (
         <>
             <MetaTag title="게시판" description="게시판 목록" />
             <BoardNav category={category} />
-            <BoardList lists={list} />
+            <BoardList lists={data} status={status} />
         </>
     );
 }

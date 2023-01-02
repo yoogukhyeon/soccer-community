@@ -18,3 +18,9 @@ export const HeaderAndFooter = css`
         }
     }
 `;
+
+export const WordBreak = css`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+`;

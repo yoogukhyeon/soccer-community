@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import Layout from '@/components/layout/Layout';
 import { Routes, Route } from 'react-router-dom';
 import Home from '@/pages/Home';
-import Board from '@/pages/Board';
+import Board from '@/pages/board';
 import MetaTag from '@/constants/SEOMetaTag';
-import NotFound from '@/pages/NotFound';
-import Create from '@/pages/Board/Create';
+import NotFound from '@/pages/notFound';
+import Create from '@/pages/board/Create';
 
 const Wrapper = styled.div`
     width: 100%;

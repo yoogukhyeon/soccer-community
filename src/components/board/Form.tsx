@@ -2,9 +2,9 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useSta
 import Select, { ActionMeta } from 'react-select';
 import FroalaEditor from '@/components/common/FroalaEditor';
 import styled from 'styled-components';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { api } from '@/api';
+import { useBoardMutation } from '@/api/board';
+import Loading from '../common/Loading';
 interface IOption {
     readonly value: string;
     readonly label: string;
@@ -37,11 +37,11 @@ interface Config {
 }  */
 
 export default function Form() {
+    const { mutate: boardMutate, isLoading } = useBoardMutation();
     const navigate = useNavigate();
 
     const selectedRef: any = useRef(null);
     const titleRef: any = useRef(null);
-    const contentRef: any = useRef(null);
 
     const [selected, setSelected] = useState<IOption | null | any>();
     const [inputs, setInputs] = useState<IInput>(() => {
@@ -104,14 +104,19 @@ export default function Form() {
             diffDate: '1분전',
             commentCount: random3,
         };
-        const res = await api.post({ url: 'http://localhost:8080/boards', data });
 
-        if (res.status === 201) {
-            alert('글작성을 완료했습니다.');
-            navigate('/boards');
-        } else {
-            return alert('오류가 발생했습니다. 관리자에게 문의바랍니다.');
-        }
+        boardMutate(data, {
+            onSuccess: (res) => {
+                if (res.status === 201) {
+                    alert('글 작성을 완료했습니다.');
+                    navigate('/boards');
+                }
+            },
+            onError: (err) => {
+                console.log('err', err);
+                console.error(err);
+            },
+        });
     };
 
     /*   useEffect(() => {
@@ -132,6 +137,7 @@ export default function Form() {
         });
     }
  */
+
     return (
         <>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -165,7 +171,7 @@ export default function Form() {
 
                 <SubmitBtnBox>
                     <button type="button" onClick={handleSubmit} className="btn_submit">
-                        등록
+                        {isLoading ? <Loading size="sm" /> : '등록'}
                     </button>
                 </SubmitBtnBox>
             </form>
