@@ -16,8 +16,6 @@ interface IProps {
 }
 
 export default function BoardList({ lists }: IProps) {
-    console.log(lists);
-
     return (
         <ul>
             {lists?.map((list) => (
