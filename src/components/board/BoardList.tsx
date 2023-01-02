@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Loading from '../common/Loading';
 import { WordBreak } from '@/common/style/common';
+import { useNavigate } from 'react-router-dom';
 interface List {
     readonly category: string;
     readonly commentCount: number;
@@ -18,12 +19,18 @@ interface IProps {
 }
 
 export default function BoardList({ lists, status }: IProps) {
+    const navigate = useNavigate();
+
+    const goToDetail = (id: number) => {
+        navigate(`/boards/detail/${id}`);
+    };
+
     return (
         <ul>
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
             {lists?.map((list) => (
-                <List key={list.id}>
+                <List key={list.id} onClick={() => goToDetail(list.id)}>
                     <em>{list.category}</em>
                     <p>{list.title}</p>
                     <div className="option_box">

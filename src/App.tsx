@@ -6,6 +6,7 @@ import Board from '@/pages/board';
 import MetaTag from '@/constants/SEOMetaTag';
 import NotFound from '@/pages/notFound';
 import Create from '@/pages/board/Create';
+import Update from '@/pages/board/update';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -45,6 +46,7 @@ function App() {
                         <Route path="/boards" element={<Board />}>
                             <Route path=":category" element={<Board />} />
                         </Route>
+                        <Route path="/boards/detail/:id" element={<Update />} />
                         <Route path="/boards/create" element={<Create />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>

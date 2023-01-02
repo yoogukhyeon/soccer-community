@@ -11,6 +11,17 @@ export const useBoardQuery = () => {
     return useQuery(['boardList'], () => getList(), { select: (data) => data?.data });
 };
 
+const getDetail = (id: number) => {
+    return api.get({ url: `http://localhost:8080/boards/${id}` });
+};
+
+export const useBoardDetailQuery = (id: number) => {
+    return useQuery(['boardDetail', id], () => getDetail(id), {
+        select: (data) => data?.data,
+        refetchOnWindowFocus: false,
+    });
+};
+
 const postBoard = (data: IBoard) => {
     return api.post({ url: 'http://localhost:8080/boards', data });
 };
