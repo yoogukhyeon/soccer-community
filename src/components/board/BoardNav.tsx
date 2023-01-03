@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Nav from './common/Nav';
+import CategoryNav from './common/CategoryNav';
 import { Button } from '../common/Button';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ export default function BoardNav({ category }: IProps) {
     return (
         <>
             <Wrap>
-                <Nav category={category} />
+                <CategoryNav category={category} />
                 <BtnWrap>
                     <Button onClick={goToWrite} text="글 작성하기" />
                 </BtnWrap>

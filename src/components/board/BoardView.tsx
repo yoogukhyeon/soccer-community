@@ -2,23 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import styled from 'styled-components';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
-
-interface IView {
-    readonly id: number;
-    readonly category: string;
-    readonly title: string;
-    readonly nickName: string;
-    readonly content: string;
-    readonly commentCount: number;
-    readonly likes: number;
-    readonly views: number;
-}
+import { useNavigate } from 'react-router-dom';
+import { IView } from '@/types/board';
 
 interface IProps {
     view: IView;
 }
 
 export default function BoardView({ view }: IProps) {
+    const navigate = useNavigate();
+    const goToUpdate = (id: number) => {
+        navigate(`/boards/detail/${id}/update`);
+    };
+
     const [isLike, setIsLike] = useState<boolean>(false);
     const toggleLike = () => {
         setIsLike((prev) => !prev);
@@ -34,7 +30,7 @@ export default function BoardView({ view }: IProps) {
                     </div>
                 </div>
                 <div className="view_info">
-                    <b>{view.nickName} &nbsp;&middot; &nbsp; 2022-12-28 15:57</b>
+                    <b>PUD &nbsp;&middot; &nbsp; 2022-12-28 15:57</b>
                     <span className="count_box">
                         댓글 <b>{view.commentCount} &middot; </b>
                         좋아요 <b>{view.likes} &middot; </b>
@@ -44,6 +40,12 @@ export default function BoardView({ view }: IProps) {
                 <div className="content_wrap">
                     <FroalaEditorView model={view.content} />
                 </div>
+
+                <ManageWrap>
+                    <a onClick={() => goToUpdate(view.id)}>수정</a>
+                    <a>삭제</a>
+                </ManageWrap>
+
                 <div className="content_info">
                     <div className="content_like">
                         <i onClick={toggleLike}>{isLike ? <HiHeart size={25} /> : <HiOutlineHeart size={25} />}</i>
@@ -59,8 +61,6 @@ export default function BoardView({ view }: IProps) {
 }
 
 const ViewWrap = styled.div`
-    margin: 30px 0;
-
     .title_box {
         display: flex;
         justify-content: space-between;
@@ -190,6 +190,32 @@ const ViewWrap = styled.div`
             .content_like {
                 font-size: 14px;
             }
+        }
+    }
+`;
+
+const ManageWrap = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    color: #6a6a82;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    a {
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    a:nth-child(2) {
+        color: red;
+    }
+
+    @media screen and (max-width: 768px) {
+        & {
+            font-size: 12px;
+            gap: 7px;
         }
     }
 `;

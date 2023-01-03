@@ -26,6 +26,12 @@ const postBoard = (data: IBoard) => {
     return api.post({ url: 'http://localhost:8080/boards', data });
 };
 
-export const useBoardMutation = () => {
-    return useMutation<AxiosResponse, AxiosError, IBoard>((data): any => postBoard(data));
+const putBoard = (data: IBoard) => {
+    return api.put({ url: `http://localhost:8080/boards/${data.id}`, data });
+};
+
+export const useBoardMutation = (isUpdate: boolean) => {
+    return useMutation<AxiosResponse, AxiosError, IBoard>((data): any => {
+        return isUpdate ? putBoard(data) : postBoard(data);
+    });
 };

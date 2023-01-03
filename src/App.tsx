@@ -5,8 +5,9 @@ import Home from '@/pages/Home';
 import Board from '@/pages/board';
 import MetaTag from '@/constants/SEOMetaTag';
 import NotFound from '@/pages/notFound';
-import Create from '@/pages/board/Create';
-import Update from '@/pages/board/detail';
+import BoardCreate from '@/pages/board/Create';
+import BoardDetail from '@/pages/board/detail';
+import BoardUpdate from '@/pages/board/detail/Update';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -46,8 +47,11 @@ function App() {
                         <Route path="/boards" element={<Board />}>
                             <Route path=":category" element={<Board />} />
                         </Route>
-                        <Route path="/boards/detail/:id" element={<Update />} />
-                        <Route path="/boards/create" element={<Create />} />
+                        <Route path="/boards/detail">
+                            <Route path=":id" element={<BoardDetail />} />
+                            <Route path=":id/update" element={<BoardUpdate />} />
+                        </Route>
+                        <Route path="/boards/create" element={<BoardCreate />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Layout>

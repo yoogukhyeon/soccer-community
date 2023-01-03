@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useBoardMutation } from '@/api/board';
 import Loading from '../../common/Loading';
+import { IView } from '@/types/board';
 interface IOption {
     readonly value: string;
     readonly label: string;
@@ -36,8 +37,13 @@ interface Config {
     setEditorInput: Dispatch<SetStateAction<string>>;
 }  */
 
-export default function Form() {
-    const { mutate: boardMutate, isLoading } = useBoardMutation();
+interface IProps {
+    readonly isUpdate?: boolean | any;
+    readonly view?: IView;
+}
+
+export default function Form({ isUpdate, view }: IProps) {
+    const { mutate: boardMutate, isLoading } = useBoardMutation(isUpdate);
     const navigate = useNavigate();
 
     const selectedRef: any = useRef(null);
@@ -105,11 +111,17 @@ export default function Form() {
             commentCount: random3,
         };
 
-        boardMutate(data, {
+        let updateData: IView | any;
+        if (isUpdate) {
+            const id = view?.id;
+            updateData = { ...data, id };
+        }
+
+        boardMutate(isUpdate ? updateData : data, {
             onSuccess: (res) => {
-                if (res.status === 201) {
+                if (res.status === 201 || res.status === 200) {
                     alert('글 작성을 완료했습니다.');
-                    navigate('/boards');
+                    navigate(`/boards/detail/${res.data.id}`);
                 }
             },
             onError: (err) => {
@@ -119,24 +131,18 @@ export default function Form() {
         });
     };
 
-    /*   useEffect(() => {
-        if (inputs.category === 'notice') {
-            const qqq = option.find((list) => list.value === inputs.category);
-            console.log('qqq ::', qqq);
-
-            setSelected(qqq);
+    useEffect(() => {
+        if (view) {
+            const category = option.find((list) => list.value === view.category);
+            setSelected(category);
+            setInputs({
+                ...inputs,
+                title: view.title,
+                content: view.content,
+                category: view.category,
+            });
         }
-    }, []); */
-
-    /*    if (update) {
-        //통신
-
-        setInputs({
-            title: 'aaa',
-            content: 'aaa',
-        });
-    }
- */
+    }, [view]);
 
     return (
         <>
@@ -165,13 +171,13 @@ export default function Form() {
                         ref={titleRef}
                     />
                 </TitleBox>
-                <div className="editor_wrap">
+                <EditorWrap>
                     <FroalaEditor inputs={inputs} handleModelInput={handleModelInput} setEditorInput={setEditorInput} />
-                </div>
+                </EditorWrap>
 
                 <SubmitBtnBox>
                     <button type="button" onClick={handleSubmit} className="btn_submit">
-                        {isLoading ? <Loading size="sm" /> : '등록'}
+                        {isLoading ? <Loading size="sm" /> : isUpdate ? '수정' : '등록'}
                     </button>
                 </SubmitBtnBox>
             </form>
@@ -285,4 +291,9 @@ const SubmitBtnBox = styled.div`
             font-size: 16px;
         }
     }
+`;
+
+const EditorWrap = styled.div`
+    min-height: 450px;
+    margin: 20px 0 40px 0;
 `;
