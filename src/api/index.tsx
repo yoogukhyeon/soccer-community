@@ -17,4 +17,5 @@ const createApi = (axiosInstance: AxiosInstance, methodType: Method) => (config:
 export const api = {
     get: createApi(createAxios, 'GET'),
     post: createApi(createAxios, 'POST'),
+    put: createApi(createAxios, 'PUT'),
 };

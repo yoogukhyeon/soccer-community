@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import Loading from '../common/Loading';
+import { WordBreak } from '@/common/style/common';
+import { useNavigate } from 'react-router-dom';
 interface List {
     readonly category: string;
     readonly commentCount: number;
@@ -13,35 +15,43 @@ interface List {
 
 interface IProps {
     lists: List[];
+    status: string;
 }
 
-export default function BoardList({ lists }: IProps) {
-    console.log(lists);
+export default function BoardList({ lists, status }: IProps) {
+    const navigate = useNavigate();
+
+    const goToDetail = (id: number) => {
+        navigate(`/boards/detail/${id}`);
+    };
 
     return (
         <ul>
-            {lists?.map((list) => (
-                <List key={list.id}>
-                    <em>{list.category}</em>
-                    <p>{list.title}</p>
-                    <div className="option_box">
-                        <div>
-                            <span>pud</span>
-                            <i className="option_dot" />
-                            <span>{list.diffDate}</span>
+            {status === 'loading' && <Loading />}
+            {status === 'error' && <div>Server Error...</div>}
+            {lists &&
+                lists?.map((list) => (
+                    <List key={list.id} onClick={() => goToDetail(list.id)}>
+                        <em>{list.category}</em>
+                        <p>{list.title}</p>
+                        <div className="option_box">
+                            <div>
+                                <span>pud</span>
+                                <i className="option_dot" />
+                                <span>{list.diffDate}</span>
+                            </div>
+                            <div className="counter_box">
+                                <span>댓글 {list.commentCount}</span>
+                                <i className="option_dot" />
+                                <span>좋아요 {list.likes}</span>
+                                <i className="option_dot" />
+                                <span>조회수 {list.views}</span>
+                                <i className="option_dot" />
+                                <span>등록날짜 {list.diffDate}</span>
+                            </div>
                         </div>
-                        <div className="counter_box">
-                            <span>댓글 {list.commentCount}</span>
-                            <i className="option_dot" />
-                            <span>좋아요 {list.likes}</span>
-                            <i className="option_dot" />
-                            <span>조회수 {list.views}</span>
-                            <i className="option_dot" />
-                            <span>등록날짜 {list.diffDate}</span>
-                        </div>
-                    </div>
-                </List>
-            ))}
+                    </List>
+                ))}
         </ul>
     );
 }
@@ -60,9 +70,7 @@ const List = styled.li`
 
         p {
             font-size: 20px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            ${WordBreak};
             line-height: 28px;
             margin: 4px 0;
             font-weight: 600;
@@ -85,8 +93,12 @@ const List = styled.li`
             }
 
             .counter_box {
+                ${WordBreak};
                 margin-left: 12px;
             }
+        }
+        .option_box > div {
+            ${WordBreak};
         }
     }
 

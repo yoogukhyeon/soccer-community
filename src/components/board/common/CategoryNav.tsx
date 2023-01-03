@@ -6,7 +6,7 @@ interface IProps {
     readonly category: string;
 }
 
-export default function Nav({ category }: IProps) {
+export default function CategoryNav({ category }: IProps) {
     return (
         <CategoryWrap>
             <li className={category === '' ? 'active' : ''}>
