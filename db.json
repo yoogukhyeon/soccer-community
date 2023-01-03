@@ -3,7 +3,8 @@
         {
             "id": 1,
             "category": "free",
-            "title": "<p>insert테스트</p>",
+            "title": "insert테스트",
+            "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
             "views": 21,
             "likes": 24,
             "diffDate": "1분전",
@@ -12,7 +13,8 @@
         {
             "id": 2,
             "category": "notice",
-            "title": "<p>insert테스트</p>",
+            "title": "insert테스트",
+            "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
             "views": 2,
             "likes": 31,
             "diffDate": "30분전",
@@ -21,7 +23,8 @@
         {
             "id": 3,
             "category": "free",
-            "title": "<p>insert테스트</p>",
+            "title": "insert테스트",
+            "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
             "views": 30,
             "likes": 2,
             "diffDate": "1분전",
@@ -30,7 +33,8 @@
         {
             "id": 4,
             "category": "sports",
-            "title": "<p>insert테스트</p>",
+            "title": "insert테스트",
+            "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
             "views": 50,
             "likes": 100,
             "diffDate": "1시간전",
@@ -39,7 +43,8 @@
         {
             "id": 5,
             "category": "notice",
-            "title": "<p>insert테스트</p>",
+            "title": "insert테스트",
+            "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
             "views": 0,
             "likes": 0,
             "diffDate": "1분전",
@@ -48,21 +53,26 @@
         {
             "id": 6,
             "category": "free",
-            "title": "<p>insert테스트</p>",
+            "title": "insert테스트",
+            "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
             "views": 2,
             "likes": 20,
             "diffDate": "3분전",
             "commentCount": 3
         },
         {
-            "title": "안녕하세요! ",
-            "content": "<p>유국현 첫 insert 테스트</p>",
-            "category": "sports",
+            "category": "free",
+            "title": "insert테스트",
+            "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
+            "views": 2,
+            "likes": 20,
+            "diffDate": "3분전",
+            "commentCount": 3,
             "id": 7
         },
         {
             "title": "insert 테스트",
-            "content": "<p>insert테스트</p>",
+            "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
             "category": "notice",
             "views": 53,
             "likes": 99,
@@ -92,7 +102,7 @@
         },
         {
             "title": "안녕하세요!",
-            "content": "<p>안녕하세요!</p>",
+            "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.!</p>",
             "category": "free",
             "views": 76,
             "likes": 28,

@@ -6,7 +6,7 @@ import Board from '@/pages/board';
 import MetaTag from '@/constants/SEOMetaTag';
 import NotFound from '@/pages/notFound';
 import Create from '@/pages/board/Create';
-import Update from '@/pages/board/update';
+import Update from '@/pages/board/detail';
 
 const Wrapper = styled.div`
     width: 100%;

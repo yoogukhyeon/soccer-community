@@ -4,7 +4,7 @@ import FroalaEditor from '@/components/common/FroalaEditor';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useBoardMutation } from '@/api/board';
-import Loading from '../common/Loading';
+import Loading from '../../common/Loading';
 interface IOption {
     readonly value: string;
     readonly label: string;

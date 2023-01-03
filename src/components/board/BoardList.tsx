@@ -29,28 +29,29 @@ export default function BoardList({ lists, status }: IProps) {
         <ul>
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
-            {lists?.map((list) => (
-                <List key={list.id} onClick={() => goToDetail(list.id)}>
-                    <em>{list.category}</em>
-                    <p>{list.title}</p>
-                    <div className="option_box">
-                        <div>
-                            <span>pud</span>
-                            <i className="option_dot" />
-                            <span>{list.diffDate}</span>
+            {lists &&
+                lists?.map((list) => (
+                    <List key={list.id} onClick={() => goToDetail(list.id)}>
+                        <em>{list.category}</em>
+                        <p>{list.title}</p>
+                        <div className="option_box">
+                            <div>
+                                <span>pud</span>
+                                <i className="option_dot" />
+                                <span>{list.diffDate}</span>
+                            </div>
+                            <div className="counter_box">
+                                <span>댓글 {list.commentCount}</span>
+                                <i className="option_dot" />
+                                <span>좋아요 {list.likes}</span>
+                                <i className="option_dot" />
+                                <span>조회수 {list.views}</span>
+                                <i className="option_dot" />
+                                <span>등록날짜 {list.diffDate}</span>
+                            </div>
                         </div>
-                        <div className="counter_box">
-                            <span>댓글 {list.commentCount}</span>
-                            <i className="option_dot" />
-                            <span>좋아요 {list.likes}</span>
-                            <i className="option_dot" />
-                            <span>조회수 {list.views}</span>
-                            <i className="option_dot" />
-                            <span>등록날짜 {list.diffDate}</span>
-                        </div>
-                    </div>
-                </List>
-            ))}
+                    </List>
+                ))}
         </ul>
     );
 }
