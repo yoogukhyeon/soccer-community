@@ -1,56 +1,6 @@
 {
   "boards": [
     {
-      "title": "react-query 짱잼 222222222222222222",
-      "content": "<p>react-query 짱잼 22222222222222222222222222222</p>",
-      "category": "notice",
-      "views": 71,
-      "likes": 32,
-      "diffDate": "1분전",
-      "commentCount": 23,
-      "id": 1
-    },
-    {
-      "id": 2,
-      "category": "notice",
-      "title": "insert테스트",
-      "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
-      "views": 2,
-      "likes": 31,
-      "diffDate": "30분전",
-      "commentCount": 27
-    },
-    {
-      "id": 3,
-      "category": "free",
-      "title": "insert테스트",
-      "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
-      "views": 30,
-      "likes": 2,
-      "diffDate": "1분전",
-      "commentCount": 3
-    },
-    {
-      "id": 4,
-      "category": "sports",
-      "title": "insert테스트",
-      "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
-      "views": 50,
-      "likes": 100,
-      "diffDate": "1시간전",
-      "commentCount": 3
-    },
-    {
-      "id": 5,
-      "category": "notice",
-      "title": "insert테스트",
-      "content": "<p>Spokesperson for Governor Meserve says that these shootings are not random acts of violence.</p>",
-      "views": 0,
-      "likes": 0,
-      "diffDate": "1분전",
-      "commentCount": 0
-    },
-    {
       "id": 6,
       "category": "free",
       "title": "insert테스트",
@@ -79,26 +29,6 @@
       "diffDate": "1분전",
       "commentCount": 17,
       "id": 8
-    },
-    {
-      "title": "유국현 테스트 ",
-      "content": "<p>유국현 테스트 &nbsp;유국현 테스트&nbsp;</p>",
-      "category": "sports",
-      "views": 70,
-      "likes": 18,
-      "diffDate": "1분전",
-      "commentCount": 23,
-      "id": 9
-    },
-    {
-      "title": "유국현 글등록",
-      "content": "<p>유국현 글등록</p>",
-      "category": "free",
-      "views": 32,
-      "likes": 25,
-      "diffDate": "1분전",
-      "commentCount": 89,
-      "id": 10
     },
     {
       "title": "안녕하세요!",
@@ -179,16 +109,6 @@
       "diffDate": "1분전",
       "commentCount": 42,
       "id": 18
-    },
-    {
-      "title": "react-query 2",
-      "content": "<p>react-query 2</p>",
-      "category": "free",
-      "views": 4,
-      "likes": 80,
-      "diffDate": "1분전",
-      "commentCount": 26,
-      "id": 19
     },
     {
       "title": "맨유",
@@ -429,6 +349,16 @@
       "diffDate": "1분전",
       "commentCount": 16,
       "id": 43
+    },
+    {
+      "title": "삭제 로직을 만들자 ",
+      "content": "<p>삭제 로직을 만들자&nbsp;</p>",
+      "category": "free",
+      "views": 18,
+      "likes": 75,
+      "diffDate": "1분전",
+      "commentCount": 78,
+      "id": 44
     }
   ]
 }

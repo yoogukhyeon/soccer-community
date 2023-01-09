@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 import { useNavigate } from 'react-router-dom';
 import { IView } from '@/types/board';
+import { useDeleteMutation } from '@/api/board';
 
 interface IProps {
     view: IView;
 }
 
 export default function BoardView({ view }: IProps) {
+    const { mutate: boardMutate } = useDeleteMutation();
     const navigate = useNavigate();
     const goToUpdate = (id: number) => {
         navigate(`/boards/detail/${id}/update`);
@@ -18,6 +20,23 @@ export default function BoardView({ view }: IProps) {
     const [isLike, setIsLike] = useState<boolean>(false);
     const toggleLike = () => {
         setIsLike((prev) => !prev);
+    };
+
+    const boardDelete = (id: number) => {
+        const chk = confirm('장말로 글을 삭제 하시겠습니까?');
+        if (chk) {
+            boardMutate(id, {
+                onSuccess: (res) => {
+                    if (res.status === 200) {
+                        navigate('/boards');
+                    }
+                },
+                onError: (err) => {
+                    console.log('err', err);
+                    console.error(err);
+                },
+            });
+        }
     };
 
     return (
@@ -43,7 +62,7 @@ export default function BoardView({ view }: IProps) {
 
                 <ManageWrap>
                     <a onClick={() => goToUpdate(view.id)}>수정</a>
-                    <a>삭제</a>
+                    <a onClick={() => boardDelete(view.id)}>삭제</a>
                 </ManageWrap>
 
                 <div className="content_info">

@@ -18,4 +18,5 @@ export const api = {
     get: createApi(createAxios, 'GET'),
     post: createApi(createAxios, 'POST'),
     put: createApi(createAxios, 'PUT'),
+    delete: createApi(createAxios, 'DELETE'),
 };

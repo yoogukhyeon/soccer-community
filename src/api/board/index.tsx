@@ -35,3 +35,13 @@ export const useBoardMutation = (isUpdate: boolean) => {
         return isUpdate ? putBoard(data) : postBoard(data);
     });
 };
+
+const deleteBoard = (id: number) => {
+    return api.delete({ url: `http://localhost:8080/boards/${id}` });
+};
+
+export const useDeleteMutation = () => {
+    return useMutation<AxiosResponse, AxiosError, any>((data): any => {
+        return deleteBoard(data);
+    });
+};
