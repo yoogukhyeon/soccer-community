@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import Layout from '@/components/layout/Layout';
 import { Routes, Route } from 'react-router-dom';
 import Home from '@/pages/Home';
-import Board from '@/pages/board';
+import Board from '@/pages/Board';
 import MetaTag from '@/constants/SEOMetaTag';
-import NotFound from '@/pages/notFound';
-import BoardCreate from '@/pages/board/Create';
-import BoardDetail from '@/pages/board/detail';
-import BoardUpdate from '@/pages/board/detail/Update';
+import NotFound from '@/pages/NotFound';
+import BoardCreate from '@/pages/Board/Create';
+import BoardDetail from '@/pages/Board/detail';
+import BoardUpdate from '@/pages/Board/detail/Update';
 
 const Wrapper = styled.div`
     width: 100%;
