@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useBoardMutation } from '@/api/board';
 import Loading from '../../common/Loading';
 import { IView } from '@/types/board';
+import { useQueryClient } from '@tanstack/react-query';
 interface IOption {
     readonly value: string;
     readonly label: string;
@@ -43,6 +44,7 @@ interface IProps {
 }
 
 export default function Form({ isUpdate, view }: IProps) {
+    const queryClient = useQueryClient();
     const { mutate: boardMutate, isLoading } = useBoardMutation(isUpdate);
     const navigate = useNavigate();
 
@@ -121,6 +123,7 @@ export default function Form({ isUpdate, view }: IProps) {
             onSuccess: (res) => {
                 if (res.status === 201 || res.status === 200) {
                     alert('글 작성을 완료했습니다.');
+                    queryClient.invalidateQueries(['boardList', res.data.id]);
                     navigate(`/boards/detail/${res.data.id}`);
                 }
             },

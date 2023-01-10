@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Autoplay, Navigation } from 'swiper';
 import 'swiper/css'; //basic
@@ -34,14 +35,41 @@ export default function SwiperList({ lists }: IItems): JSX.Element {
     };
 
     return (
-        <Swiper {...settings}>
-            {lists.map((list, idx) => (
-                <SwiperSlide key={idx}>
-                    <div className="swiper_img">
-                        <img src={list.img} alt={list.name} />
-                    </div>
-                </SwiperSlide>
-            ))}
-        </Swiper>
+        <SwiperWrap>
+            <Swiper {...settings}>
+                {lists.map((list, idx) => (
+                    <SwiperSlide key={idx}>
+                        <div className="swiper_img">
+                            <img src={list.img} alt={list.name} />
+                        </div>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </SwiperWrap>
     );
 }
+
+const SwiperWrap = styled.div`
+    height: 210px;
+    background-color: #eee;
+    border-radius: 7px;
+    margin: 15px 0;
+    overflow: hidden;
+    object-fit: cover;
+
+    .swiper_img {
+        width: 100%;
+        height: 210px;
+
+        img {
+            width: inherit;
+            height: inherit;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: #fff;
+    }
+`;

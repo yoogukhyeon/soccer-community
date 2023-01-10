@@ -1,5 +1,18 @@
 import styled, { css } from 'styled-components';
 
+export const MainTitle = styled.h3`
+    padding: 15px 0;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+
+    ${({ theme }) => theme.media.mobile`
+        padding: 12px 0;
+        font-size: 17px;
+        line-height: 21px;
+    `}
+`;
+
 export const ContainerDiv = styled.div`
     max-width: 1040px;
     width: 100%;

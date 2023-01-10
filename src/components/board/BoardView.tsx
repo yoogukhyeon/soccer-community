@@ -5,12 +5,14 @@ import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 import { useNavigate } from 'react-router-dom';
 import { IView } from '@/types/board';
 import { useDeleteMutation } from '@/api/board';
-
+import { useQueryClient } from '@tanstack/react-query';
+import { useConfirm } from '@/hooks/useConfirm';
 interface IProps {
     view: IView;
 }
 
 export default function BoardView({ view }: IProps) {
+    const queryClient = useQueryClient();
     const { mutate: boardMutate } = useDeleteMutation();
     const navigate = useNavigate();
     const goToUpdate = (id: number) => {
@@ -23,11 +25,11 @@ export default function BoardView({ view }: IProps) {
     };
 
     const boardDelete = (id: number) => {
-        const chk = confirm('장말로 글을 삭제 하시겠습니까?');
-        if (chk) {
+        useConfirm('글을 삭제 하시겠습니까?', () =>
             boardMutate(id, {
                 onSuccess: (res) => {
                     if (res.status === 200) {
+                        queryClient.invalidateQueries(['boardList']);
                         navigate('/boards');
                     }
                 },
@@ -35,8 +37,8 @@ export default function BoardView({ view }: IProps) {
                     console.log('err', err);
                     console.error(err);
                 },
-            });
-        }
+            }),
+        );
     };
 
     return (
