@@ -53,7 +53,7 @@ export default function Home() {
                     </li>
                     <li>
                         <span>
-                            <img src="/img/naver.svg" alt="naver" />
+                            <img src="/img/tistory.svg" alt="tistory" />
                             <span>Tistory</span>
                         </span>
                         <i>
@@ -62,7 +62,7 @@ export default function Home() {
                     </li>
                     <li>
                         <span>
-                            <img src="/img/naver.svg" alt="naver" />
+                            <img src="/img/naver.webp" alt="naver" />
                             <span>Naver</span>
                         </span>
 
@@ -77,6 +77,7 @@ export default function Home() {
 }
 
 const MainWrap = styled.div`
+    margin-bottom: 30px;
     .link_box {
         width: 100%;
         display: grid;
@@ -92,24 +93,28 @@ const MainWrap = styled.div`
             font-size: 14px;
             color: #fff;
             line-height: 18px;
-            box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+            box-shadow: 0 6px 6px rgb(0 0 0 / 25%);
             display: flex;
             align-items: center;
             justify-content: space-between;
 
             &:first-child {
                 color: black;
-                background-color: #eedb49;
             }
 
             &:nth-child(2) {
-                background-color: #5ecd6a;
+                background-color: black;
+                color: #fff;
             }
             &:nth-child(3) {
-                background-color: #6a8df2;
+                color: black;
             }
             &:last-child {
-                background-color: #173e95;
+                background-color: #5ecd6a;
+
+                > span > img {
+                    width: 20px;
+                }
             }
 
             i {

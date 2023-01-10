@@ -8,8 +8,8 @@ export const MainTitle = styled.h3`
 
     ${({ theme }) => theme.media.mobile`
         padding: 12px 0;
-        font-size: 17px;
-        line-height: 21px;
+        font-size: 18px;
+        line-height: 22px;
     `}
 `;
 
