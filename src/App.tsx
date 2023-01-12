@@ -8,7 +8,8 @@ import NotFound from '@/pages/notFound';
 import BoardCreate from '@/pages/board/Create';
 import BoardDetail from '@/pages/board/detail';
 import BoardUpdate from '@/pages/board/detail/Update';
-
+import axios from 'axios';
+import { useEffect } from 'react';
 const Wrapper = styled.div`
     width: 100%;
 
@@ -24,6 +25,15 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+    async function sss() {
+        const reault = await axios.get(`${process.env.REACT_APP_API_URL}`);
+
+        console.log('reault ::', reault);
+    }
+
+    useEffect(() => {
+        sss();
+    }, []);
     /* const [value, setValue] = useState<string>('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
