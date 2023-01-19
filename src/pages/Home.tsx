@@ -3,6 +3,7 @@ import SwiperList from '../components/common/SwiperList';
 import styled from 'styled-components';
 import { CgChevronRight } from 'react-icons/cg';
 import { MainTitle } from '@/common/style/common';
+import Link from '@/components/main/Link';
 interface IItems {
     readonly img: string;
     readonly name: string;
@@ -28,114 +29,180 @@ export default function Home() {
     return (
         <MainWrap>
             {swiperUseStatus && <SwiperList lists={items} />}
-
-            <div className="link_wrap">
-                <MainTitle>바로가기</MainTitle>
-                <ul className="link_box">
+            <Link />
+            <CourseWrap>
+                <MainTitle>교육영상</MainTitle>
+                <ul className="course_box">
                     <li>
-                        <span>
-                            <img src="/img/youtube.svg" alt="youtube" />
-                            <span>Youtube</span>
-                        </span>
-                        <i>
-                            <CgChevronRight />
-                        </i>
+                        <div className="course_img">
+                            <span>
+                                <img
+                                    src="https://signal.cidermics.com/_next/image?url=https%3A%2F%2Fimg.cidermics.com%2Ffiles%2FsignalContents%2F20230119%2F85f884c0-9783-11ed-9969-b597251127fd.jpg&w=1920&q=75"
+                                    alt=""
+                                />
+                            </span>
+                        </div>
+                        <div className="course_info">
+                            <div>
+                                <span className="course_info_type">장전뉴스</span>
+                                <p className="course_info_title">제목 2022년 01월 19일 (목)</p>
+                            </div>
+                            <span className="course_info_date">2022.01.19</span>
+                        </div>
                     </li>
                     <li>
-                        <span>
-                            <img src="/img/git.svg" alt="git" />
-                            <span>Github</span>
-                        </span>
-
-                        <i>
-                            <CgChevronRight />
-                        </i>
+                        <div className="course_img">
+                            <span>
+                                <img
+                                    src="https://signal.cidermics.com/_next/image?url=https%3A%2F%2Fimg.cidermics.com%2Ffiles%2FsignalContents%2F20230119%2F85f884c0-9783-11ed-9969-b597251127fd.jpg&w=1920&q=75"
+                                    alt=""
+                                />
+                            </span>
+                        </div>
+                        <div className="course_info">
+                            <div>
+                                <span className="course_info_type">장전뉴스</span>
+                                <p className="course_info_title">제목 2022년 01월 19일 (목)</p>
+                            </div>
+                            <span className="course_info_date">2022.01.19</span>
+                        </div>
                     </li>
                     <li>
-                        <span>
-                            <img src="/img/tistory.svg" alt="tistory" />
-                            <span>Tistory</span>
-                        </span>
-                        <i>
-                            <CgChevronRight />
-                        </i>
+                        <div className="course_img">
+                            <span>
+                                <img
+                                    src="https://signal.cidermics.com/_next/image?url=https%3A%2F%2Fimg.cidermics.com%2Ffiles%2FsignalContents%2F20230119%2F85f884c0-9783-11ed-9969-b597251127fd.jpg&w=1920&q=75"
+                                    alt=""
+                                />
+                            </span>
+                        </div>
+                        <div className="course_info">
+                            <div>
+                                <span className="course_info_type">장전뉴스</span>
+                                <p className="course_info_title">제목 2022년 01월 19일 (목)</p>
+                            </div>
+                            <span className="course_info_date">2022.01.19</span>
+                        </div>
                     </li>
                     <li>
-                        <span>
-                            <img src="/img/naver.webp" alt="naver" />
-                            <span>Naver</span>
-                        </span>
-
-                        <i>
-                            <CgChevronRight />
-                        </i>
+                        <div className="course_img">
+                            <span>
+                                <img
+                                    src="https://signal.cidermics.com/_next/image?url=https%3A%2F%2Fimg.cidermics.com%2Ffiles%2FsignalContents%2F20230119%2F85f884c0-9783-11ed-9969-b597251127fd.jpg&w=1920&q=75"
+                                    alt=""
+                                />
+                            </span>
+                        </div>
+                        <div className="course_info">
+                            <div>
+                                <span className="course_info_type">장전뉴스</span>
+                                <p className="course_info_title">제목 2022년 01월 19일 (목)</p>
+                            </div>
+                            <span className="course_info_date">2022.01.19</span>
+                        </div>
                     </li>
                 </ul>
-            </div>
+            </CourseWrap>
         </MainWrap>
     );
 }
 
 const MainWrap = styled.div`
     margin-bottom: 30px;
-    .link_box {
-        width: 100%;
+`;
+
+const CourseWrap = styled.div`
+    margin-top: 30px;
+
+    .course_box {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 10px 15px;
-        gap: 10px 15px;
-
-        > li {
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 15px;
+        > li::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '';
+            display: block;
             width: 100%;
-            height: 60px;
-            padding: 0 18px;
+            height: 100%;
+            border: 1px solid #d0d0da;
             border-radius: 10px;
-            font-size: 14px;
-            color: #fff;
-            line-height: 18px;
-            box-shadow: 0 6px 6px rgb(0 0 0 / 25%);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        > li {
+            position: relative;
+            height: 300px;
+            transition: all 0.3s ease 0s;
+            border-radius: 10px;
+            background: #f3f3f7;
+            box-shadow: 4px 4px 15px rgb(0 0 0 / 15%);
+            overflow: hidden;
+            isolation: isolate;
+            cursor: pointer;
 
-            &:first-child {
-                color: black;
-            }
+            .course_img {
+                position: relative;
+                height: 135px;
 
-            &:nth-child(2) {
-                background-color: black;
-                color: #fff;
-            }
-            &:nth-child(3) {
-                color: black;
-            }
-            &:last-child {
-                background-color: #5ecd6a;
+                > span {
+                    box-sizing: border-box;
+                    display: block;
+                    overflow: hidden;
+                    width: initial;
+                    height: initial;
+                    background: none;
+                    opacity: 1;
+                    border: 0px;
+                    margin: 0px;
+                    padding: 0px;
+                    position: absolute;
+                    inset: 0px;
 
-                > span > img {
-                    width: 20px;
+                    > img {
+                        width: 100%;
+                        height: auto;
+                    }
                 }
             }
 
-            i {
-                font-size: 18px;
-            }
-
-            > span {
+            .course_info {
+                height: calc(100% - 130px);
                 display: flex;
-                align-items: center;
+                flex-direction: column;
                 justify-content: space-between;
-                gap: 10px;
-                overflow: hidden;
+                align-items: flex-start;
+                padding: 18px 10px;
 
-                > img {
-                    width: 30px;
+                .course_info_type {
+                    display: block;
+                    font-size: 14px;
+                    color: #6a6a82;
+                    margin-bottom: 7px;
+                }
+
+                .course_info_title {
+                    display: inline-block;
+                    width: 100%;
+                    max-height: 100px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size: 16px;
+                    line-height: 1.4;
+                    white-space: normal;
+                    font-weight: 600;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    word-break: keep-all;
+                }
+
+                .course_info_date {
+                    font-size: 13px;
+                    color: #6a6a82;
                 }
             }
         }
-
-        ${({ theme }) => theme.media.mobile`
-            grid-template-columns: repeat(1, 1fr);
-        `}
     }
 `;

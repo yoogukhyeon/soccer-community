@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-    async function sss() {
+    /*    async function sss() {
         const reault = await axios.get(`${process.env.REACT_APP_API_URL}`);
 
         console.log('reault ::', reault);
@@ -33,7 +33,7 @@ function App() {
 
     useEffect(() => {
         sss();
-    }, []);
+    }, []); */
     /* const [value, setValue] = useState<string>('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
