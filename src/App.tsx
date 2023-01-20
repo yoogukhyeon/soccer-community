@@ -8,8 +8,8 @@ import NotFound from '@/pages/notFound';
 import BoardCreate from '@/pages/board/Create';
 import BoardDetail from '@/pages/board/detail';
 import BoardUpdate from '@/pages/board/detail/Update';
-import axios from 'axios';
-import { useEffect } from 'react';
+import Course from '@/pages/course';
+
 const Wrapper = styled.div`
     width: 100%;
 
@@ -49,9 +49,9 @@ function App() {
         <>
             <MetaTag title="project" description="side-project with react" />
             <Wrapper>
-                <Layout>
-                    {/*     <Input type="text" value={value} onChange={onChange} />
+                {/*     <Input type="text" value={value} onChange={onChange} />
                     <Button onClick={onClick} text="click alert" /> */}
+                <Layout>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/boards" element={<Board />}>
@@ -63,6 +63,9 @@ function App() {
                         </Route>
                         <Route path="/boards/create" element={<BoardCreate />} />
                         <Route path="*" element={<NotFound />} />
+                        <Route path="/course" element={<Course />}>
+                            <Route path=":vod" element={<Course />} />s
+                        </Route>
                     </Routes>
                 </Layout>
             </Wrapper>

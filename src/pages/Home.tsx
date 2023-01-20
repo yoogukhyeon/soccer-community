@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import { CgChevronRight } from 'react-icons/cg';
 import { MainTitle } from '@/common/style/common';
 import Link from '@/components/main/Link';
+import { useNavigate } from 'react-router-dom';
 interface IItems {
     readonly img: string;
     readonly name: string;
 }
 
 export default function Home() {
+    const navigate = useNavigate();
     const swiperUseStatus = process.env.REACT_APP_SWIPER_USE;
     const items: IItems[] = [
         {
@@ -25,14 +27,15 @@ export default function Home() {
             name: '사진3',
         },
     ];
-    console.log(process.env.REACT_APP_SWIPER_USE);
+
+    const goToCourse = () => navigate('/course');
     return (
         <MainWrap>
             {swiperUseStatus && <SwiperList lists={items} />}
             <Link />
             <CourseWrap>
                 <MainTitle>교육영상</MainTitle>
-                <ul className="course_box">
+                <ul className="course_box" onClick={goToCourse}>
                     <li>
                         <div className="course_img">
                             <span>
@@ -160,8 +163,19 @@ const CourseWrap = styled.div`
                     inset: 0px;
 
                     > img {
-                        width: 100%;
-                        height: auto;
+                        position: absolute;
+                        inset: 0px;
+                        box-sizing: border-box;
+                        padding: 0px;
+                        border: none;
+                        margin: auto;
+                        display: block;
+                        width: 0px;
+                        height: 0px;
+                        min-width: 100%;
+                        max-width: 100%;
+                        min-height: 100%;
+                        max-height: 100%;
                     }
                 }
             }
@@ -204,5 +218,12 @@ const CourseWrap = styled.div`
                 }
             }
         }
+
+        ${({ theme }) => theme.media.tablet`
+            grid-template-columns: repeat(3, 1fr);
+        `}
+        ${({ theme }) => theme.media.mobile`
+            grid-template-columns: repeat(2, 1fr);
+        `};
     }
 `;
