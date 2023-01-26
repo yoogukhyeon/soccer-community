@@ -93,6 +93,97 @@ export default function CourseList() {
                             </div>
                         </div>
                     </li>
+                    <li className={`${query === 3 ? 'active' : ''}`} onClick={() => navigate(`/course?video=${3}`)}>
+                        <div className="content_status">
+                            <i>
+                                <HiCheck />
+                            </i>
+                        </div>
+                        <div className="content_info">
+                            <div className="content_title">
+                                <p>coding</p>
+                                <span>생활코딩</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li className={`${query === 3 ? 'active' : ''}`} onClick={() => navigate(`/course?video=${3}`)}>
+                        <div className="content_status">
+                            <i>
+                                <HiCheck />
+                            </i>
+                        </div>
+                        <div className="content_info">
+                            <div className="content_title">
+                                <p>coding</p>
+                                <span>생활코딩</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li className={`${query === 3 ? 'active' : ''}`} onClick={() => navigate(`/course?video=${3}`)}>
+                        <div className="content_status">
+                            <i>
+                                <HiCheck />
+                            </i>
+                        </div>
+                        <div className="content_info">
+                            <div className="content_title">
+                                <p>coding</p>
+                                <span>생활코딩</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li className={`${query === 3 ? 'active' : ''}`} onClick={() => navigate(`/course?video=${3}`)}>
+                        <div className="content_status">
+                            <i>
+                                <HiCheck />
+                            </i>
+                        </div>
+                        <div className="content_info">
+                            <div className="content_title">
+                                <p>coding</p>
+                                <span>생활코딩</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li className={`${query === 3 ? 'active' : ''}`} onClick={() => navigate(`/course?video=${3}`)}>
+                        <div className="content_status">
+                            <i>
+                                <HiCheck />
+                            </i>
+                        </div>
+                        <div className="content_info">
+                            <div className="content_title">
+                                <p>coding</p>
+                                <span>생활코딩</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li className={`${query === 3 ? 'active' : ''}`} onClick={() => navigate(`/course?video=${3}`)}>
+                        <div className="content_status">
+                            <i>
+                                <HiCheck />
+                            </i>
+                        </div>
+                        <div className="content_info">
+                            <div className="content_title">
+                                <p>coding</p>
+                                <span>생활코딩</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li className={`${query === 3 ? 'active' : ''}`} onClick={() => navigate(`/course?video=${3}`)}>
+                        <div className="content_status">
+                            <i>
+                                <HiCheck />
+                            </i>
+                        </div>
+                        <div className="content_info">
+                            <div className="content_title">
+                                <p>coding</p>
+                                <span>생활코딩</span>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </CourseListWarp>
@@ -209,6 +300,13 @@ const CourseListWarp = styled.div`
                     }
                 }
             }
+        }
+    }
+    @media screen and (max-width: 768px) {
+        & {
+            width: 100%;
+            height: 400px;
+            box-shadow: none;
         }
     }
 `;
