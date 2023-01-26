@@ -27,22 +27,12 @@ const CourseWrap = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
 
-    @media screen and (max-width: 768px) {
-        & {
-            flex-direction: column;
-            align-self: auto;
-        }
-
-        .course_video {
-            width: 100%;
-            height: auto;
-        }
-        .course_list {
-            width: 100%;
-            height: 410px;
-            box-shadow: none;
+        @media screen and (max-width: 768px) {
+            & {
+                flex-direction: column;
+                align-self: auto;
+            }
         }
     }
 `;
