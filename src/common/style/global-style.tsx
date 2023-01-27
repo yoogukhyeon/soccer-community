@@ -25,6 +25,7 @@ export const GlobalStyle = createGlobalStyle`
       font: inherit;
       vertical-align: baseline;
       box-sizing: border-box;
+      list-style: none;
   }
 
   /* HTML5 display-role reset for older browsers */

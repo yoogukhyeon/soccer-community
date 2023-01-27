@@ -36,8 +36,7 @@ const LoadingWrap = styled.div<IProps>`
             border-radius: 50%;
             animation: loading-spin 2s infinite;
             border: ${(props) => (props.size === 'sm' ? '6px' : '8px')} solid rgba(207, 197, 197, 0.4);
-            border-top: ${(props) => (props.size === 'sm' ? '6px' : '8px')} solid
-                ${(props) => (props.size === 'sm' ? 'white' : 'black')};
+            border-top: ${(props) => (props.size === 'sm' ? '6px' : '8px')} solid black;
         }
     }
 
