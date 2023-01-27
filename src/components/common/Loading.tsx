@@ -23,6 +23,7 @@ const LoadingWrap = styled.div<IProps>`
     height: 100%;
     opacity: 1;
     transition: 0.5s;
+    margin-top: 10px;
 
     .Loading {
         position: relative;

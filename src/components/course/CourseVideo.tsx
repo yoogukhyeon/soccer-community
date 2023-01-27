@@ -3,10 +3,25 @@ import { CgChevronLeft, CgChevronRight } from 'react-icons/cg';
 import { MdOpenInNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-export default function CourseVideo() {
+
+interface Video {
+    channelTitle: string;
+    videoId: string;
+    title: string;
+    tags: string;
+    prev?: string;
+    next?: string;
+}
+
+interface IProps {
+    video: Video;
+}
+
+export default function CourseVideo({ video }: IProps) {
     const navigate = useNavigate();
 
-    const goToBack = () => navigate(-1);
+    const goToBack = () => navigate('/');
+
     return (
         <CourseVideoWrap>
             <div className="course_video_navi">
@@ -30,7 +45,7 @@ export default function CourseVideo() {
                             width="560"
                             height="315"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            src="https://www.youtube.com/embed/d3PYoBwow9I"
+                            src={`https://www.youtube.com/embed/${video.videoId}`}
                             allowFullScreen
                         />
                     </div>
@@ -52,10 +67,8 @@ export default function CourseVideo() {
             </div>
             <div className="content_video_info">
                 <div className="content_video_box">
-                    <span className="content_video_tag"> #혼술 #라면 #소주</span>
-                    <h2 className="content_video_title">
-                        실컷 비싼 외식 하고 굳이 추운 공장에서 라면 끓여 소주 일병 마시는 40대 아재
-                    </h2>
+                    <span className="content_video_tag">{video.tags}</span>
+                    <h2 className="content_video_title">{video.title}</h2>
                 </div>
             </div>
         </CourseVideoWrap>
@@ -63,7 +76,7 @@ export default function CourseVideo() {
 }
 
 const CourseVideoWrap = styled.div`
-    width: 75%;
+    width: 70%;
     height: calc(var(--VIEW_HEIGHT, 1vh) * 100);
     max-height: calc(var(--VIEW_HEIGHT, 1vh) * 100);
     background-color: #ffffff;
@@ -178,7 +191,7 @@ const CourseVideoWrap = styled.div`
         border-bottom: 1px solid #e3e1e1;
         .content_video_tag {
             display: block;
-            padding: 15px 20px;
+            padding: 15px 15px;
             color: #666666;
         }
 

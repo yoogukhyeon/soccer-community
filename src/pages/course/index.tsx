@@ -2,19 +2,37 @@ import styled from 'styled-components';
 import CourseVideo from '@/components/course/CourseVideo';
 import CourseList from '@/components/course/CourseList';
 import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useCourseListPreFetchQuery, useCourseListQuery } from '@/api/course';
+import Loading from '@/components/common/Loading';
+
 export default function Course() {
     const [searchParams] = useSearchParams();
+    const channel = searchParams.get('channel');
+    const video = searchParams.get('video');
 
-    console.log('searchParams ::', searchParams);
-    console.log('searchParams ::', searchParams.get('channel'));
-    console.log('searchParams ::', searchParams.get('video'));
+    const { data, status } = useCourseListQuery(channel, video);
+
+    useEffect(() => {
+        if (data?.courseList) {
+            for (let key of data?.courseList) {
+                useCourseListPreFetchQuery(key.channelTitle, key.videoId);
+            }
+        }
+    }, [data]);
     return (
-        <CourseWrap>
-            <div>
-                <CourseVideo />
-                <CourseList />
-            </div>
-        </CourseWrap>
+        <>
+            {status === 'loading' && <Loading />}
+            {status === 'error' && <div>Server Error...</div>}
+            {data && (
+                <CourseWrap>
+                    <div>
+                        <CourseVideo video={data.videoInfo} />
+                        <CourseList lists={data.courseList} />
+                    </div>
+                </CourseWrap>
+            )}
+        </>
     );
 }
 
