@@ -1,28 +1,40 @@
-import React, { useState } from 'react';
-import { Input } from './components/Input';
-import { Button } from './components/Button';
 import styled from 'styled-components';
-import Layout from './components/layout/Layout';
+import Layout from '@/components/layout/Layout';
+import { Routes, Route } from 'react-router-dom';
+import Home from '@/pages/Home';
+import Board from '@/pages/board';
+import MetaTag from '@/constants/SEOMetaTag';
+import NotFound from '@/pages/notFound';
+import BoardCreate from '@/pages/board/Create';
+import BoardDetail from '@/pages/board/detail';
+import BoardUpdate from '@/pages/board/detail/Update';
+import Course from '@/pages/course';
 
-const Container = styled.div`
-  max-width: 850px;
-  width: 100%;
-  height: 1000px;
-  margin: 0 auto;
+const Wrapper = styled.div`
+    width: 100%;
 
-  ${({ theme }) => theme.media.desktop`
-      border: 2px solid blue;
-  `}
-  ${({ theme }) => theme.media.tablet`
-      border: 2px solid yellow;
-  `}
-  ${({ theme }) => theme.media.mobile`
-      border: 2px solid purple;
-  `}
+    ${({ theme }) => theme.media.desktop`
+        
+    `}
+    ${({ theme }) => theme.media.tablet`
+    
+    `}
+    ${({ theme }) => theme.media.mobile`
+    
+    `};
 `;
 
 function App() {
-  const [value, setValue] = useState<string>('');
+    /*    async function sss() {
+        const reault = await axios.get(`${process.env.REACT_APP_API_URL}`);
+
+        console.log('reault ::', reault);
+    }
+
+    useEffect(() => {
+        sss();
+    }, []); */
+    /* const [value, setValue] = useState<string>('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -31,19 +43,34 @@ function App() {
 
   const onClick = (): void => {
     alert(`${value} 입력값을 입력받았습니다.`);
-  };
+  }; */
 
-  return (
-    <div className="App">
-      <Container>
-        <Layout>
-          <h1>input and button</h1>
-          <Input type="text" value={value} onChange={onChange} />
-          <Button onClick={onClick} text="click alert" />
-        </Layout>
-      </Container>
-    </div>
-  );
+    return (
+        <>
+            <MetaTag title="project" description="side-project with react" />
+            <Wrapper>
+                {/*     <Input type="text" value={value} onChange={onChange} />
+                    <Button onClick={onClick} text="click alert" /> */}
+                <Layout>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/boards" element={<Board />}>
+                            <Route path=":category" element={<Board />} />
+                        </Route>
+                        <Route path="/boards/detail">
+                            <Route path=":id" element={<BoardDetail />} />
+                            <Route path=":id/update" element={<BoardUpdate />} />
+                        </Route>
+                        <Route path="/boards/create" element={<BoardCreate />} />
+                        <Route path="*" element={<NotFound />} />
+                        <Route path="/course" element={<Course />}>
+                            <Route path=":vod" element={<Course />} />s
+                        </Route>
+                    </Routes>
+                </Layout>
+            </Wrapper>
+        </>
+    );
 }
 
 export default App;

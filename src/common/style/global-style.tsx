@@ -3,7 +3,7 @@ import reset from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
-  
+
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -17,13 +17,17 @@ export const GlobalStyle = createGlobalStyle`
   figure, figcaption, footer, header, hgroup, 
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
+      font-family: "Noto Sans KR", sans-serif !important;
       margin: 0;
       padding: 0;
       border: 0;
       font-size: 100%;
       font: inherit;
       vertical-align: baseline;
+      box-sizing: border-box;
+      list-style: none;
   }
+
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure, 
   footer, header, hgroup, menu, nav, section {

@@ -1,7 +1,10 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
-  }
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "editor.tokenColorCustomizations": {
+        "comments": "#caba05"
+    }
 }
