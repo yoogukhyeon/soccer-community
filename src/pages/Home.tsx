@@ -38,6 +38,13 @@ export default function Home() {
             <Link />
             <CourseWrap>
                 <MainTitle>교육영상</MainTitle>
+                <MainTitle>교육영상</MainTitle>
+                <MainTitle>교육영상</MainTitle>
+                <MainTitle>교육영상</MainTitle>
+                <MainTitle>교육영상</MainTitle>
+                <MainTitle>교육영상</MainTitle>
+                <MainTitle>교육영상</MainTitle>
+                <MainTitle>교육영상</MainTitle>
                 <CourseBox lists={data} status={status} />
             </CourseWrap>
         </MainWrap>
