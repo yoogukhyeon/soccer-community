@@ -9,6 +9,7 @@ interface IProps {
 
 const Main = styled.div`
     min-height: calc(100vh - 180px);
+    margin-bottom: 30px;
 `;
 
 export default function Layout({ children }: IProps) {

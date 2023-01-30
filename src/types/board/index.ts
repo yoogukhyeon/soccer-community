@@ -1,20 +1,19 @@
 export interface IBoard {
-    readonly id?: number;
+    readonly no?: number;
     readonly category: string;
-    readonly commentCount: number;
     readonly content: string;
-    readonly diffDate: string;
-    readonly likes: number;
+    readonly like: number;
     readonly title: string;
-    readonly views: number;
+    readonly view: number;
+    readonly regDate: string;
 }
 
 export interface IView {
-    readonly id: number;
+    readonly no: number;
     readonly category: string;
     readonly title: string;
     readonly content: string;
-    readonly commentCount: number;
-    readonly likes: number;
-    readonly views: number;
+    readonly like: number;
+    readonly view: number;
+    readonly regDate: string;
 }

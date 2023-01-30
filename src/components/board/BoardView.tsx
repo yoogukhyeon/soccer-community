@@ -25,10 +25,11 @@ export default function BoardView({ view }: IProps) {
     };
 
     const boardDelete = (id: number) => {
+        const data = { no: id };
         useConfirm('글을 삭제 하시겠습니까?', () =>
-            boardMutate(id, {
+            boardMutate(data, {
                 onSuccess: (res) => {
-                    if (res.status === 200) {
+                    if (res.data.message === 'success') {
                         queryClient.invalidateQueries(['boardList']);
                         navigate('/boards');
                     }
@@ -53,9 +54,9 @@ export default function BoardView({ view }: IProps) {
                 <div className="view_info">
                     <b>PUD &nbsp;&middot; &nbsp; 2022-12-28 15:57</b>
                     <span className="count_box">
-                        댓글 <b>{view.commentCount} &middot; </b>
-                        좋아요 <b>{view.likes} &middot; </b>
-                        조회수 <b>{view.views}</b>
+                        댓글 <b>0 &middot; </b>
+                        좋아요 <b>{view.like} &middot; </b>
+                        조회수 <b>{view.view}</b>
                     </span>
                 </div>
                 <div className="content_wrap">
@@ -63,8 +64,8 @@ export default function BoardView({ view }: IProps) {
                 </div>
 
                 <ManageWrap>
-                    <a onClick={() => goToUpdate(view.id)}>수정</a>
-                    <a onClick={() => boardDelete(view.id)}>삭제</a>
+                    <a onClick={() => goToUpdate(view.no)}>수정</a>
+                    <a onClick={() => boardDelete(view.no)}>삭제</a>
                 </ManageWrap>
 
                 <div className="content_info">

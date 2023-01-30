@@ -5,12 +5,11 @@ import { WordBreak } from '@/common/style/common';
 import { useNavigate } from 'react-router-dom';
 interface List {
     readonly category: string;
-    readonly commentCount: number;
-    readonly diffDate: string;
-    readonly id: number;
-    readonly likes: number;
+    readonly regDate: string;
+    readonly no: number;
+    readonly like: number;
     readonly title: string;
-    readonly views: number;
+    readonly view: number;
 }
 
 interface IProps {
@@ -31,23 +30,23 @@ export default function BoardList({ lists, status }: IProps) {
             {status === 'error' && <div>Server Error...</div>}
             {lists &&
                 lists?.map((list) => (
-                    <List key={list.id} onClick={() => goToDetail(list.id)}>
+                    <List key={list.no} onClick={() => goToDetail(list.no)}>
                         <em>{list.category}</em>
                         <p>{list.title}</p>
                         <div className="option_box">
                             <div>
                                 <span>pud</span>
                                 <i className="option_dot" />
-                                <span>{list.diffDate}</span>
+                                <span>{list.regDate}</span>
                             </div>
                             <div className="counter_box">
-                                <span>댓글 {list.commentCount}</span>
+                                <span>댓글 0</span>
                                 <i className="option_dot" />
-                                <span>좋아요 {list.likes}</span>
+                                <span>좋아요 {list.like}</span>
                                 <i className="option_dot" />
-                                <span>조회수 {list.views}</span>
+                                <span>조회수 {list.view}</span>
                                 <i className="option_dot" />
-                                <span>등록날짜 {list.diffDate}</span>
+                                <span>등록날짜 {list.regDate}</span>
                             </div>
                         </div>
                     </List>

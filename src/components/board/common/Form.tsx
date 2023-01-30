@@ -86,11 +86,6 @@ export default function Form({ isUpdate, view }: IProps) {
 
     // 데이터 submit
     const handleSubmit = async () => {
-        //랜덤 수
-        const random1 = Math.floor(Math.random() * 100);
-        const random2 = Math.floor(Math.random() * 100);
-        const random3 = Math.floor(Math.random() * 100);
-
         if (inputs.category === '') {
             alert('카테고리를 선택해주세요.');
             return selectedRef.current.focus();
@@ -107,24 +102,26 @@ export default function Form({ isUpdate, view }: IProps) {
 
         const data = {
             ...inputs,
-            views: random1,
-            likes: random2,
-            diffDate: '1분전',
-            commentCount: random3,
         };
 
         let updateData: IView | any;
         if (isUpdate) {
-            const id = view?.id;
-            updateData = { ...data, id };
+            const no = view?.no;
+            updateData = { ...data, no };
         }
+
+        console.log('updateData ::', updateData);
 
         boardMutate(isUpdate ? updateData : data, {
             onSuccess: (res) => {
                 if (res.status === 201 || res.status === 200) {
                     alert('글 작성을 완료했습니다.');
-                    queryClient.invalidateQueries(['boardList', res.data.id]);
-                    navigate(`/boards/detail/${res.data.id}`);
+                    if (!isUpdate) {
+                        queryClient.invalidateQueries(['boardList', res.data.data.no]);
+                        navigate(`/boards/detail/${res.data.data.no}`);
+                    } else {
+                        queryClient.invalidateQueries(['boardList', updateData.no]);
+                    }
                 }
             },
             onError: (err) => {

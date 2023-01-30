@@ -3,31 +3,31 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { api } from '..';
 
-const getList = () => {
-    return api.get({ url: 'http://localhost:8080/boards' });
+const getList = (category: string | any) => {
+    return api.get({ url: `http://wtemplate.shop/boards?category=${category}` });
 };
 
-export const useBoardQuery = () => {
-    return useQuery(['boardList'], () => getList(), { select: (data) => data?.data });
+export const useBoardQuery = (category: string | any) => {
+    return useQuery(['boardList'], () => getList(category), { select: (data) => data?.data?.data?.boardList });
 };
 
 const getDetail = (id: number) => {
-    return api.get({ url: `http://localhost:8080/boards/${id}` });
+    return api.get({ url: `http://wtemplate.shop/boards/detail/${id}` });
 };
 
 export const useBoardDetailQuery = (id: number) => {
     return useQuery(['boardDetail', id], () => getDetail(id), {
-        select: (data) => data?.data,
+        select: (data) => data?.data?.data?.board[0],
         refetchOnWindowFocus: false,
     });
 };
 
 const postBoard = (data: IBoard) => {
-    return api.post({ url: 'http://localhost:8080/boards', data });
+    return api.post({ url: 'http://wtemplate.shop/boards', data });
 };
 
 const putBoard = (data: IBoard) => {
-    return api.put({ url: `http://localhost:8080/boards/${data.id}`, data });
+    return api.put({ url: `http://wtemplate.shop/boards`, data });
 };
 
 export const useBoardMutation = (isUpdate: boolean) => {
@@ -36,8 +36,8 @@ export const useBoardMutation = (isUpdate: boolean) => {
     });
 };
 
-const deleteBoard = (id: number) => {
-    return api.delete({ url: `http://localhost:8080/boards/${id}` });
+const deleteBoard = (data: number) => {
+    return api.delete({ url: `http://wtemplate.shop/boards`, data });
 };
 
 export const useDeleteMutation = () => {

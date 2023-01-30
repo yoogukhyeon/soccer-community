@@ -11,7 +11,7 @@ export default function index() {
     const { data, status } = useBoardDetailQuery(Number(id));
 
     const navigate = useNavigate();
-    const goToBack = () => navigate(-1);
+    const goToBack = () => navigate('/boards');
 
     return (
         <>
