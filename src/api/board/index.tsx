@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { api } from '..';
 
 const getList = (category: string | any) => {
-    return api.get({ url: `/api/boards?category=${category}` });
+    return api.get({ url: `http://wtemplate.shop/boards?category=${category}` });
 };
 
 export const useBoardQuery = (category: string | any) => {
@@ -12,7 +12,7 @@ export const useBoardQuery = (category: string | any) => {
 };
 
 const getDetail = (id: number) => {
-    return api.get({ url: `/api/boards/detail/${id}` });
+    return api.get({ url: `http://wtemplate.shop/boards/detail/${id}` });
 };
 
 export const useBoardDetailQuery = (id: number) => {
@@ -23,11 +23,11 @@ export const useBoardDetailQuery = (id: number) => {
 };
 
 const postBoard = (data: IBoard) => {
-    return api.post({ url: '/api/boards', data });
+    return api.post({ url: 'http://wtemplate.shop/boards', data });
 };
 
 const putBoard = (data: IBoard) => {
-    return api.put({ url: `/api/boards`, data });
+    return api.put({ url: `http://wtemplate.shop/boards`, data });
 };
 
 export const useBoardMutation = (isUpdate: boolean) => {
@@ -37,7 +37,7 @@ export const useBoardMutation = (isUpdate: boolean) => {
 };
 
 const deleteBoard = (data: number) => {
-    return api.delete({ url: `/api/boards`, data });
+    return api.delete({ url: `http://wtemplate.shop/boards`, data });
 };
 
 export const useDeleteMutation = () => {
