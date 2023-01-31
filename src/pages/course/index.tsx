@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useCourseListPreFetchQuery, useCourseListQuery } from '@/api/course';
 import Loading from '@/components/common/Loading';
+import MetaTag from '@/constants/SEOMetaTag';
 
 export default function Course() {
     const [searchParams] = useSearchParams();
@@ -22,6 +23,7 @@ export default function Course() {
     }, [data]);
     return (
         <>
+            <MetaTag title="강의실" description="강의실" />
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
             {data && (

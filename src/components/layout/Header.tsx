@@ -2,14 +2,21 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { ContainerDiv } from '@/common/style/common';
 import { HeaderAndFooter } from '@/common/style/common';
+import { useNavigate } from 'react-router-dom';
 import Nav from '../common/Nav';
 
 export default function Header() {
+    const navigate = useNavigate();
+
+    const goToHome = () => {
+        navigate('/');
+    };
+
     return (
         <HeaderWrap>
             <ContainerDiv>
                 <div className="header_left">
-                    <div className="logo">
+                    <div className="logo" onClick={goToHome}>
                         <img src="/img/logo.svg" alt="LOGO" />
                     </div>
                     <Nav />
