@@ -64,7 +64,7 @@ const SwiperWrap = styled.div`
         img {
             width: inherit;
             height: inherit;
-            object-fit: cover;
+            object-fit: fill;
             object-position: center;
         }
     }

@@ -4,11 +4,15 @@ import { CgChevronRight } from 'react-icons/cg';
 import { MainTitle } from '@/common/style/common';
 
 export default function Link() {
+    const goToSite = (url: string) => {
+        window.open(url);
+    };
+
     return (
         <LinkWrap>
             <MainTitle>바로가기</MainTitle>
             <ul className="link_box">
-                <li>
+                <li onClick={() => goToSite('https://www.youtube.com/')}>
                     <span>
                         <img src="/img/youtube.svg" alt="youtube" />
                         <span>Youtube</span>
@@ -17,7 +21,7 @@ export default function Link() {
                         <CgChevronRight />
                     </i>
                 </li>
-                <li>
+                <li onClick={() => goToSite('https://github.com/yoogukhyeon')}>
                     <span>
                         <img src="/img/git.svg" alt="git" />
                         <span>Github</span>
@@ -27,7 +31,7 @@ export default function Link() {
                         <CgChevronRight />
                     </i>
                 </li>
-                <li>
+                <li onClick={() => goToSite('https://cometruedream.tistory.com/')}>
                     <span>
                         <img src="/img/tistory.svg" alt="tistory" />
                         <span>Tistory</span>
@@ -36,12 +40,11 @@ export default function Link() {
                         <CgChevronRight />
                     </i>
                 </li>
-                <li>
+                <li onClick={() => goToSite('https://blog.naver.com/rnrgus012345')}>
                     <span>
                         <img src="/img/naver.webp" alt="naver" />
                         <span>Naver</span>
                     </span>
-
                     <i>
                         <CgChevronRight />
                     </i>

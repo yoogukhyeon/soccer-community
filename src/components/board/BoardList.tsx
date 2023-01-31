@@ -28,6 +28,11 @@ export default function BoardList({ lists, status }: IProps) {
         <ul>
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
+            {lists && lists.length < 1 && (
+                <List>
+                    <div className="title">데이터가 없습니다.</div>
+                </List>
+            )}
             {lists &&
                 lists?.map((list) => (
                     <List key={list.no} onClick={() => goToDetail(list.no)}>
@@ -62,6 +67,12 @@ const List = styled.li`
         border-bottom: 1px solid #d3d3e4;
         cursor: pointer;
 
+        .title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
         em {
             color: #6a6a82;
             font-size: 14px;
@@ -81,6 +92,7 @@ const List = styled.li`
             align-items: center;
             color: #6a6a82;
             font-size: 12px;
+            margin-top: 10px;
 
             i.option_dot {
                 display: inline-block;
@@ -103,6 +115,9 @@ const List = styled.li`
 
     @media screen and (max-width: 768px) {
         & {
+            .title {
+                font-size: 16px;
+            }
             em {
                 font-size: 12px;
             }
