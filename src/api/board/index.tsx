@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { api } from '..';
 
 const getList = (category: string | any) => {
-    return api.get({ url: `http://43.200.239.246/api/boards?category=${category}` });
+    return api.get({ url: `${process.env.REACT_APP_API_URL}/api/boards?category=${category}` });
 };
 
 export const useBoardQuery = (category: string | any) => {
@@ -12,7 +12,7 @@ export const useBoardQuery = (category: string | any) => {
 };
 
 const getDetail = (id: number) => {
-    return api.get({ url: `http://43.200.239.246/api/boards/detail/${id}` });
+    return api.get({ url: `${process.env.REACT_APP_API_URL}/api/boards/detail/${id}` });
 };
 
 export const useBoardDetailQuery = (id: number) => {
@@ -23,11 +23,11 @@ export const useBoardDetailQuery = (id: number) => {
 };
 
 const postBoard = (data: IBoard) => {
-    return api.post({ url: 'http://43.200.239.246/api/boards', data });
+    return api.post({ url: `${process.env.REACT_APP_API_URL}/api/boards`, data });
 };
 
 const putBoard = (data: IBoard) => {
-    return api.put({ url: `http://43.200.239.246/api/boards`, data });
+    return api.put({ url: `${process.env.REACT_APP_API_URL}/api/boards`, data });
 };
 
 export const useBoardMutation = (isUpdate: boolean) => {
@@ -37,7 +37,7 @@ export const useBoardMutation = (isUpdate: boolean) => {
 };
 
 const deleteBoard = (data: number) => {
-    return api.delete({ url: `http://43.200.239.246/api/boards`, data });
+    return api.delete({ url: `${process.env.REACT_APP_API_URL}/api/boards`, data });
 };
 
 export const useDeleteMutation = () => {
