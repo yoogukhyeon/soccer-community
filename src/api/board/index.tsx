@@ -12,7 +12,7 @@ export const useBoardQuery = (category: string | any) => {
 };
 
 const getDetail = (id: number) => {
-    return api.get({ url: `http://43.200.239.246/boards/detail/${id}` });
+    return api.get({ url: `http://43.200.239.246/api/boards/detail/${id}` });
 };
 
 export const useBoardDetailQuery = (id: number) => {
@@ -37,7 +37,7 @@ export const useBoardMutation = (isUpdate: boolean) => {
 };
 
 const deleteBoard = (data: number) => {
-    return api.delete({ url: `http://wtemplate.shop/boards`, data });
+    return api.delete({ url: `http://43.200.239.246/api/boards`, data });
 };
 
 export const useDeleteMutation = () => {
