@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { api } from '..';
 import { queryClient } from '../../';
 const mainList = () => {
-    return api.get({ url: 'http://wtemplate.shop/home' });
+    return api.get({ url: 'http://43.200.239.246/api/home' });
 };
 
 export const useCourseQuery = () => {
@@ -10,7 +10,7 @@ export const useCourseQuery = () => {
 };
 
 const courseList = (channel: string | null, video: string | null) => {
-    return api.get({ url: `http://wtemplate.shop/course?channel=${channel}&video=${video}` });
+    return api.get({ url: `http://43.200.239.246/api/course?channel=${channel}&video=${video}` });
 };
 
 export const useCourseListQuery = (channel: string | null, video: string | null) => {
