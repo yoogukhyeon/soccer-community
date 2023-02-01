@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+    console.log('::::', process.env.REACT_APP_API_URL);
     /*    async function sss() {
         const reault = await axios.get(`${process.env.REACT_APP_API_URL}`);
 

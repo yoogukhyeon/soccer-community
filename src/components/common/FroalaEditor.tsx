@@ -67,6 +67,9 @@ export default function FroalaEditor({ inputs, option, handleModelInput, setEdit
                 }
                 return false;
             },
+            'charCounter.exceeded': function () {
+                return alert('2000자까지 입력 가능합니다');
+            },
         },
         ...option,
     };
