@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CgChevronLeft, CgChevronRight } from 'react-icons/cg';
 import { MdOpenInNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { useSearchParams } from 'react-router-dom';
 interface Video {
     channelTitle: string;
     videoId: string;
@@ -18,9 +18,24 @@ interface IProps {
 }
 
 export default function CourseVideo({ video }: IProps) {
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-
+    const [iframe, setIframe] = useState(<></>);
     const goToBack = () => navigate('/');
+
+    useEffect(() => {
+        const url = (
+            <iframe
+                key={video.videoId}
+                width="560"
+                height="315"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                src={`https://www.youtube.com/embed/${video.videoId}`}
+                allowFullScreen
+            />
+        );
+        setIframe(url);
+    }, [video]);
 
     return (
         <CourseVideoWrap>
@@ -40,15 +55,7 @@ export default function CourseVideo({ video }: IProps) {
             </div>
             <div className="course_video_content">
                 <div className="content_video_box">
-                    <div>
-                        <iframe
-                            width="560"
-                            height="315"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            src={`https://www.youtube.com/embed/${video.videoId}`}
-                            allowFullScreen
-                        />
-                    </div>
+                    <div className="iframe-container">{iframe}</div>
                 </div>
             </div>
             <div className="content_nav">
