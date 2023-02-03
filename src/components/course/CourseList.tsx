@@ -72,7 +72,9 @@ export default function CourseList({ lists }: IProps) {
                         <li
                             key={val.videoId}
                             className={`${query === val.videoId ? 'active' : ''} ${val.videoId}`}
-                            onClick={() => navigate(`/course?channel=${val.channelTitle}&video=${val.videoId}`)}
+                            onClick={() =>
+                                navigate(`/course?channel=${val.channelTitle}&video=${val.videoId}`, { replace: true })
+                            }
                         >
                             <div className="content_status">
                                 <i>
