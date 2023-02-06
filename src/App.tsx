@@ -9,6 +9,8 @@ import BoardCreate from '@/pages/board/Create';
 import BoardDetail from '@/pages/board/detail';
 import BoardUpdate from '@/pages/board/detail/Update';
 import Course from '@/pages/course';
+import SignIn from './pages/user/SignIn';
+import SignUp from './pages/user/SignUp';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -64,7 +66,11 @@ function App() {
                         <Route path="/boards/create" element={<BoardCreate />} />
                         <Route path="*" element={<NotFound />} />
                         <Route path="/course" element={<Course />}>
-                            <Route path=":vod" element={<Course />} />s
+                            <Route path=":vod" element={<Course />} />
+                        </Route>
+                        <Route path="/user">
+                            <Route path="sign-in" element={<SignIn />} />
+                            <Route path="sign-up" element={<SignUp />} />
                         </Route>
                     </Routes>
                 </Layout>

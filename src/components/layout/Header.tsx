@@ -12,6 +12,10 @@ export default function Header() {
         navigate('/');
     };
 
+    const goToLogin = () => {
+        navigate('/user/sign-in');
+    };
+
     return (
         <HeaderWrap>
             <ContainerDiv>
@@ -22,7 +26,7 @@ export default function Header() {
                     <Nav />
                 </div>
                 <ul className="header_right">
-                    <li>
+                    <li onClick={goToLogin}>
                         <img src="/img/icon.svg" alt="ICON" />
                     </li>
                 </ul>
