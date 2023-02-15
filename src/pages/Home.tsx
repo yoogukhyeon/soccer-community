@@ -23,7 +23,7 @@ export default function Home() {
             {swiperUseStatus && <SwiperList lists={items} />}
             <Link />
             <CourseWrap>
-                <MainTitle>교육영상</MainTitle>
+                <MainTitle>축구 영상</MainTitle>
                 <CourseBox lists={data} status={status} />
             </CourseWrap>
         </MainWrap>

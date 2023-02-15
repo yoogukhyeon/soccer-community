@@ -59,13 +59,23 @@ export default function CourseVideo({ video }: IProps) {
                 </div>
             </div>
             <div className="content_nav">
-                <div className="prev">
+                <div
+                    className="prev"
+                    onClick={() =>
+                        navigate(`/course?channel=${video.channelTitle}&video=${video.prev}`, { replace: true })
+                    }
+                >
                     <i>
                         <CgChevronLeft />
                     </i>
                     <span>이전 영상</span>
                 </div>
-                <div className="next">
+                <div
+                    className="next"
+                    onClick={() =>
+                        navigate(`/course?channel=${video.channelTitle}&video=${video.next}`, { replace: true })
+                    }
+                >
                     <span>다음 영상</span>
                     <i>
                         <CgChevronRight />

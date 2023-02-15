@@ -21,6 +21,7 @@ export default function Course() {
             }
         }
     }, [data]);
+
     return (
         <>
             <MetaTag title="강의실" description="강의실" />
@@ -30,7 +31,7 @@ export default function Course() {
                 <CourseWrap>
                     <div>
                         <CourseVideo video={data.videoInfo} />
-                        <CourseList lists={data.courseList} />
+                        <CourseList lists={data.courseList} title={data.videoInfo.channelTitle} />
                     </div>
                 </CourseWrap>
             )}

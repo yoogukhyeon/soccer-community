@@ -6,10 +6,13 @@ export default function Nav() {
     return (
         <ul>
             <ActiveNavLink to="/">
-                <li>Home</li>
+                <li>메인</li>
             </ActiveNavLink>
             <ActiveNavLink to="/boards">
-                <li>Community</li>
+                <li>커뮤니티</li>
+            </ActiveNavLink>
+            <ActiveNavLink to="/football-news">
+                <li>축구 소식통</li>
             </ActiveNavLink>
         </ul>
     );

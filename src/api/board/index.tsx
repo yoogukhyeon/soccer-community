@@ -3,12 +3,12 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { api } from '..';
 
-const getList = (category: string | any) => {
-    return api.get({ url: `/api/boards?category=${category}` });
+const getList = (category: string | any, startNum: string | any, endNum: string | any) => {
+    return api.get({ url: `/api/boards?category=${category}&startNum=${startNum}&endNum=${endNum}` });
 };
 
-export const useBoardQuery = (category: string | any) => {
-    return useQuery(['boardList'], () => getList(category), { select: (data) => data?.data?.data?.boardList });
+export const useBoardQuery = (category: string | any, startNum: string | any, endNum: string | any) => {
+    return useQuery(['boardList'], () => getList(category, startNum, endNum), { select: (data) => data?.data?.data });
 };
 
 const getDetail = (id: number) => {

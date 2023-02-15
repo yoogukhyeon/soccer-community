@@ -3,11 +3,12 @@ import styled from 'styled-components';
 
 interface IProps {
     readonly size?: string;
+    readonly type?: string;
 }
 
-export default function Loading({ size }: IProps) {
+export default function Loading({ size, type }: IProps) {
     return (
-        <LoadingWrap size={size}>
+        <LoadingWrap size={size} type={type}>
             <div className="Loading">
                 <span className="loading_circle"></span>
             </div>
@@ -23,12 +24,11 @@ const LoadingWrap = styled.div<IProps>`
     height: 100%;
     opacity: 1;
     transition: 0.5s;
-    margin-top: 10px;
-
+  
     .Loading {
         position: relative;
-        width: ${(props) => (props.size === 'sm' ? '45px' : '70px')};
-        height: ${(props) => (props.size === 'sm' ? '45px' : '70px')};
+        width: ${(props) => (props.size === 'sm' ? '40px' : '70px')};
+        height: ${(props) => (props.size === 'sm' ? '40px' : '70px')};
 
         .loading_circle {
             display: block;
@@ -37,12 +37,13 @@ const LoadingWrap = styled.div<IProps>`
             border-radius: 50%;
             animation: loading-spin 2s infinite;
             border: ${(props) => (props.size === 'sm' ? '6px' : '8px')} solid rgba(207, 197, 197, 0.4);
-            border-top: ${(props) => (props.size === 'sm' ? '6px' : '8px')} solid black;
+            border-top: ${(props) => (props.size === 'sm' ? '6px' : '8px')} solid ${(props) => (props.type === 'board' ? 'white' : 'black')};
         }
     }
 
     @media screen and (max-width: 768px) {
         & {
+           
             .Loading {
                 width: ${(props) => (props.size === 'sm' ? '35px' : '50px')};
                 height: ${(props) => (props.size === 'sm' ? '35px' : '50px')};

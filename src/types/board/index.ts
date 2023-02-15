@@ -17,3 +17,11 @@ export interface IView {
     readonly view: number;
     readonly regDate: string;
 }
+
+export interface ILikeCount {
+    readonly no: number;
+}
+
+export interface IViewCount {
+    readonly no: number;
+}

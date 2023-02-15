@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 interface Type {
@@ -17,22 +17,20 @@ interface IProps {
 export default function UserInput({ type, placeholder, errors, register }: IProps) {
     const [errorType, setErrorType] = useState<string>('');
 
-    useEffect(() => {
-        if (errors) {
-            switch (type) {
-                case (type = 'email'):
-                    setErrorType('이메일');
-                    break;
-                case (type = 'password'):
-                    setErrorType('패스워드');
-                    break;
-                case (type = 'text'):
-                    setErrorType('이름');
-                    break;
-                    return;
-            }
+    useMemo(() => {
+        switch (type) {
+            case (type = 'email'):
+                setErrorType('이메일');
+                break;
+            case (type = 'password'):
+                setErrorType('패스워드');
+                break;
+            case (type = 'text'):
+                setErrorType('이름');
+                break;
+                return;
         }
-    }, [errors]);
+    }, [type]);
 
     return (
         <FormInputBox>
@@ -76,6 +74,13 @@ const FormInputBox = styled.div`
 
         ::placeholder {
             color: #a2a2a2;
+        }
+
+        @media screen and (max-width: 768px) {
+            .text_input {
+                height: 55px;
+                font-size: 15px;
+            }
         }
     }
     .text_input:focus-within {

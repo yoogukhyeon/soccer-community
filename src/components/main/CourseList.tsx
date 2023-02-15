@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../common/Loading';
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 interface Data {
     channelTitle: string;
     no: number;
@@ -31,7 +31,7 @@ export default function CourseBox({ lists, status }: IProps) {
                     <li key={val.no} onClick={() => goToCourse(val.channelTitle, val.videoId)}>
                         <div className="course_img">
                             <span>
-                                <img src={val.thumb} alt="course img" />
+                                <LazyLoadImage src={val.thumb} alt="course thumb" />
                             </span>
                         </div>
                         <div className="course_info">

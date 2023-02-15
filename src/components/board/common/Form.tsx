@@ -7,6 +7,8 @@ import { useBoardMutation } from '@/api/board';
 import Loading from '../../common/Loading';
 import { IView } from '@/types/board';
 import { useQueryClient } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
+import authAtom from '@/stores/authAtom';
 interface IOption {
     readonly value: string;
     readonly label: string;
@@ -31,19 +33,14 @@ interface Config {
     data: any;
 }
 
-/* interface IProps {
-    onChangeInput: (e: ChangeEvent<HTMLInputElement>) => void;
-    inputs: Input;
-    handleModelInput: (content: string) => void;
-    setEditorInput: Dispatch<SetStateAction<string>>;
-}  */
-
 interface IProps {
     readonly isUpdate?: boolean | any;
     readonly view?: IView;
 }
 
 export default function Form({ isUpdate, view }: IProps) {
+    const [auth] = useAtom(authAtom);
+    const id = auth?.user?.id;
     const queryClient = useQueryClient();
     const { mutate: boardMutate, isLoading } = useBoardMutation(isUpdate);
     const navigate = useNavigate();
@@ -102,15 +99,14 @@ export default function Form({ isUpdate, view }: IProps) {
 
         const data = {
             ...inputs,
+            id,
         };
 
         let updateData: IView | any;
         if (isUpdate) {
             const no = view?.no;
-            updateData = { ...data, no };
+            updateData = { ...data, no, id };
         }
-
-        console.log('updateData ::', updateData);
 
         boardMutate(isUpdate ? updateData : data, {
             onSuccess: (res) => {
@@ -177,7 +173,7 @@ export default function Form({ isUpdate, view }: IProps) {
 
                 <SubmitBtnBox>
                     <button type="button" onClick={handleSubmit} className="btn_submit">
-                        {isLoading ? <Loading size="sm" /> : isUpdate ? '수정' : '등록'}
+                        {isLoading ? <Loading size="sm" type="board" /> : isUpdate ? '수정' : '등록'}
                     </button>
                 </SubmitBtnBox>
             </form>
@@ -287,7 +283,7 @@ const SubmitBtnBox = styled.div`
     @media screen and (max-width: 768px) {
         .btn_submit {
             width: 100%;
-            height: 40px;
+            height: 50px;
             font-size: 16px;
         }
     }
