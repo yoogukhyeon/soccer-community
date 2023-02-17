@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { ContainerDiv } from '@/common/style/common';
 import { HeaderAndFooter } from '@/common/style/common';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Nav from '../common/Nav';
 import { useAtom } from 'jotai';
 import authAtom from '@/stores/authAtom';
@@ -10,13 +10,14 @@ import Cookies from 'universal-cookie';
 export default function Header() {
     const [auth] = useAtom(authAtom);
     const navigate = useNavigate();
-
+    const { pathname } = useLocation();
+    
     const goToHome = () => {
         navigate('/');
     };
 
     const goToLogin = () => {
-        navigate('/user/sign-in');
+        navigate('/user/sign-in', {state: pathname});
     };
 
     const goToLogOut = () => {

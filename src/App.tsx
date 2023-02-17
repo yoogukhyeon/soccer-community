@@ -15,9 +15,10 @@ import { useAtom } from 'jotai';
 import authAtom from './stores/authAtom';
 import Cookies from 'universal-cookie';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getUser } from './api/user';
 import FootballNews from './pages/footballNews';
+import PrivateRouter from './pages/privateRouter';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -86,9 +87,23 @@ function App() {
                         </Route>
                         <Route path="/boards/detail">
                             <Route path=":id" element={<BoardDetail />} />
-                            <Route path=":id/update" element={<BoardUpdate />} />
+                            <Route
+                                path=":id/update"
+                                element={
+                                    <PrivateRouter>
+                                        <BoardUpdate />
+                                    </PrivateRouter>
+                                }
+                            />
                         </Route>
-                        <Route path="/boards/create" element={<BoardCreate />} />
+                        <Route
+                            path="/boards/create"
+                            element={
+                                <PrivateRouter>
+                                    <BoardCreate />
+                                </PrivateRouter>
+                            }
+                        />
                         <Route path="*" element={<NotFound />} />
                         <Route path="/course" element={<Course />}>
                             <Route path=":vod" element={<Course />} />

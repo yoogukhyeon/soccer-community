@@ -4,7 +4,7 @@ import { CgCheck } from 'react-icons/cg';
 import MetaTag from '@/constants/SEOMetaTag';
 import { useForm, Resolver } from 'react-hook-form';
 import UserInput from '@/components/user/common/UserInput';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSignInMutation } from '@/api/user';
 import Cookies from 'universal-cookie';
 
@@ -15,6 +15,7 @@ interface FormValues {
 
 export default function SignIn() {
     const navigate = useNavigate();
+    const { state } = useLocation();
     const [errorMsg, setErrorMsg] = useState<any>('');
     const { mutate: userMutate, isLoading } = useSignInMutation();
     const goToSignUp = () => {
@@ -46,7 +47,11 @@ export default function SignIn() {
                         path: '/',
                     });
 
-                    navigate('/');
+                    if (state) {
+                        navigate(state);
+                    } else {
+                        navigate('/');
+                    }
                 }
             },
             onError: (err: any) => {
