@@ -9,6 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useConfirm } from '@/hooks/useConfirm';
 import { storage } from '@/assets/storage';
 import { useBoardLikeMutation } from '@/api/board/options/like';
+
 interface IProps {
     view: IView;
 }
