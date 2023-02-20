@@ -7,8 +7,12 @@ import BoardView from '@/components/board/BoardView';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import CommentForm from '@/components/board/common/CommentForm';
+import { useAtom } from 'jotai';
+import authAtom from '@/stores/authAtom';
+import { CommentList } from '@/common/style/common';
 
 export default function index() {
+    const [auth] = useAtom(authAtom);
     const { id } = useParams();
     const { data, status, refetch } = useBoardDetailQuery(Number(id));
 
@@ -56,41 +60,83 @@ export default function index() {
         setReplyToggle(false);
         setIsUpdateForm(true);
         setSelectedCommentIndex(no);
-        setReply(content);
+        setComment(content);
     };
 
     const test: any[] = [
         {
             no: 1,
+            userId: 6,
             name: 'pud',
             regDate: '2023-02-14',
             content: '욜로 11111',
         },
         {
             no: 2,
+            userId: 5,
             name: 'pud',
             regDate: '2023-02-14',
             content: '욜로 2222',
         },
         {
             no: 3,
+            userId: 5,
             name: 'pud',
             regDate: '2023-02-14',
             content: '욜로 33333',
         },
         {
             no: 4,
+            userId: 5,
             name: 'pud',
             regDate: '2023-02-14',
             content: '욜로 44444',
         },
         {
             no: 5,
+            userId: 4,
             name: 'pud',
             regDate: '2023-02-14',
             content: '욜로 55555',
         },
     ];
+
+    const test2: any[] = [
+        {
+            no: 1,
+            parentNo: 1,
+            userId: 6,
+            name: '아구몬',
+            regDate: '2023-02-14',
+            content: '대댓글 입니다 아구몬!!!',
+        },
+        {
+            no: 2,
+            parentNo: 2,
+            userId: 6,
+            name: '아구몬',
+            regDate: '2023-02-14',
+            content: '대댓글 입니다 이상해씨!!!',
+        },
+        {
+            no: 3,
+            parentNo: 5,
+            userId: 3,
+            name: '아구몬',
+            regDate: '2023-02-14',
+            content: '대댓글 입니다 이상해씨!!!',
+        },
+    ];
+
+    //comment 수정
+    const [isReplyUpdateForm, setIsReplyUpdateForm] = useState<boolean>(false);
+    const [selectedReplyIndex, setSelectedReplyIndex] = useState<number>();
+
+    const replyUpdateForm = (no: number, content: string): void => {
+        setIsReplyUpdateForm(true);
+        setSelectedReplyIndex(no);
+        setReply(content);
+    };
 
     return (
         <>
@@ -102,28 +148,33 @@ export default function index() {
             </GoToBtn>
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
-            {data && <BoardView view={data} />}
+            {data && <BoardView view={data} auth={auth} />}
             {data && (
                 <CommentWrap>
                     <CommentForm isUpdate={false} isReply={false} setComment={setComment} comment={comment} />
                     <p className="comment_count">댓글 3</p>
                     <CommentListWrap>
                         <div className="comment_box">
-                            {test.map((val, idx) => (
-                                <CommentListBox key={val.no}>
+                            {test.map((parent, idx) => (
+                                <CommentListBox key={parent.no}>
                                     <dt>
                                         <b>
-                                            {val.name} <em>{val.regDate}</em>
+                                            {parent.name} <em>{parent.regDate}</em>
                                         </b>
-                                        <p>{val.content}</p>
+                                        <p>{parent.content}</p>
                                     </dt>
                                     <dd>
-                                        <em onClick={() => toggleReply(val.no)}>답글달기</em>
+                                        <em onClick={() => toggleReply(parent.no)}>답글달기</em>
                                         <em>신고</em>
-                                        <em onClick={() => updateForm(val.no, val.content)}>수정</em>
+                                        {!!auth?.accessToken && auth.user?.id === parent.userId && (
+                                            <>
+                                                <em onClick={() => updateForm(parent.no, parent.content)}>수정</em>
+                                                <em>삭제</em>
+                                            </>
+                                        )}
                                     </dd>
 
-                                    {replyToggle && selectedCommentIndex === val.no && (
+                                    {replyToggle && selectedCommentIndex === parent.no && (
                                         <CommentForm
                                             isUpdate={false}
                                             isReply={true}
@@ -136,13 +187,13 @@ export default function index() {
                                         />
                                     )}
 
-                                    {isUpdateForm && selectedCommentIndex === val.no && (
+                                    {isUpdateForm && selectedCommentIndex === parent.no && (
                                         <CommentForm
                                             isUpdate={true}
-                                            isReply={true}
+                                            isReply={false}
                                             setToggle={setReplyToggle}
-                                            setReply={setReply}
-                                            reply={reply}
+                                            setComment={setComment}
+                                            comment={comment}
                                             focus={inputRef}
                                             cancelled={cancelled}
                                             setCancelled={setCancelled}
@@ -150,6 +201,50 @@ export default function index() {
                                             isUpdateForm={isUpdateForm}
                                         />
                                     )}
+                                    <ReplyListBox>
+                                        {test2
+                                            .filter((no) => no.parentNo === parent.no)
+                                            .map((child) => (
+                                                <div className="reply_wrap" key={child.no}>
+                                                    <dt>
+                                                        <b>
+                                                            {child.name} <em>{child.regDate}</em>
+                                                        </b>
+                                                        <p>{child.content}</p>
+                                                    </dt>
+                                                    <dd>
+                                                        <em>신고</em>
+
+                                                        {!!auth?.accessToken && auth.user?.id === child.userId && (
+                                                            <>
+                                                                <em
+                                                                    onClick={() =>
+                                                                        replyUpdateForm(child.no, child.content)
+                                                                    }
+                                                                >
+                                                                    수정
+                                                                </em>
+                                                                <em>삭제</em>
+                                                            </>
+                                                        )}
+                                                    </dd>
+
+                                                    {isReplyUpdateForm && selectedReplyIndex === child.no && (
+                                                        <CommentForm
+                                                            isUpdate={true}
+                                                            isReply={true}
+                                                            setReply={setReply}
+                                                            reply={reply}
+                                                            focus={inputRef}
+                                                            cancelled={cancelled}
+                                                            setCancelled={setCancelled}
+                                                            setIsUpdateForm={setIsReplyUpdateForm}
+                                                            isUpdateForm={isReplyUpdateForm}
+                                                        />
+                                                    )}
+                                                </div>
+                                            ))}
+                                    </ReplyListBox>
                                 </CommentListBox>
                             ))}
                         </div>
@@ -210,47 +305,18 @@ const CommentListBox = styled.div`
     flex-direction: column;
     gap: 15px;
     margin-bottom: 10px;
+    ${CommentList}
+`;
 
-    dt {
-        font-size: 18px;
-        line-height: 24px;
-        color: #000000;
+const ReplyListBox = styled.div`
+    padding: 0 0 0 40px;
+    margin: 5px 0;
 
-        b {
-            display: flex;
-            justify-content: flex-start;
-            gap: 5px;
-            color: #323232;
-            margin-bottom: 5px;
-
-            em {
-                display: inline-block;
-                margin-left: 5px;
-                color: #666666;
-                font-weight: 400;
-                font-size: 14px;
-            }
-        }
-
-        p {
-            font-size: 18px;
-            line-height: 24px;
-            font-weight: 400;
-            color: #000000;
-            word-break: break-all;
-            white-space: pre-wrap;
-        }
-    }
-
-    dd {
+    .reply_wrap {
         display: flex;
-        gap: 15px;
-        font-size: 14px;
-        font-weight: 500;
-
-        > em {
-            color: #666666;
-            cursor: pointer;
-        }
+        flex-direction: column;
+        grid-gap: 10px;
+        margin-bottom: 20px;
     }
+    ${CommentList}
 `;

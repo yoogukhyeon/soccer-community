@@ -2,13 +2,16 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useSta
 import Select, { ActionMeta } from 'react-select';
 import FroalaEditor from '@/components/common/FroalaEditor';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useBoardMutation } from '@/api/board';
 import Loading from '../../common/Loading';
 import { IView } from '@/types/board';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 import authAtom from '@/stores/authAtom';
+import { usePreventLeave } from '@/hooks/usePreventLeave';
+import { preventGoBack } from '@/hooks/useGoBack';
+
 interface IOption {
     readonly value: string;
     readonly label: string;
@@ -42,6 +45,7 @@ export default function Form({ isUpdate, view }: IProps) {
     const [auth] = useAtom(authAtom);
     const id = auth?.user?.id;
     const queryClient = useQueryClient();
+    const { state } = useLocation();
     const { mutate: boardMutate, isLoading } = useBoardMutation(isUpdate);
     const navigate = useNavigate();
 
@@ -139,6 +143,28 @@ export default function Form({ isUpdate, view }: IProps) {
             });
         }
     }, [view]);
+
+    // 브라우저에 렌더링 시 한 번만 실행하는 코드
+    const { pushGoBack, addGoBackPrevent, removeGoBackPrevent } = preventGoBack(state);
+    //새로고침 즉시 실행
+    useEffect(() => {
+        const { enablePrevent, disablePrevent } = usePreventLeave();
+
+        (() => {
+            //브라우저 새로고침 방지
+            enablePrevent();
+            //브라우저 뒤로가기 방지
+            pushGoBack();
+            addGoBackPrevent();
+        })();
+
+        return () => {
+            //브라우저 새로고침 방지
+            disablePrevent();
+            //브라우저 뒤로가기 방지
+            removeGoBackPrevent();
+        };
+    }, []);
 
     return (
         <>

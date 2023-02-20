@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CgChevronRight, CgChevronLeft } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
+import { useBoardPreFetchQuery } from '@/api/board';
 interface IProps {
     total: string;
     page: number;
@@ -12,7 +13,6 @@ interface IProps {
 }
 
 export default function Pagination({ total, pageTotal, category, page, start, end }: IProps) {
-
     const navigate = useNavigate();
     const [totalPageList, setTotalPageList] = useState<any[]>([1]);
 
@@ -33,27 +33,32 @@ export default function Pagination({ total, pageTotal, category, page, start, en
     useEffect(() => {
         setPrev(page > 1 ? true : false);
         setNext(page !== pageTotal ? true : false);
-    }, [page])
+    }, [page]);
 
     const goToPage = (page: number) => {
         page = page >= totalPageList.length ? totalPageList.length : page;
-        start = (page - 1) * end
-        category = category && `/${category}`; 
+        start = (page - 1) * end;
+        category = category && `/${category}`;
         navigate(`/boards${category}?page=${page}&startNum=${start}&endNum=${end}`);
     };
 
     const goToPrevAndNext = (type: boolean) => {
-        category = category && `/${category}`; 
+        category = category && `/${category}`;
         if (type) {
-            page = page < 1 ? 1 : (page - 1);
-            start = (page - 1) * end
+            page = page < 1 ? 1 : page - 1;
+            start = (page - 1) * end;
             prev && navigate(`/boards${category}?page=${page}&startNum=${start}&endNum=${end}`);
         } else {
-            page = page >= totalPageList.length ? totalPageList.length : (page + 1);
-            start = (page - 1) * end
-            next && navigate(`/boards${category}?page=${page}&startNum=${start}&endNum=${end}`); 
+            page = page >= totalPageList.length ? totalPageList.length : page + 1;
+            start = (page - 1) * end;
+            next && navigate(`/boards${category}?page=${page}&startNum=${start}&endNum=${end}`);
         }
-    }
+    };
+
+    useEffect(() => {
+        start = page * end;
+        useBoardPreFetchQuery(category, start, end);
+    }, [page]);
 
     return (
         <PaginationWrap>

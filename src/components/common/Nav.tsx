@@ -6,7 +6,7 @@ export default function Nav() {
     return (
         <ul>
             <ActiveNavLink to="/">
-                <li>메인</li>
+                <li>홈</li>
             </ActiveNavLink>
             <ActiveNavLink to="/boards">
                 <li>커뮤니티</li>

@@ -37,3 +37,48 @@ export const WordBreak = css`
     white-space: nowrap;
     text-overflow: ellipsis;
 `;
+
+export const CommentList = css`
+    dt {
+        font-size: 18px;
+        line-height: 24px;
+        color: #000000;
+
+        b {
+            display: flex;
+            justify-content: flex-start;
+            gap: 5px;
+            color: #323232;
+            margin-bottom: 5px;
+
+            em {
+                display: inline-block;
+                margin-left: 5px;
+                color: #666666;
+                font-weight: 400;
+                font-size: 14px;
+            }
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 24px;
+            font-weight: 400;
+            color: #000000;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+    }
+
+    dd {
+        display: flex;
+        gap: 15px;
+        font-size: 14px;
+        font-weight: 500;
+
+        > em {
+            color: #666666;
+            cursor: pointer;
+        }
+    }
+`;

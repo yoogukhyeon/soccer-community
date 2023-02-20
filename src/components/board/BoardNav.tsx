@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CategoryNav from './common/CategoryNav';
 import { Button } from '../common/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import authAtom from '@/stores/authAtom';
 interface IProps {
@@ -10,11 +10,18 @@ interface IProps {
 }
 
 export default function BoardNav({ category }: IProps) {
+    const [searchParams] = useSearchParams();
     const [auth] = useAtom(authAtom);
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     const goToWrite = () => {
         if (!auth?.accessToken) return alert('로그인 후 게시판을 이용해주세요.');
-        navigate('/boards/create');
+        const page = searchParams.get('page');
+        const startNum = searchParams.get('startNum');
+        const endNum = searchParams.get('endNum');
+
+        const url = page ? `${pathname}?page=${page}&startNum=${startNum}&endNum=${endNum}` : `${pathname}`;
+        navigate('/boards/create', { state: url });
     };
 
     return (

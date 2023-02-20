@@ -3,7 +3,7 @@ import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import styled from 'styled-components';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 import { useNavigate } from 'react-router-dom';
-import { IView } from '@/types/board';
+import { Auth, IView } from '@/types/board';
 import { useDeleteMutation } from '@/api/board';
 import { useQueryClient } from '@tanstack/react-query';
 import { useConfirm } from '@/hooks/useConfirm';
@@ -12,9 +12,10 @@ import { useBoardLikeMutation } from '@/api/board/options/like';
 
 interface IProps {
     view: IView;
+    auth: Auth;
 }
 
-export default function BoardView({ view }: IProps) {
+export default function BoardView({ view, auth }: IProps) {
     const queryClient = useQueryClient();
     const { mutate: boardMutate } = useDeleteMutation();
     const { mutate: boardLike } = useBoardLikeMutation();
@@ -101,10 +102,12 @@ export default function BoardView({ view }: IProps) {
                     <FroalaEditorView model={view.content} />
                 </div>
 
-                <ManageWrap>
-                    <a onClick={() => goToUpdate(view.no)}>수정</a>
-                    <a onClick={() => boardDelete(view.no)}>삭제</a>
-                </ManageWrap>
+                {!!auth?.accessToken && view.userId && (
+                    <ManageWrap>
+                        <a onClick={() => goToUpdate(view.no)}>수정</a>
+                        <a onClick={() => boardDelete(view.no)}>삭제</a>
+                    </ManageWrap>
+                )}
 
                 <div className="content_info">
                     <div className="content_like">
