@@ -49,7 +49,7 @@ function App() {
 
                 if (data?.accessToken) {
                     const accessToken = data.accessToken;
-                    cookies.remove('access_token', { path: '/' });
+                    cookies.remove('access_token', { domain: `${process.env.REACT_APP_API_URL}`, path: '/' });
                     cookies.set('access_token', accessToken, {
                         secure: true,
                         maxAge: 1000 * 60 * 60 * 24 * 7,

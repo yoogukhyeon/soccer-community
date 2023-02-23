@@ -39,12 +39,14 @@ export default function SignIn() {
                         secure: true,
                         maxAge: 1000 * 60 * 60 * 24 * 7,
                         path: '/',
+                        domain: `${process.env.REACT_APP_API_URL}`,
                     });
 
                     cookies.set('refresh_token', refreshToken, {
                         secure: true,
                         maxAge: 1000 * 60 * 60 * 24 * 7,
                         path: '/',
+                        domain: `${process.env.REACT_APP_API_URL}`,
                     });
 
                     if (state) {
