@@ -7,3 +7,5 @@ export interface IAuth {
     readonly accessToken: string | null;
     readonly user: User | null;
 }
+
+
