@@ -11,6 +11,14 @@ import BoardUpdate from '@/pages/board/detail/Update';
 import Course from '@/pages/course';
 import SignIn from './pages/user/SignIn';
 import SignUp from './pages/user/SignUp';
+import { useAtom } from 'jotai';
+import authAtom from './stores/authAtom';
+import Cookies from 'universal-cookie';
+import { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { getUser } from './api/user';
+import FootballNews from './pages/footballNews';
+import PrivateRouter from './pages/privateRouter';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -27,32 +35,53 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-    /*    async function sss() {
-        const reault = await axios.get(`${process.env.REACT_APP_API_URL}`);
-
-        console.log('reault ::', reault);
-    }
+    const navigate = useNavigate();
+    const [_, setAuth] = useAtom(authAtom);
+    const cookies = new Cookies();
+    const accessToken = cookies.get('access_token');
+    const refreshToken = cookies.get('refresh_token');
 
     useEffect(() => {
-        sss();
-    }, []); */
-    /* const [value, setValue] = useState<string>('');
+        const chkAuth = async () => {
+            try {
+                const res = await getUser(accessToken, refreshToken);
+                const data = res?.data?.data;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setValue(value);
-  };
+                if (data?.accessToken) {
+                    const accessToken = data.accessToken;
+                    cookies.remove('access_token', { path: '/' });
+                    cookies.set('access_token', accessToken, {
+                        secure: true,
+                        maxAge: 1000 * 60 * 60 * 24 * 7,
+                        path: '/',
+                    });
+                    const user = data?.authInfo;
+                    user && setAuth((auth) => ({ ...auth, accessToken, user }));
+                } else {
+                    const user = data?.authInfo;
+                    user && setAuth((auth) => ({ ...auth, accessToken, user }));
+                }
+            } catch (err) {
+                alert('로그인을 다시 해주세요.');
+                setAuth((auth) => ({ ...auth, accessToken: null, user: null }));
+                navigate('/user/sign-in');
+            }
+        };
 
-  const onClick = (): void => {
-    alert(`${value} 입력값을 입력받았습니다.`);
-  }; */
+        if (refreshToken) {
+            chkAuth();
+        } else {
+            setAuth((auth) => ({ ...auth, accessToken: null, refreshToken: null, user: null }));
+        }
+    }, [refreshToken]);
 
     return (
         <>
-            <MetaTag title="project" description="side-project with react" />
+            <MetaTag
+                title="에프엔에프 - 축구, 최신축구소식, 축구소식"
+                description="축구, 축구소식, 최신축구소식, 피파, 피파온라인, 에펨, 축구커뮤니티"
+            />
             <Wrapper>
-                {/*     <Input type="text" value={value} onChange={onChange} />
-                    <Button onClick={onClick} text="click alert" /> */}
                 <Layout>
                     <Routes>
                         <Route path="/" element={<Home />} />
@@ -61,13 +90,28 @@ function App() {
                         </Route>
                         <Route path="/boards/detail">
                             <Route path=":id" element={<BoardDetail />} />
-                            <Route path=":id/update" element={<BoardUpdate />} />
+                            <Route
+                                path=":id/update"
+                                element={
+                                    <PrivateRouter>
+                                        <BoardUpdate />
+                                    </PrivateRouter>
+                                }
+                            />
                         </Route>
-                        <Route path="/boards/create" element={<BoardCreate />} />
+                        <Route
+                            path="/boards/create"
+                            element={
+                                <PrivateRouter>
+                                    <BoardCreate />
+                                </PrivateRouter>
+                            }
+                        />
                         <Route path="*" element={<NotFound />} />
                         <Route path="/course" element={<Course />}>
                             <Route path=":vod" element={<Course />} />
                         </Route>
+                        <Route path="/football-news" element={<FootballNews />} />
                         <Route path="/user">
                             <Route path="sign-in" element={<SignIn />} />
                             <Route path="sign-up" element={<SignUp />} />

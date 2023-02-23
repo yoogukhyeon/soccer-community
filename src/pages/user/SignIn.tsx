@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CgCheck } from 'react-icons/cg';
 import MetaTag from '@/constants/SEOMetaTag';
 import { useForm, Resolver } from 'react-hook-form';
 import UserInput from '@/components/user/common/UserInput';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useSignInMutation } from '@/api/user';
+import Cookies from 'universal-cookie';
 
 interface FormValues {
     email: string;
@@ -13,7 +15,9 @@ interface FormValues {
 
 export default function SignIn() {
     const navigate = useNavigate();
-
+    const { state } = useLocation();
+    const [errorMsg, setErrorMsg] = useState<any>('');
+    const { mutate: userMutate, isLoading } = useSignInMutation();
     const goToSignUp = () => {
         navigate('/user/sign-up');
     };
@@ -24,7 +28,38 @@ export default function SignIn() {
     } = useForm<FormValues>({});
 
     const onSubmit = (data: FormValues) => {
-        console.log('data ::', data);
+        userMutate(data, {
+            onSuccess: (res) => {
+                if (res.data.message === 'success') {
+                    const cookies = new Cookies();
+                    const accessToken = res.data.data.accessToken;
+                    const refreshToken = res.data.data.refreshToken;
+
+                    cookies.set('access_token', accessToken, {
+                        secure: true,
+                        maxAge: 1000 * 60 * 60 * 24 * 7,
+                        path: '/',
+                    });
+
+                    cookies.set('refresh_token', refreshToken, {
+                        secure: true,
+                        maxAge: 1000 * 60 * 60 * 24 * 7,
+                        path: '/',
+                    });
+
+                    if (state) {
+                        navigate(state);
+                    } else {
+                        navigate('/');
+                    }
+                }
+            },
+            onError: (err: any) => {
+                console.log('err', err);
+                console.error(err);
+                setErrorMsg(() => err?.response?.data);
+            },
+        });
     };
 
     return (
@@ -54,6 +89,7 @@ export default function SignIn() {
                         placeholder="패스워드를 입력해주세요."
                         errors={errors?.password}
                     />
+                    {errorMsg && <p className="login_error">{errorMsg?.message}</p>}
 
                     <FormOptionBox>
                         <span>아이디</span>
@@ -114,6 +150,25 @@ const FormWrap = styled.form`
         font-weight: 500;
         font-size: 20px;
     }
+
+    .login_error {
+        width: 100%;
+        margin-top: 10px;
+        text-align: left;
+        color: #ff4c4c;
+    }
+
+    @media screen and (max-width: 768px) {
+        > .sign_in_title {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .login_btn {
+            height: 55px;
+            font-size: 15px;
+        }
+    }
 `;
 
 const FormOptionBox = styled.div`
@@ -143,6 +198,13 @@ const FormOptionBox = styled.div`
         height: 100%;
         transform: translateY(-43%);
         background: #707070;
+    }
+
+    @media screen and (max-width: 768px) {
+        & {
+            font-size: 14px;
+            margin: 15px 0;
+        }
     }
 `;
 
@@ -196,5 +258,12 @@ const SignUpWrap = styled.div`
         text-align: center;
         border: 2px solid #ff4c0e;
         vertical-align: middle;
+    }
+
+    @media screen and (max-width: 768px) {
+        .sign_up_btn {
+            height: 55px;
+            font-size: 15px;
+        }
     }
 `;

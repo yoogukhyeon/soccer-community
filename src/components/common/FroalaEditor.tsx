@@ -3,9 +3,10 @@ import Editor from 'react-froala-wysiwyg';
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 import 'froala-editor/js/plugins.pkgd.min.js';
-
+import AWS from 'aws-sdk';
 import { Dispatch, useState } from 'react';
-
+import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
 interface IFrolaEditorProps {
     inputs: { content: string };
     option?: any;
@@ -59,6 +60,50 @@ export default function FroalaEditor({ inputs, option, handleModelInput, setEdit
         },
         imageEditButtons: ['imageAlign', 'imageSize', 'imageRemove'],
         events: {
+            'image.beforeUpload': async function (this: any, images: any) {
+                try {
+                    let file = images[0];
+
+                    // url 입력 시 file 형태로 변환
+                    if (!(file instanceof File)) {
+                        const blobToFile = new File([file], `link_file.${file.type.split('/')[1]}`, {
+                            type: file.type,
+                        });
+                        file = blobToFile;
+                    }
+
+                    const region = 'ap-northeast-2';
+                    const bucket = 'aws-yoo-bucket';
+                    const toDay = moment().format('YYYYMMDD');
+
+                    AWS.config.update({
+                        region: region,
+                        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
+                        secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+                    });
+
+                    const fileKey = `images/lms/${toDay}/${uuidv4()}.${file.name.split('.')[1]}`;
+
+                    const upload = new AWS.S3.ManagedUpload({
+                        params: {
+                            Bucket: bucket, // 버킷 이름
+                            Key: fileKey, // 유저 아이디
+                            Body: file, // 파일 객체
+                        },
+                    });
+
+                    const result = await upload.promise();
+                    //aws s3 통신 성공
+                    if (result) {
+                        const link = result.Location;
+                        this.image.insert(link, null, null, this.image.get());
+                    }
+                } catch (err) {
+                    alert('이미지 업로드 실패. 관리자에게 문의 바랍니다.');
+                    console.log('Error', err);
+                    throw err;
+                }
+            },
             input: function (this: any, inputEvent: any) {
                 const innerText = inputEvent?.target?.innerText;
                 setEditorInput && setEditorInput(innerText);

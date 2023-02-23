@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import CourseBox from '@/components/main/CourseList';
 import { useCourseQuery } from '@/api/course';
 import { banner } from '@/assets/banner';
+import Community from '@/components/main/Community';
 interface IItems {
     readonly img: string;
     readonly name: string;
@@ -22,8 +23,14 @@ export default function Home() {
         <MainWrap>
             {swiperUseStatus && <SwiperList lists={items} />}
             <Link />
+            <CommunityWrap>
+                <MainTitle>커뮤니티</MainTitle>
+                <div className="community_box">
+                    <Community />
+                </div>
+            </CommunityWrap>
             <CourseWrap>
-                <MainTitle>교육영상</MainTitle>
+                <MainTitle>최신 인기축구 영상</MainTitle>
                 <CourseBox lists={data} status={status} />
             </CourseWrap>
         </MainWrap>
@@ -37,3 +44,5 @@ const MainWrap = styled.div`
 const CourseWrap = styled.div`
     margin-top: 30px;
 `;
+
+const CommunityWrap = styled.div``;

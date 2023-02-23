@@ -5,7 +5,7 @@ import SwiperCore, { Pagination, Autoplay, Navigation } from 'swiper';
 import 'swiper/css'; //basic
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 interface IProps {
     readonly img: string;
     readonly name: string;
@@ -40,7 +40,7 @@ export default function SwiperList({ lists }: IItems): JSX.Element {
                 {lists.map((list, idx) => (
                     <SwiperSlide key={idx}>
                         <div className="swiper_img">
-                            <img src={list.img} alt={list.name} />
+                            <LazyLoadImage src={list.img} alt={list.name} />
                         </div>
                     </SwiperSlide>
                 ))}

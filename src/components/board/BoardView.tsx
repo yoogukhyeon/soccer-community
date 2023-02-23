@@ -3,17 +3,22 @@ import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import styled from 'styled-components';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 import { useNavigate } from 'react-router-dom';
-import { IView } from '@/types/board';
+import { Auth, IView } from '@/types/board';
 import { useDeleteMutation } from '@/api/board';
 import { useQueryClient } from '@tanstack/react-query';
 import { useConfirm } from '@/hooks/useConfirm';
+import { storage } from '@/assets/storage';
+import { useBoardLikeMutation } from '@/api/board/options/like';
+
 interface IProps {
     view: IView;
+    auth: Auth;
 }
 
-export default function BoardView({ view }: IProps) {
+export default function BoardView({ view, auth }: IProps) {
     const queryClient = useQueryClient();
     const { mutate: boardMutate } = useDeleteMutation();
+    const { mutate: boardLike } = useBoardLikeMutation();
     const navigate = useNavigate();
     const goToUpdate = (id: number) => {
         navigate(`/boards/detail/${id}/update`);
@@ -21,8 +26,42 @@ export default function BoardView({ view }: IProps) {
 
     const [isLike, setIsLike] = useState<boolean>(false);
     const toggleLike = () => {
-        setIsLike((prev) => !prev);
+        const no = view.no;
+        const hitLikes = storage('likes', no);
+        if (hitLikes) {
+            boardLike(
+                { no },
+                {
+                    onSuccess: (res) => {
+                        if (res?.data?.message === 'success') {
+                            queryClient.invalidateQueries(['boardDetail', no]);
+                        }
+                        setIsLike(true);
+                    },
+                    onError: (err) => {
+                        console.log('err', err);
+                        console.error(err);
+                    },
+                },
+            );
+        } else {
+            let chkLikes: any = localStorage.getItem('likes');
+            chkLikes = JSON.parse(chkLikes);
+            const newLikes = chkLikes.filter((val: number) => val !== no);
+            localStorage.setItem('likes', JSON.stringify(newLikes));
+            setIsLike(false);
+        }
     };
+
+    useEffect(() => {
+        let chkLikes: any = localStorage.getItem('likes');
+        chkLikes = JSON.parse(chkLikes);
+        if (chkLikes?.includes(view.no)) {
+            setIsLike(true);
+        } else {
+            setIsLike(false);
+        }
+    }, []);
 
     const boardDelete = (id: number) => {
         const data = { no: id };
@@ -63,15 +102,17 @@ export default function BoardView({ view }: IProps) {
                     <FroalaEditorView model={view.content} />
                 </div>
 
-                <ManageWrap>
-                    <a onClick={() => goToUpdate(view.no)}>수정</a>
-                    <a onClick={() => boardDelete(view.no)}>삭제</a>
-                </ManageWrap>
+                {!!auth?.accessToken && view.userId && (
+                    <ManageWrap>
+                        <a onClick={() => goToUpdate(view.no)}>수정</a>
+                        <a onClick={() => boardDelete(view.no)}>삭제</a>
+                    </ManageWrap>
+                )}
 
                 <div className="content_info">
                     <div className="content_like">
                         <i onClick={toggleLike}>{isLike ? <HiHeart size={25} /> : <HiOutlineHeart size={25} />}</i>
-                        <em>23</em>
+                        <em>{view.like}</em>
                     </div>
                     <i>
                         <img src="/img/icon_report.svg" alt="ICON" width={25} height={25} />
@@ -168,7 +209,7 @@ const ViewWrap = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
-
+        margin-top: 3px;
         .content_like {
             display: flex;
             justify-content: flex-start;

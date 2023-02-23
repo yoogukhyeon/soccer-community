@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import Loading from '../common/Loading';
 import { WordBreak } from '@/common/style/common';
 import { useNavigate } from 'react-router-dom';
+import { storage } from '@/assets/storage';
+import { useBoardViewMutation } from '@/api/board/options/view';
+import { useQueryClient } from '@tanstack/react-query';
 interface List {
     readonly category: string;
     readonly regDate: string;
@@ -19,8 +22,29 @@ interface IProps {
 
 export default function BoardList({ lists, status }: IProps) {
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const { mutate: viewMutate } = useBoardViewMutation();
 
     const goToDetail = (id: number) => {
+        //localStorage 저장
+        const hitViews = storage('views', id);
+
+        if (hitViews) {
+            viewMutate(
+                { no: id },
+                {
+                    onSuccess: (res) => {
+                        if (res?.data?.message === 'success') {
+                            queryClient.invalidateQueries(['boardDetail', id]);
+                        }
+                    },
+                    onError: (err) => {
+                        console.log('err', err);
+                        console.error(err);
+                    },
+                },
+            );
+        }
         navigate(`/boards/detail/${id}`);
     };
 

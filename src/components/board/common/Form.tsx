@@ -2,11 +2,16 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useSta
 import Select, { ActionMeta } from 'react-select';
 import FroalaEditor from '@/components/common/FroalaEditor';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useBoardMutation } from '@/api/board';
 import Loading from '../../common/Loading';
 import { IView } from '@/types/board';
 import { useQueryClient } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
+import authAtom from '@/stores/authAtom';
+import { usePreventLeave } from '@/hooks/usePreventLeave';
+import { preventGoBack } from '@/hooks/useGoBack';
+
 interface IOption {
     readonly value: string;
     readonly label: string;
@@ -31,20 +36,16 @@ interface Config {
     data: any;
 }
 
-/* interface IProps {
-    onChangeInput: (e: ChangeEvent<HTMLInputElement>) => void;
-    inputs: Input;
-    handleModelInput: (content: string) => void;
-    setEditorInput: Dispatch<SetStateAction<string>>;
-}  */
-
 interface IProps {
     readonly isUpdate?: boolean | any;
     readonly view?: IView;
 }
 
 export default function Form({ isUpdate, view }: IProps) {
+    const [auth] = useAtom(authAtom);
+    const id = auth?.user?.id;
     const queryClient = useQueryClient();
+    const { state } = useLocation();
     const { mutate: boardMutate, isLoading } = useBoardMutation(isUpdate);
     const navigate = useNavigate();
 
@@ -102,15 +103,14 @@ export default function Form({ isUpdate, view }: IProps) {
 
         const data = {
             ...inputs,
+            id,
         };
 
         let updateData: IView | any;
         if (isUpdate) {
             const no = view?.no;
-            updateData = { ...data, no };
+            updateData = { ...data, no, id };
         }
-
-        console.log('updateData ::', updateData);
 
         boardMutate(isUpdate ? updateData : data, {
             onSuccess: (res) => {
@@ -143,6 +143,28 @@ export default function Form({ isUpdate, view }: IProps) {
             });
         }
     }, [view]);
+
+    // 브라우저에 렌더링 시 한 번만 실행하는 코드
+    const { pushGoBack, addGoBackPrevent, removeGoBackPrevent } = preventGoBack(state);
+    //새로고침 즉시 실행
+    useEffect(() => {
+        const { enablePrevent, disablePrevent } = usePreventLeave();
+
+        (() => {
+            //브라우저 새로고침 방지
+            enablePrevent();
+            //브라우저 뒤로가기 방지
+            pushGoBack();
+            addGoBackPrevent();
+        })();
+
+        return () => {
+            //브라우저 새로고침 방지
+            disablePrevent();
+            //브라우저 뒤로가기 방지
+            removeGoBackPrevent();
+        };
+    }, []);
 
     return (
         <>
@@ -177,7 +199,7 @@ export default function Form({ isUpdate, view }: IProps) {
 
                 <SubmitBtnBox>
                     <button type="button" onClick={handleSubmit} className="btn_submit">
-                        {isLoading ? <Loading size="sm" /> : isUpdate ? '수정' : '등록'}
+                        {isLoading ? <Loading size="sm" type="board" /> : isUpdate ? '수정' : '등록'}
                     </button>
                 </SubmitBtnBox>
             </form>
@@ -287,7 +309,7 @@ const SubmitBtnBox = styled.div`
     @media screen and (max-width: 768px) {
         .btn_submit {
             width: 100%;
-            height: 40px;
+            height: 50px;
             font-size: 16px;
         }
     }

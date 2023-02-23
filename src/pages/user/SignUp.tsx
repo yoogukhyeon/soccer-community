@@ -5,6 +5,7 @@ import MetaTag from '@/constants/SEOMetaTag';
 import { useForm, Resolver } from 'react-hook-form';
 import UserInput from '@/components/user/common/UserInput';
 import { useNavigate } from 'react-router-dom';
+import { useSignUpMutation } from '@/api/user';
 interface FormValues {
     email: string;
     name: string;
@@ -14,7 +15,7 @@ interface FormValues {
 
 export default function SignUp() {
     const navigate = useNavigate();
-
+    const { mutate: userMutate, isLoading } = useSignUpMutation();
     const goToSignIn = () => {
         navigate('/user/sign-in');
     };
@@ -30,7 +31,23 @@ export default function SignUp() {
     password.current = watch('password');
 
     const onSubmit = (data: FormValues) => {
-        console.log('data ::', data);
+        const newData = {
+            email: data.email,
+            name: data.name,
+            password: data.password,
+        };
+        userMutate(newData, {
+            onSuccess: (res) => {
+                if (res.data.message === 'success') {
+                    alert('회원가입을 완료했습니다.');
+                    navigate('/user/sign-in');
+                }
+            },
+            onError: (err) => {
+                console.log('err', err);
+                console.error(err);
+            },
+        });
     };
 
     return (

@@ -19,9 +19,10 @@ interface CourseList {
 
 interface IProps {
     lists: CourseList[];
+    title: string;
 }
 
-export default function CourseList({ lists }: IProps) {
+export default function CourseList({ lists, title }: IProps) {
     const [searchParams] = useSearchParams();
     const [query, setQuery] = useState<any>(searchParams);
     const [openList, setOpenList] = useState<IVideoList<boolean>>({});
@@ -52,7 +53,7 @@ export default function CourseList({ lists }: IProps) {
     return (
         <CourseListWarp>
             <div className="list_header">
-                <div>Mysql 정규화</div>
+                <div>{title}</div>
             </div>
             <div className="list_info">
                 <div>
@@ -62,7 +63,7 @@ export default function CourseList({ lists }: IProps) {
             </div>
             <div className="list_content_wrap">
                 <article className={`list_content_title ${openList[1] ? 'active' : ''} `} onClick={() => handleList(1)}>
-                    <p>Mysql 정규화</p>
+                    <p>{title} 강의</p>
                     <i>
                         <CgChevronDown />
                     </i>
