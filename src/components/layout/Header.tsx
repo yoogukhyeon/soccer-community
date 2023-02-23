@@ -24,8 +24,8 @@ export default function Header() {
         const cookies = new Cookies();
 
         if (confirm('로그아웃 하시겠습니까?')) {
-            cookies.remove('access_token', { path: '/' });
-            cookies.remove('refresh_token', { path: '/' });
+            cookies.remove('access_token', { path: '/',  domain: `${process.env.REACT_APP_DOMAIN}`, });
+            cookies.remove('refresh_token', { path: '/',  domain: `${process.env.REACT_APP_DOMAIN}`, });
             navigate('/');
         }
     };
