@@ -11,13 +11,13 @@ export default function Header() {
     const [auth] = useAtom(authAtom);
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    
+
     const goToHome = () => {
         navigate('/');
     };
 
     const goToLogin = () => {
-        navigate('/user/sign-in', {state: pathname});
+        navigate('/user/sign-in', { state: pathname });
     };
 
     const goToLogOut = () => {
@@ -35,7 +35,7 @@ export default function Header() {
             <ContainerDiv>
                 <div className="header_left">
                     <div className="logo" onClick={goToHome}>
-                        <img src="/img/logo.svg" alt="LOGO" />
+                        <img src="/img/logo.png" alt="LOGO" />
                     </div>
                     <Nav />
                 </div>
@@ -88,10 +88,15 @@ const HeaderWrap = styled.div`
     }
 
     .logo {
-        width: 45px;
+        width: 50px;
         margin-right: 15px;
         cursor: pointer;
         transition: all 0.8s ease-in-out;
+
+        > img {
+            width: 100%;
+            height: auto;
+        }
     }
 
     .header_right li {

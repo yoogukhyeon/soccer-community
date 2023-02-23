@@ -30,7 +30,7 @@ export default function Home() {
                 </div>
             </CommunityWrap>
             <CourseWrap>
-                <MainTitle>축구 영상</MainTitle>
+                <MainTitle>최신 인기축구 영상</MainTitle>
                 <CourseBox lists={data} status={status} />
             </CourseWrap>
         </MainWrap>

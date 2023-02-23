@@ -77,7 +77,10 @@ function App() {
 
     return (
         <>
-            <MetaTag title="project" description="side-project with react" />
+            <MetaTag
+                title="에프엔에프 - 축구, 최신축구소식, 축구소식"
+                description="축구, 축구소식, 최신축구소식, 피파, 피파온라인, 에펨, 축구커뮤니티"
+            />
             <Wrapper>
                 <Layout>
                     <Routes>

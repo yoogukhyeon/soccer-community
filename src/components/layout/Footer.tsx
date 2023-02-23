@@ -2,20 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { ContainerDiv } from '@/common/style/common';
 import { HeaderAndFooter } from '@/common/style/common';
-
+import { useNavigate } from 'react-router-dom';
 export default function Footer() {
+    const navigate = useNavigate();
+    const goToHome = () => {
+        navigate('/');
+    };
     return (
         <FooterWrap>
             <ContainerDiv>
                 <div className="logo_box">
-                    <span className="logo">
-                        <img src="/img/logo.svg" alt="LOGO" />
+                    <span className="logo" onClick={goToHome}>
+                        <img src="/img/logo.png" alt="LOGO" />
                     </span>
                 </div>
                 <div className="info_box">
                     <ul>
-                        <li>React Project</li>
-                        <li>Make Something You Can</li>
+                        <li>© 2023 F&FK LTD All Rights Reserved.</li>
+                        <li>F&FK 운영자: rnrgus5897@gmail.com</li>
                     </ul>
                 </div>
             </ContainerDiv>
@@ -33,20 +37,26 @@ const FooterWrap = styled.div`
 
     .logo {
         display: inline-block;
-        width: 45px;
+        width: 50px;
         cursor: pointer;
         transition: all 0.8s ease-in-out;
+
+        > img {
+            width: 100%;
+            height: auto;
+        }
     }
 
     .info_box {
-        margin: 10px 0;
+        margin: 15px 0;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
     }
 
     .info_box li {
-        line-height: 21px;
+        letter-spacing: 0.5px;
+        line-height: 26px;
     }
 
     ${HeaderAndFooter}
