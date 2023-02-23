@@ -36,14 +36,14 @@ export default function SignIn() {
                     const refreshToken = res.data.data.refreshToken;
 
                     cookies.set('access_token', accessToken, {
-                        secure: true,
+                        /*      secure: true, */
                         maxAge: 1000 * 60 * 60 * 24 * 7,
                         path: '/',
                         domain: `${process.env.REACT_APP_DOMAIN}`,
                     });
 
                     cookies.set('refresh_token', refreshToken, {
-                        secure: true,
+                        /*       secure: true, */
                         maxAge: 1000 * 60 * 60 * 24 * 7,
                         path: '/',
                         domain: `${process.env.REACT_APP_DOMAIN}`,
