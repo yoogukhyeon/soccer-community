@@ -22,7 +22,6 @@ import PrivateRouter from './pages/privateRouter';
 
 const Wrapper = styled.div`
     width: 100%;
-
     ${({ theme }) => theme.media.desktop`
         
     `}
