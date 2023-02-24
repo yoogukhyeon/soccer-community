@@ -2,11 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 import { FormEvent, SetStateAction, useState, Dispatch } from 'react';
+import { useCommentMutation, useReplyMutation } from '@/api/comment';
+import { ICommentData } from '@/types/comment';
+import { useQueryClient } from '@tanstack/react-query';
 interface IProps {
     comment?: string;
-    setComment?: any;
+    setComment?: Dispatch<SetStateAction<boolean>> | any;
+    commentUpdate?: string;
+    setCommentUpdate?: Dispatch<SetStateAction<boolean>> | any;
     reply?: string;
-    setReply?: any;
+    setReply?: Dispatch<SetStateAction<boolean>> | any;
     isUpdate: boolean;
     isReply: boolean;
     setToggle?: Dispatch<SetStateAction<boolean>> | any;
@@ -15,11 +20,16 @@ interface IProps {
     setCancelled?: any;
     setIsUpdateForm?: any;
     isUpdateForm?: Dispatch<SetStateAction<boolean>> | any;
+    boardNo?: number;
+    commentNo?: number;
+    id?: number | any;
 }
 
 export default function CommentForm({
     focus,
     setReply,
+    setCommentUpdate,
+    commentUpdate,
     reply,
     setComment,
     comment,
@@ -30,22 +40,96 @@ export default function CommentForm({
     setCancelled,
     setIsUpdateForm,
     isUpdateForm,
+    boardNo,
+    commentNo,
+    id,
 }: IProps) {
+    console.log('isUpdateForm ::', isUpdateForm);
+    console.log('isReply ::', isReply);
+    const { mutate: commentMutate, isLoading: isCommentLoading } = useCommentMutation(isUpdate);
+    const { mutate: replyMutate, isLoading: isReplyLoading } = useReplyMutation(isUpdate);
+    const queryClient = useQueryClient();
     const submitComment = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        alert('apply');
+
+        let data: ICommentData | any = {};
+
+        // 업데이트시
+        if (isUpdate) {
+            data = {
+                comment: commentUpdate,
+                no: commentNo,
+                id,
+            };
+        }
+
+        //업데이트 아닐경우
+        if (!isUpdate) {
+            data = {
+                comment,
+                boardNo,
+                id,
+            };
+        }
+
+        //답글 등록시
+        if (isReply) {
+            data = {
+                comment: reply,
+                commentNo,
+                id,
+            };
+        }
+
+        //댓글 로직
+        if (!isReply) {
+            commentMutate(data, {
+                onSuccess: (res) => {
+                    if (res.data.message === 'success') {
+                        alert('댓글 작성을 완료했습니다.');
+                        queryClient.invalidateQueries(['commentList', boardNo]);
+                        isUpdate ? setCommentUpdate('') : setComment('');
+                    }
+                },
+                onError: (err) => {
+                    console.log('err', err);
+                    console.error(err);
+                },
+            });
+        } else {
+            //대댓글 로직
+            replyMutate(data, {
+                onSuccess: (res) => {
+                    if (res.data.message === 'success') {
+                        alert('댓글 작성을 완료했습니다.');
+                        /*   queryClient.invalidateQueries(['replyMutate', boardNo]); */
+                        setReply('');
+                    }
+                },
+                onError: (err) => {
+                    console.log('err', err);
+                    console.error(err);
+                },
+            });
+        }
     };
 
     return (
         <CommentWrap onSubmit={submitComment}>
             <ReactTextareaAutosize
-                value={isReply ? reply : comment}
+                value={isReply ? reply : isUpdateForm ? commentUpdate : comment}
                 placeholder={`${
                     !isReply
                         ? `댓글을 ${!isUpdate ? '작성' : '수정'} 해주세요. (5자 이상)`
                         : `답글을 ${!isUpdate ? '작성' : '수정'} 해주세요. (5자 이상)`
                 }`}
-                onChange={(e) => (isReply ? setReply(e.target.value) : setComment(e.target.value))}
+                onChange={(e) =>
+                    isReply
+                        ? setReply(e.target.value)
+                        : isUpdateForm
+                        ? setCommentUpdate(e.target.value)
+                        : setComment(e.target.value)
+                }
                 maxRows={5}
                 minLength={5}
                 maxLength={1000}

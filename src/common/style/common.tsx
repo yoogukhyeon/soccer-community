@@ -38,7 +38,7 @@ export const WordBreak = css`
     text-overflow: ellipsis;
 `;
 
-export const CommentList = css`
+export const CommentAndReplyList = css`
     dt {
         font-size: 18px;
         line-height: 24px;
