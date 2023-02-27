@@ -34,6 +34,7 @@ interface IProps {
     double: number | null;
     setIsUpdateForm: Dispatch<SetStateAction<boolean>>;
     isUpdateForm: boolean;
+    boardNo: number;
 }
 
 export default function CommentList({
@@ -55,6 +56,7 @@ export default function CommentList({
     double,
     setIsUpdateForm,
     isUpdateForm,
+    boardNo,
 }: IProps | any) {
     const [auth] = useAtom(authAtom);
 
@@ -187,7 +189,8 @@ export default function CommentList({
                     focus={inputRef}
                     cancelled={cancelled}
                     setCancelled={setCancelled}
-                    boardNo={lists.no}
+                    boardNo={boardNo}
+                    commentNo={lists.no}
                     id={auth.user?.id}
                 />
             )}

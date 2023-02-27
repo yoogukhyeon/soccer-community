@@ -61,6 +61,7 @@ export default function CommentBox({ id, boardNo, data }: IProps | any) {
                         data.map((data: any) => (
                             <CommentList
                                 key={data.no}
+                                boardNo={boardNo}
                                 lists={data}
                                 comment={comment}
                                 setComment={setComment}

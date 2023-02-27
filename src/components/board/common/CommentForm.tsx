@@ -57,7 +57,7 @@ export default function CommentForm({
         // 업데이트시
         if (isUpdate) {
             data = {
-                comment: commentUpdate,
+                content: commentUpdate,
                 no: commentNo,
                 id,
             };
@@ -66,7 +66,7 @@ export default function CommentForm({
         //업데이트 아닐경우
         if (!isUpdate) {
             data = {
-                comment,
+                content: comment,
                 boardNo,
                 id,
             };
@@ -75,11 +75,14 @@ export default function CommentForm({
         //답글 등록시
         if (isReply) {
             data = {
-                comment: reply,
+                content: reply,
+                boardNo,
                 commentNo,
                 id,
             };
         }
+
+        console.log('data ::::::::', data);
 
         //댓글 로직
         if (!isReply) {
@@ -88,7 +91,13 @@ export default function CommentForm({
                     if (res.data.message === 'success') {
                         alert('댓글 작성을 완료했습니다.');
                         queryClient.invalidateQueries(['commentList', boardNo]);
-                        isUpdate ? setCommentUpdate('') : setComment('');
+                        if (isUpdate) {
+                            setCommentUpdate('');
+                            setIsUpdateForm(false);
+                        } else {
+                            setComment('');
+                            setToggle(false);
+                        }
                     }
                 },
                 onError: (err) => {
@@ -101,7 +110,7 @@ export default function CommentForm({
             replyMutate(data, {
                 onSuccess: (res) => {
                     if (res.data.message === 'success') {
-                        alert('댓글 작성을 완료했습니다.');
+                        alert('답글 작성을 완료했습니다.');
                         /*   queryClient.invalidateQueries(['replyMutate', boardNo]); */
                         setReply('');
                     }
@@ -136,7 +145,7 @@ export default function CommentForm({
             />
             <CommentBtn>
                 <span className="comment_length">
-                    <em>{isReply ? reply?.length : comment?.length}</em> / 1000
+                    <em>{isReply ? reply?.length : isUpdateForm ? commentUpdate?.length : comment?.length}</em> / 1000
                 </span>
                 <div className="btn_wrap">
                     <button type="submit">{!isUpdate ? '등록' : '수정'}</button>

@@ -28,11 +28,11 @@ export const useCommentMutation = (isUpdate: boolean) => {
 };
 
 const postReply = (data: any) => {
-    return api.post({ url: '/api/comments', data });
+    return api.post({ url: 'http://localhost:8001/comments/reply', data });
 };
 
 const putReply = (data: any) => {
-    return api.put({ url: `/api/comments`, data });
+    return api.put({ url: `/api/comments/reply`, data });
 };
 
 export const useReplyMutation = (isUpdate: boolean) => {
