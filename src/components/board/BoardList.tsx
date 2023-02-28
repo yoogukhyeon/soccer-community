@@ -13,6 +13,7 @@ interface List {
     readonly like: number;
     readonly title: string;
     readonly view: number;
+    readonly commentCnt: number;
 }
 
 interface IProps {
@@ -69,7 +70,7 @@ export default function BoardList({ lists, status }: IProps) {
                                 <span>{list.regDate}</span>
                             </div>
                             <div className="counter_box">
-                                <span>댓글 0</span>
+                                <span>댓글 {list.commentCnt}</span>
                                 <i className="option_dot" />
                                 <span>좋아요 {list.like}</span>
                                 <i className="option_dot" />

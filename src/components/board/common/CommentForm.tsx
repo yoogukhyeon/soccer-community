@@ -23,6 +23,7 @@ interface IProps {
     boardNo?: number;
     commentNo?: number;
     id?: number | any;
+    replyNo?: number | any;
 }
 
 export default function CommentForm({
@@ -43,9 +44,8 @@ export default function CommentForm({
     boardNo,
     commentNo,
     id,
+    replyNo,
 }: IProps) {
-    console.log('isUpdateForm ::', isUpdateForm);
-    console.log('isReply ::', isReply);
     const { mutate: commentMutate, isLoading: isCommentLoading } = useCommentMutation(isUpdate);
     const { mutate: replyMutate, isLoading: isReplyLoading } = useReplyMutation(isUpdate);
     const queryClient = useQueryClient();
@@ -82,7 +82,13 @@ export default function CommentForm({
             };
         }
 
-        console.log('data ::::::::', data);
+        if (isReply && isUpdate) {
+            data = {
+                content: reply,
+                no: replyNo,
+                id,
+            };
+        }
 
         //댓글 로직
         if (!isReply) {
@@ -96,7 +102,6 @@ export default function CommentForm({
                             setIsUpdateForm(false);
                         } else {
                             setComment('');
-                            setToggle(false);
                         }
                     }
                 },
@@ -111,8 +116,13 @@ export default function CommentForm({
                 onSuccess: (res) => {
                     if (res.data.message === 'success') {
                         alert('답글 작성을 완료했습니다.');
-                        /*   queryClient.invalidateQueries(['replyMutate', boardNo]); */
+                        queryClient.invalidateQueries(['replyList', boardNo]);
                         setReply('');
+                        if (isUpdate) {
+                            setIsUpdateForm(false);
+                        } else {
+                            setToggle(false);
+                        }
                     }
                 },
                 onError: (err) => {

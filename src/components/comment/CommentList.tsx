@@ -15,6 +15,16 @@ interface Lists {
     likes: number;
 }
 
+interface ReplyList {
+    no: number;
+    id: number;
+    boardNo: number;
+    parentNo: number;
+    content: string;
+    regDate: string;
+    likes: number;
+    name: string;
+}
 interface IProps {
     comment?: string;
     setComment?: Dispatch<SetStateAction<any>>;
@@ -35,6 +45,7 @@ interface IProps {
     setIsUpdateForm: Dispatch<SetStateAction<boolean>>;
     isUpdateForm: boolean;
     boardNo: number;
+    replyList: ReplyList[];
 }
 
 export default function CommentList({
@@ -43,6 +54,7 @@ export default function CommentList({
     setCommentUpdate,
     commentUpdate,
     lists,
+    replyList,
     reply,
     setReply,
     replyToggle,
@@ -84,71 +96,6 @@ export default function CommentList({
         setSelectedCommentIndex(no);
         setCommentUpdate(content);
     };
-
-    const test: any[] = [
-        {
-            no: 1,
-            userId: 6,
-            name: 'pud',
-            regDate: '2023-02-14',
-            content: '욜로 11111',
-        },
-        {
-            no: 2,
-            userId: 5,
-            name: 'pud',
-            regDate: '2023-02-14',
-            content: '욜로 2222',
-        },
-        {
-            no: 3,
-            userId: 5,
-            name: 'pud',
-            regDate: '2023-02-14',
-            content: '욜로 33333',
-        },
-        {
-            no: 4,
-            userId: 5,
-            name: 'pud',
-            regDate: '2023-02-14',
-            content: '욜로 44444',
-        },
-        {
-            no: 5,
-            userId: 4,
-            name: 'pud',
-            regDate: '2023-02-14',
-            content: '욜로 55555',
-        },
-    ];
-
-    const test2: any[] = [
-        {
-            no: 1,
-            parentNo: 1,
-            userId: 6,
-            name: '아구몬',
-            regDate: '2023-02-14',
-            content: '대댓글 입니다 아구몬!!!',
-        },
-        {
-            no: 2,
-            parentNo: 2,
-            userId: 6,
-            name: '아구몬',
-            regDate: '2023-02-14',
-            content: '대댓글 입니다 이상해씨!!!',
-        },
-        {
-            no: 3,
-            parentNo: 5,
-            userId: 3,
-            name: '아구몬',
-            regDate: '2023-02-14',
-            content: '대댓글 입니다 이상해씨!!!',
-        },
-    ];
 
     //comment 수정
     const [isReplyUpdateForm, setIsReplyUpdateForm] = useState<boolean>(false);
@@ -211,9 +158,9 @@ export default function CommentList({
                 />
             )}
             <ReplyListBox>
-                {test2
-                    .filter((no) => no.parentNo === lists.no)
-                    .map((child) => (
+                {replyList
+                    .filter((data: any) => data.parentNo === lists.no)
+                    .map((child: any) => (
                         <div className="reply_wrap" key={child.no}>
                             <dt>
                                 <b>
@@ -224,7 +171,7 @@ export default function CommentList({
                             <dd>
                                 <em>신고</em>
 
-                                {!!auth?.accessToken && auth.user?.id === child.userId && (
+                                {!!auth?.accessToken && auth.user?.id === child.id && (
                                     <>
                                         <em onClick={() => replyUpdateForm(child.no, child.content)}>수정</em>
                                         <em>삭제</em>
@@ -243,7 +190,7 @@ export default function CommentList({
                                     setCancelled={setCancelled}
                                     setIsUpdateForm={setIsReplyUpdateForm}
                                     isUpdateForm={isReplyUpdateForm}
-                                    commentNo={child.no}
+                                    replyNo={child.no}
                                     id={child.id}
                                 />
                             )}

@@ -9,13 +9,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useAtom } from 'jotai';
 import authAtom from '@/stores/authAtom';
 import CommentBox from '@/components/comment/CommentBox';
-import { useCommentQuery } from '@/api/comment';
+import { useCommentQuery, useReplyQuery } from '@/api/comment';
 
 export default function index() {
     const [auth] = useAtom(authAtom);
     const { id } = useParams();
     const { data, status, refetch } = useBoardDetailQuery(Number(id));
     const { data: comment, refetch: commentRefetch } = useCommentQuery(Number(id));
+    const { data: reply, refetch: replyRefetch } = useReplyQuery(Number(id));
     const navigate = useNavigate();
     const goToBack = () => navigate('/boards');
 
@@ -34,9 +35,14 @@ export default function index() {
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
             {data && <BoardView view={data} auth={auth} />}
-            {data && comment && (
+            {data && comment && reply && (
                 <CommentWrap>
-                    <CommentBox id={auth?.user?.id} boardNo={Number(id)} data={comment.commentList} />
+                    <CommentBox
+                        id={auth?.user?.id}
+                        boardNo={Number(id)}
+                        replyList={reply.replyList}
+                        data={comment.commentList}
+                    />
                 </CommentWrap>
             )}
         </>

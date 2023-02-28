@@ -16,14 +16,26 @@ interface Data {
     likes: number;
 }
 
+interface ReplyList {
+    no: number;
+    id: number;
+    boardNo: number;
+    parentNo: number;
+    content: string;
+    regDate: string;
+    likes: number;
+    name: string;
+}
+
 interface IProps {
     no: number;
     data: Data[];
     boardNo: number;
     id: number;
+    replyList: ReplyList[];
 }
 
-export default function CommentBox({ id, boardNo, data }: IProps | any) {
+export default function CommentBox({ id, boardNo, data, replyList }: IProps | any) {
     //댓글
     const [comment, setComment] = useState<string>('');
     //댓글 업데이트
@@ -63,6 +75,7 @@ export default function CommentBox({ id, boardNo, data }: IProps | any) {
                                 key={data.no}
                                 boardNo={boardNo}
                                 lists={data}
+                                replyList={replyList}
                                 comment={comment}
                                 setComment={setComment}
                                 reply={reply}
