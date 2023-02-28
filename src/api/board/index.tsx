@@ -11,7 +11,10 @@ const getList = (category: string | any, startNum: string | any, endNum: string 
 };
 
 export const useBoardQuery = (category: string | any, startNum: string | any, endNum: string | any) => {
-    return useQuery(['boardList'], () => getList(category, startNum, endNum), { select: (data) => data?.data?.data });
+    return useQuery(['boardList'], () => getList(category, startNum, endNum), {
+        select: (data) => data?.data?.data,
+        keepPreviousData: true,
+    });
 };
 
 //프리페치

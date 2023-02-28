@@ -5,7 +5,7 @@ import MetaTag from '@/constants/SEOMetaTag';
 import { useForm, Resolver } from 'react-hook-form';
 import UserInput from '@/components/user/common/UserInput';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useSignInMutation } from '@/api/user';
+import { useHistoryMutation, useSignInMutation } from '@/api/user';
 import Cookies from 'universal-cookie';
 
 interface FormValues {
@@ -18,6 +18,7 @@ export default function SignIn() {
     const { state } = useLocation();
     const [errorMsg, setErrorMsg] = useState<any>('');
     const { mutate: userMutate, isLoading } = useSignInMutation();
+    const { mutate: userHistoryMutate } = useHistoryMutation();
     const goToSignUp = () => {
         navigate('/user/sign-up');
     };
@@ -34,6 +35,7 @@ export default function SignIn() {
                     const cookies = new Cookies();
                     const accessToken = res.data.data.accessToken;
                     const refreshToken = res.data.data.refreshToken;
+                    const id = res.data.data.id;
 
                     cookies.set('access_token', accessToken, {
                         /*      secure: true, */
@@ -48,6 +50,13 @@ export default function SignIn() {
                         path: '/',
                         domain: `${process.env.REACT_APP_DOMAIN}`,
                     });
+
+                    const history = {
+                        id,
+                        token: refreshToken,
+                    };
+                    // 사용자 히스토리 내역 저장
+                    userHistoryMutate(history);
 
                     if (state) {
                         navigate(state);
