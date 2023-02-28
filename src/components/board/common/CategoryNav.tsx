@@ -18,6 +18,9 @@ export default function CategoryNav({ category }: IProps) {
             <li className={category === 'free' ? 'active' : ''}>
                 <Link to="/boards/free">자유</Link>
             </li>
+            <li className={category === 'fun' ? 'active' : ''}>
+                <Link to="/boards/fun">유머</Link>
+            </li>
             <li className={category === 'sports' ? 'active' : ''}>
                 <Link to="/boards/sports">스포츠</Link>
             </li>
@@ -30,7 +33,7 @@ const CategoryWrap = styled.ul`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
 
     li {
         position: relative;

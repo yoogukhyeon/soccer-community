@@ -8,6 +8,7 @@ import { useAtom } from 'jotai';
 import { useCommentDeleteMutation, useReplyDeleteMutation } from '@/api/comment';
 import { IDeleteData } from '@/types/comment';
 import { useQueryClient } from '@tanstack/react-query';
+import { useConfirm } from '@/hooks/useConfirm';
 interface Lists {
     no: number;
     id: number;
@@ -120,30 +121,34 @@ export default function CommentList({
         };
 
         if (type === 'comment') {
-            commentDeleteMutate(data, {
-                onSuccess: (res) => {
-                    if (res.data.message === 'success') {
-                        alert('댓글을 삭제했습니다.');
-                        queryClient.invalidateQueries(['commentList', boardNo]);
-                    }
-                },
-                onError: (err) => {
-                    console.log('err', err);
-                    console.error(err);
-                },
+            useConfirm('댓글을 삭제하시겠습니까?', () => {
+                commentDeleteMutate(data, {
+                    onSuccess: (res) => {
+                        if (res.data.message === 'success') {
+                            alert('댓글을 삭제했습니다.');
+                            queryClient.invalidateQueries(['commentList', boardNo]);
+                        }
+                    },
+                    onError: (err) => {
+                        console.log('err', err);
+                        console.error(err);
+                    },
+                });
             });
         } else {
-            replyDeleteMutate(data, {
-                onSuccess: (res) => {
-                    if (res.data.message === 'success') {
-                        alert('답글을 삭제했습니다.');
-                        queryClient.invalidateQueries(['replyList', boardNo]);
-                    }
-                },
-                onError: (err) => {
-                    console.log('err', err);
-                    console.error(err);
-                },
+            useConfirm('답글을 삭제하시겠습니까?', () => {
+                replyDeleteMutate(data, {
+                    onSuccess: (res) => {
+                        if (res.data.message === 'success') {
+                            alert('답글을 삭제했습니다.');
+                            queryClient.invalidateQueries(['replyList', boardNo]);
+                        }
+                    },
+                    onError: (err) => {
+                        console.log('err', err);
+                        console.error(err);
+                    },
+                });
             });
         }
     };

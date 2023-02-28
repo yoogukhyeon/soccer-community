@@ -20,6 +20,13 @@ interface IOption {
 const option: IOption[] = [
     { value: 'notice', label: '공지' },
     { value: 'free', label: '자유' },
+    { value: 'fun', label: '유머' },
+    { value: 'sports', label: '스포츠' },
+];
+
+const subOption: IOption[] = [
+    { value: 'free', label: '자유' },
+    { value: 'fun', label: '유머' },
     { value: 'sports', label: '스포츠' },
 ];
 
@@ -175,7 +182,7 @@ export default function Form({ isUpdate, view }: IProps) {
                             isClearable={true}
                             isSearchable={false}
                             placeholder="선택"
-                            options={option}
+                            options={auth?.user?.manage === 'Y' ? option : subOption}
                             value={selected}
                             onChange={onChangeSelect}
                             autoFocus

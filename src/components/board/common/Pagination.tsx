@@ -62,23 +62,21 @@ export default function Pagination({ total, pageTotal, category, page, start, en
 
     return (
         <PaginationWrap>
-            {total && (
-                <div className="pagination">
-                    <i className={prev ? 'active' : ''} onClick={() => goToPrevAndNext(true)}>
-                        <CgChevronLeft />
-                    </i>
-                    <ul>
-                        {totalPageList?.map((num) => (
-                            <li key={num} className={page === num ? 'active' : ''} onClick={() => goToPage(num)}>
-                                {num}
-                            </li>
-                        ))}
-                    </ul>
-                    <i className={next ? 'active' : ''} onClick={() => goToPrevAndNext(false)}>
-                        <CgChevronRight />
-                    </i>
-                </div>
-            )}
+            <div className="pagination">
+                <i className={prev ? 'active' : ''} onClick={() => goToPrevAndNext(true)}>
+                    <CgChevronLeft />
+                </i>
+                <ul>
+                    {totalPageList?.map((num) => (
+                        <li key={num} className={page === num ? 'active' : ''} onClick={() => goToPage(num)}>
+                            {num}
+                        </li>
+                    ))}
+                </ul>
+                <i className={next ? 'active' : ''} onClick={() => goToPrevAndNext(false)}>
+                    <CgChevronRight />
+                </i>
+            </div>
         </PaginationWrap>
     );
 }
