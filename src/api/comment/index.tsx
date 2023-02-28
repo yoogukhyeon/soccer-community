@@ -1,4 +1,4 @@
-import { ICommentData, IReplyData } from '@/types/comment';
+import { ICommentData, IDeleteData, IReplyData } from '@/types/comment';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { api } from '..';
@@ -28,6 +28,16 @@ export const useCommentMutation = (isUpdate: boolean) => {
     });
 };
 
+const deleteComment = (data: number) => {
+    return api.delete({ url: `/api/comments`, data });
+};
+
+export const useCommentDeleteMutation = () => {
+    return useMutation<AxiosResponse, AxiosError, any>((data): any => {
+        return deleteComment(data);
+    });
+};
+
 const getReplyList = (no: number) => {
     return api.get({ url: `/api/comments/reply/${no}` });
 };
@@ -49,5 +59,15 @@ const putReply = (data: IReplyData) => {
 export const useReplyMutation = (isUpdate: boolean) => {
     return useMutation<AxiosResponse, AxiosError, IReplyData>((data): any => {
         return isUpdate ? putReply(data) : postReply(data);
+    });
+};
+
+const deleteReply = (data: number) => {
+    return api.delete({ url: `/api/comments/reply`, data });
+};
+
+export const useReplyDeleteMutation = () => {
+    return useMutation<AxiosResponse, AxiosError, any>((data): any => {
+        return deleteReply(data);
     });
 };

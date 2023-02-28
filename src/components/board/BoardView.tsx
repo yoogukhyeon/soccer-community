@@ -93,7 +93,7 @@ export default function BoardView({ view, auth }: IProps) {
                 <div className="view_info">
                     <b>PUD &nbsp;&middot; &nbsp; 2022-12-28 15:57</b>
                     <span className="count_box">
-                        댓글 <b>0 &middot; </b>
+                        댓글 <b>{view.commentCnt} &middot; </b>
                         좋아요 <b>{view.like} &middot; </b>
                         조회수 <b>{view.view}</b>
                     </span>

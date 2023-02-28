@@ -17,6 +17,7 @@ export interface IView {
     readonly like: number;
     readonly view: number;
     readonly regDate: string;
+    readonly commentCnt: number;
 }
 
 export interface ILikeCount {
