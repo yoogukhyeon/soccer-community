@@ -26,32 +26,47 @@ export default function CourseBox({ lists, status }: IProps) {
         <>
             {status === 'loading' && <Loading size="sm" />}
             {status === 'error' && <div>Server Error...</div>}
+            {lists?.length < 1 && <CourseMsg>영상이 없습니다.</CourseMsg>}
             <CourseBoxWrap>
-                {lists?.map((val: Data) => (
-                    <li key={val.no} onClick={() => goToCourse(val.channelTitle, val.videoId)}>
-                        <div className="course_img">
-                            <span>
-                                <LazyLoadImage src={val.thumb} alt="course thumb" />
-                            </span>
-                        </div>
-                        <div className="course_info">
-                            <div>
-                                <span className="course_info_type">{val.channelTitle}</span>
-                                <p className="course_info_title">{val.title}</p>
-                            </div>
-                            <span className="course_info_date">{val.regDate}</span>
-                        </div>
-                    </li>
-                ))}
+                {lists?.length > 0 && (
+                    <>
+                        {lists?.map((val: Data) => (
+                            <li key={val.no} onClick={() => goToCourse(val.channelTitle, val.videoId)}>
+                                <div className="course_img">
+                                    <span>
+                                        <LazyLoadImage src={val.thumb} alt="course thumb" />
+                                    </span>
+                                </div>
+                                <div className="course_info">
+                                    <div>
+                                        <span className="course_info_type">{val.channelTitle}</span>
+                                        <p className="course_info_title">{val.title}</p>
+                                    </div>
+                                    <span className="course_info_date">{val.regDate}</span>
+                                </div>
+                            </li>
+                        ))}
+                    </>
+                )}
             </CourseBoxWrap>
         </>
     );
 }
 
+const CourseMsg = styled.div`
+    width: 100%;
+    padding: 20px 0;
+    border-bottom: 1px solid #d3d3e4;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 30px;
+`;
+
 const CourseBoxWrap = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 15px;
+
     > li::after {
         position: absolute;
         top: 0;

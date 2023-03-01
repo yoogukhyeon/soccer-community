@@ -111,7 +111,9 @@ function App() {
                         <Route path="/course" element={<Course />}>
                             <Route path=":vod" element={<Course />} />
                         </Route>
-                        <Route path="/football-news" element={<FootballNews />} />
+                        <Route path="/football-news" element={<FootballNews />}>
+                            <Route path=":category" element={<FootballNews />} />
+                        </Route>
                         <Route path="/user">
                             <Route path="sign-in" element={<SignIn />} />
                             <Route path="sign-up" element={<SignUp />} />

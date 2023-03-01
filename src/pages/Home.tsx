@@ -26,7 +26,15 @@ export default function Home() {
             <CommunityWrap>
                 <MainTitle>커뮤니티</MainTitle>
                 <div className="community_box">
-                    <Community />
+                    <Community title="최근글" />
+                    <Community title="최근·댓글" />
+                </div>
+            </CommunityWrap>
+            <CommunityWrap>
+                <MainTitle>축구 소식</MainTitle>
+                <div className="community_box">
+                    <Community title="해외·축구" />
+                    <Community title="국내·축구" />
                 </div>
             </CommunityWrap>
             <CourseWrap>
@@ -45,4 +53,19 @@ const CourseWrap = styled.div`
     margin-top: 30px;
 `;
 
-const CommunityWrap = styled.div``;
+const CommunityWrap = styled.div`
+    margin-top: 30px;
+
+    .community_box {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .community_box {
+            flex-direction: column;
+        }
+    }
+`;
