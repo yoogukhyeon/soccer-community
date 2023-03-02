@@ -1,26 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+interface Lists {
+    no: number;
+    categoryName: string;
+}
 interface IProps {
     readonly category: string;
+    readonly lists: Lists[];
 }
 
-export default function CategoryNav({ category }: IProps) {
+export default function CategoryNav({ category, lists }: IProps) {
     return (
         <CategoryWrap>
             <li className={category === '' ? 'active' : ''}>
                 <Link to="/football-news">전체 메뉴</Link>
             </li>
-            <li className={category === 'k-news' ? 'active' : ''}>
-                <Link to="/football-news/k-news">해외축구</Link>
-            </li>
-            <li className={category === 'w-news' ? 'active' : ''}>
-                <Link to="/football-news/w-news">국내축구</Link>
-            </li>
-            <li className={category === 'latest-news' ? 'active' : ''}>
-                <Link to="/football-news/latest-news">최신소식</Link>
-            </li>
+            {lists?.length > 0 &&
+                lists.map((val) => (
+                    <li key={val.no} className={category === String(val.no) ? 'active' : ''}>
+                        <Link to={`/football-news/${String(val.no)}`}>{val.categoryName}</Link>
+                    </li>
+                ))}
         </CategoryWrap>
     );
 }

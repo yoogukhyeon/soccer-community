@@ -60,7 +60,7 @@ const CommunityWrap = styled.div`
         display: flex;
         justify-content: space-around;
         align-items: center;
-        gap: 20px;
+        gap: 25px;
     }
 
     @media screen and (max-width: 768px) {

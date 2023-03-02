@@ -2,6 +2,7 @@ import CategoryNav from './common/CategoryNav';
 import { Button } from '../common/Button';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { useCategoryQuery } from '@/api/news';
 
 interface IProps {
     category: string;
@@ -9,14 +10,17 @@ interface IProps {
 
 export default function BoardNav({ category }: IProps) {
     const navigate = useNavigate();
-
+    const { pathname } = useLocation();
     const goToWrite = () => {
-        // navigate('/boards/create', { state: url });
+        navigate('/football-news/create', { state: pathname });
     };
+
+    const { data } = useCategoryQuery();
+
     return (
         <>
             <Wrap>
-                <CategoryNav category={category} />
+                <CategoryNav category={category} lists={data?.categoryList} />
                 <BtnWrap>
                     <Button onClick={goToWrite} text="글 작성하기" />
                 </BtnWrap>

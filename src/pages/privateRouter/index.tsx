@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAtom } from 'jotai';
-import authAtom from '@/stores/authAtom';
-
+import Cookies from 'universal-cookie';
 interface IProps {
     children: React.ReactNode | any;
 }
 
 export default function PrivateRouter({ children }: IProps) {
-    const [auth] = useAtom(authAtom);
+    const cookies = new Cookies();
+    const accessToken = cookies.get('access_token');
 
     useEffect(() => {
-        if (!auth?.accessToken) alert('로그인을 해주세요.');
-    }, []);
-    return auth?.accessToken ? children : <Navigate to="/" />;
+        if (!accessToken) alert('로그인을 해주세요.');
+    }, [accessToken]);
+    return accessToken ? children : <Navigate to="/" />;
 }

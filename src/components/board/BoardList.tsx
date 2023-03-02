@@ -14,14 +14,17 @@ interface List {
     readonly title: string;
     readonly view: number;
     readonly commentCnt: number;
+    readonly recommend?: number;
+    readonly categoryName?: string;
 }
 
 interface IProps {
     lists: List[];
     status: string;
+    type?: string;
 }
 
-export default function BoardList({ lists, status }: IProps) {
+export default function BoardList({ lists, status, type }: IProps) {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutate: viewMutate } = useBoardViewMutation();
@@ -31,22 +34,27 @@ export default function BoardList({ lists, status }: IProps) {
         const hitViews = storage('views', id);
 
         if (hitViews) {
-            viewMutate(
-                { no: id },
-                {
-                    onSuccess: (res) => {
-                        if (res?.data?.message === 'success') {
-                            queryClient.invalidateQueries(['boardDetail', id]);
-                        }
+            if (type === 'news') {
+                console.log('news:::::::::::::::::::::::::');
+            } else {
+                viewMutate(
+                    { no: id },
+                    {
+                        onSuccess: (res) => {
+                            if (res?.data?.message === 'success') {
+                                queryClient.invalidateQueries(['boardDetail', id]);
+                            }
+                        },
+                        onError: (err) => {
+                            console.log('err', err);
+                            console.error(err);
+                        },
                     },
-                    onError: (err) => {
-                        console.log('err', err);
-                        console.error(err);
-                    },
-                },
-            );
+                );
+            }
         }
-        navigate(`/boards/detail/${id}`);
+        const url = type === 'news' ? `/football-news/detail/${id}` : `/boards/detail/${id}`;
+        navigate(url);
     };
 
     return (
@@ -61,7 +69,7 @@ export default function BoardList({ lists, status }: IProps) {
             {lists &&
                 lists?.map((list) => (
                     <List key={list.no} onClick={() => goToDetail(list.no)}>
-                        <em>{list.category}</em>
+                        <em> {type === 'news' ? list.categoryName : list.category}</em>
                         <p>{list.title}</p>
                         <div className="option_box">
                             <div>
@@ -75,6 +83,13 @@ export default function BoardList({ lists, status }: IProps) {
                                 <span>좋아요 {list.like}</span>
                                 <i className="option_dot" />
                                 <span>조회수 {list.view}</span>
+                                {type === 'news' && (
+                                    <>
+                                        <i className="option_dot" />
+                                        <span>추천수 {list.recommend}</span>
+                                    </>
+                                )}
+
                                 <i className="option_dot" />
                                 <span>등록날짜 {list.regDate}</span>
                             </div>
