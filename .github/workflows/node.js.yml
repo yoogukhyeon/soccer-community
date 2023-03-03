@@ -11,7 +11,7 @@ jobs:
   build:
 
     runs-on: 
-      group: ubuntu-runners
+      group: self-hosted
 
     strategy:
       matrix:
