@@ -20,6 +20,8 @@ import { getUser } from './api/user';
 import FootballNews from './pages/footballNews';
 import PrivateRouter from './pages/privateRouter';
 import NewsCreate from '@/pages/footballNews/Create';
+import FootballNewsDetail from '@/pages/footballNews/detail';
+import FootballNewsUpdate from '@/pages/footballNews/detail/Update';
 const Wrapper = styled.div`
     width: 100%;
 
@@ -122,17 +124,17 @@ function App() {
                                 </PrivateRouter>
                             }
                         />
-                        {/*            <Route path="/football-news/detail">
-                            <Route path=":id" element={<BoardDetail />} />
+                        <Route path="/football-news/detail">
+                            <Route path=":id" element={<FootballNewsDetail />} />
                             <Route
                                 path=":id/update"
                                 element={
                                     <PrivateRouter>
-                                        <BoardUpdate />
+                                        <FootballNewsUpdate />
                                     </PrivateRouter>
                                 }
                             />
-                        </Route> */}
+                        </Route>
                         <Route path="/user">
                             <Route path="sign-in" element={<SignIn />} />
                             <Route path="sign-up" element={<SignUp />} />

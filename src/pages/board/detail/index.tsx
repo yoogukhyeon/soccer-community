@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { CgChevronLeft } from 'react-icons/cg';
 import Loading from '@/components/common/Loading';
 import BoardView from '@/components/board/BoardView';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useAtom } from 'jotai';
 import authAtom from '@/stores/authAtom';
@@ -12,13 +12,14 @@ import CommentBox from '@/components/comment/CommentBox';
 import { useCommentQuery, useReplyQuery } from '@/api/comment';
 
 export default function index() {
+    const { state } = useLocation();
     const [auth] = useAtom(authAtom);
     const { id } = useParams();
     const { data, status, refetch } = useBoardDetailQuery(Number(id));
     const { data: comment, refetch: commentRefetch } = useCommentQuery(Number(id));
     const { data: reply, refetch: replyRefetch } = useReplyQuery(Number(id));
     const navigate = useNavigate();
-    const goToBack = () => navigate('/boards');
+    const goToBack = () => navigate(state);
 
     useEffect(() => {
         refetch();

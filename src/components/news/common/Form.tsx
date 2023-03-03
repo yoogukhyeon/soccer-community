@@ -11,6 +11,7 @@ import { useAtom } from 'jotai';
 import authAtom from '@/stores/authAtom';
 import { usePreventLeave } from '@/hooks/usePreventLeave';
 import { preventGoBack } from '@/hooks/useGoBack';
+import { useNewsMutation } from '@/api/news';
 
 interface IOption {
     readonly value: string;
@@ -46,7 +47,7 @@ export default function Form({ isUpdate, view }: IProps) {
     const id = auth?.user?.id;
     const queryClient = useQueryClient();
     const { state } = useLocation();
-    const { mutate: boardMutate, isLoading } = useBoardMutation(isUpdate);
+    const { mutate: newsMutate, isLoading } = useNewsMutation(isUpdate);
     const navigate = useNavigate();
 
     const selectedRef: any = useRef(null);
@@ -112,15 +113,16 @@ export default function Form({ isUpdate, view }: IProps) {
             updateData = { ...data, no, id };
         }
 
-        boardMutate(isUpdate ? updateData : data, {
+        newsMutate(isUpdate ? updateData : data, {
             onSuccess: (res) => {
                 if (res.status === 201 || res.status === 200) {
                     alert('글 작성을 완료했습니다.');
                     if (!isUpdate) {
-                        queryClient.invalidateQueries(['boardList', res.data.data.no]);
-                        navigate(`/boards/detail/${res.data.data.no}`);
+                        queryClient.invalidateQueries(['newsList', res.data.data.no]);
+                        navigate(`/football-news/detail/${res.data.data.no}`);
                     } else {
-                        queryClient.invalidateQueries(['boardList', updateData.no]);
+                        queryClient.invalidateQueries(['newsList', updateData.no]);
+                        navigate(`/football-news/detail/${updateData.no}`);
                     }
                 }
             },
@@ -133,7 +135,7 @@ export default function Form({ isUpdate, view }: IProps) {
 
     useEffect(() => {
         if (view) {
-            const category = option.find((list) => list.value === view.category);
+            const category = option.find((list) => list.value === String(view.category));
             setSelected(category);
             setInputs({
                 ...inputs,

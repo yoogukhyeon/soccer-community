@@ -4,7 +4,7 @@ import WriteNav from '@/components/board/common/WriteNav';
 export default function Create() {
     return (
         <>
-            <WriteNav />
+            <WriteNav type="news" />
             <Form />
         </>
     );

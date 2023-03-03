@@ -11,6 +11,7 @@ export interface IBoard {
 export interface IView {
     readonly no: number;
     readonly category: string;
+    readonly categoryName?: string;
     readonly userId: number;
     readonly title: string;
     readonly content: string;
@@ -18,6 +19,7 @@ export interface IView {
     readonly view: number;
     readonly regDate: string;
     readonly commentCnt: number;
+    readonly recommend?: number;
 }
 
 export interface ILikeCount {

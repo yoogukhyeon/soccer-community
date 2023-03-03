@@ -13,15 +13,20 @@ import { useBoardLikeMutation } from '@/api/board/options/like';
 interface IProps {
     view: IView;
     auth: Auth;
+    type?: string;
 }
 
-export default function BoardView({ view, auth }: IProps) {
+export default function BoardView({ view, auth, type }: IProps) {
     const queryClient = useQueryClient();
     const { mutate: boardMutate } = useDeleteMutation();
     const { mutate: boardLike } = useBoardLikeMutation();
     const navigate = useNavigate();
     const goToUpdate = (id: number) => {
-        navigate(`/boards/detail/${id}/update`);
+        if (type === 'news') {
+            navigate(`/football-news/detail/${id}/update`);
+        } else {
+            navigate(`/boards/detail/${id}/update`);
+        }
     };
 
     const [isLike, setIsLike] = useState<boolean>(false);
@@ -86,7 +91,7 @@ export default function BoardView({ view, auth }: IProps) {
             <div className="view_header">
                 <div className="title_box">
                     <div className="title_wrap">
-                        <span className="category">{view.category}</span>
+                        <span className="category">{type === 'news' ? view.categoryName : view.category}</span>
                         <h2 className="title">{view.title}</h2>
                     </div>
                 </div>
@@ -95,7 +100,12 @@ export default function BoardView({ view, auth }: IProps) {
                     <span className="count_box">
                         댓글 <b>{view.commentCnt} &middot; </b>
                         좋아요 <b>{view.like} &middot; </b>
-                        조회수 <b>{view.view}</b>
+                        조회수 <b>{view.view} &middot; </b>
+                        {type === 'news' && (
+                            <>
+                                추천수 <b>{view.recommend} </b>
+                            </>
+                        )}
                     </span>
                 </div>
                 <div className="content_wrap">

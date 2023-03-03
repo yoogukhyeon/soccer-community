@@ -128,6 +128,7 @@ export default function Form({ isUpdate, view }: IProps) {
                         navigate(`/boards/detail/${res.data.data.no}`);
                     } else {
                         queryClient.invalidateQueries(['boardList', updateData.no]);
+                        navigate(`/boards/detail/${updateData.no}`);
                     }
                 }
             },

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Loading from '../common/Loading';
 import { WordBreak } from '@/common/style/common';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { storage } from '@/assets/storage';
 import { useBoardViewMutation } from '@/api/board/options/view';
 import { useQueryClient } from '@tanstack/react-query';
@@ -26,6 +26,7 @@ interface IProps {
 
 export default function BoardList({ lists, status, type }: IProps) {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     const queryClient = useQueryClient();
     const { mutate: viewMutate } = useBoardViewMutation();
 
@@ -54,7 +55,7 @@ export default function BoardList({ lists, status, type }: IProps) {
             }
         }
         const url = type === 'news' ? `/football-news/detail/${id}` : `/boards/detail/${id}`;
-        navigate(url);
+        navigate(url, { state: pathname });
     };
 
     return (

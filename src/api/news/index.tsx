@@ -1,4 +1,4 @@
-import { IBoard } from '@/types/board';
+import { INews } from '@/types/news';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { api } from '..';
@@ -15,16 +15,27 @@ export const useNewsQuery = (category: string | any, startNum: string | any, end
     });
 };
 
-const postBoard = (data: IBoard) => {
+const getDetail = (id: number) => {
+    return api.get({ url: `/api/news/detail/${id}` });
+};
+
+export const useNewsDetailQuery = (id: number) => {
+    return useQuery(['newsList', id], () => getDetail(id), {
+        select: (data) => data?.data?.data?.news,
+        refetchOnWindowFocus: false,
+    });
+};
+
+const postBoard = (data: INews) => {
     return api.post({ url: '/api/news', data });
 };
 
-const putBoard = (data: IBoard) => {
+const putBoard = (data: INews) => {
     return api.put({ url: `/api/news`, data });
 };
 
 export const useNewsMutation = (isUpdate: boolean) => {
-    return useMutation<AxiosResponse, AxiosError, IBoard>((data): any => {
+    return useMutation<AxiosResponse, AxiosError, INews>((data): any => {
         return isUpdate ? putBoard(data) : postBoard(data);
     });
 };

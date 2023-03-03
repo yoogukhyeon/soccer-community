@@ -11,6 +11,7 @@ interface IProps {
 export default function BoardNav({ category }: IProps) {
     const navigate = useNavigate();
     const { pathname } = useLocation();
+
     const goToWrite = () => {
         navigate('/football-news/create', { state: pathname });
     };
