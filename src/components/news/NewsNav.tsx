@@ -17,7 +17,6 @@ export default function BoardNav({ category }: IProps) {
     };
 
     const { data } = useCategoryQuery();
-
     return (
         <>
             <Wrap>
