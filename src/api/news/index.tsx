@@ -5,7 +5,9 @@ import { api } from '..';
 import { queryClient } from '../../';
 
 const getList = (category: string | any, startNum: string | any, endNum: string | any) => {
-    return api.get({ url: `/api/news?category=${category}&startNum=${startNum}&endNum=${endNum}` });
+    return api.get({
+        url: `${process.env.REACT_APP_API_URL}/api/news?category=${category}&startNum=${startNum}&endNum=${endNum}`,
+    });
 };
 
 export const useNewsQuery = (category: string | any, startNum: string | any, endNum: string | any) => {
@@ -16,7 +18,7 @@ export const useNewsQuery = (category: string | any, startNum: string | any, end
 };
 
 const getDetail = (id: number) => {
-    return api.get({ url: `/api/news/detail/${id}` });
+    return api.get({ url: `${process.env.REACT_APP_API_URL}/api/news/detail/${id}` });
 };
 
 export const useNewsDetailQuery = (id: number) => {
@@ -27,11 +29,11 @@ export const useNewsDetailQuery = (id: number) => {
 };
 
 const postBoard = (data: INews) => {
-    return api.post({ url: '/api/news', data });
+    return api.post({ url: `${process.env.REACT_APP_API_URL}/api/news`, data });
 };
 
 const putBoard = (data: INews) => {
-    return api.put({ url: `/api/news`, data });
+    return api.put({ url: `${process.env.REACT_APP_API_URL}/api/news`, data });
 };
 
 export const useNewsMutation = (isUpdate: boolean) => {
@@ -41,7 +43,7 @@ export const useNewsMutation = (isUpdate: boolean) => {
 };
 
 const getCategoryList = () => {
-    return api.get({ url: `/api/news/category` });
+    return api.get({ url: `${process.env.REACT_APP_API_URL}/api/news/category` });
 };
 
 export const useCategoryQuery = () => {
