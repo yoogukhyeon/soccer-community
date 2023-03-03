@@ -5,6 +5,10 @@ import styled from 'styled-components';
 import CommentForm from '@/components/board/common/CommentForm';
 import authAtom from '@/stores/authAtom';
 import { useAtom } from 'jotai';
+import { useCommentDeleteMutation, useReplyDeleteMutation } from '@/api/comment';
+import { IDeleteData } from '@/types/comment';
+import { useQueryClient } from '@tanstack/react-query';
+import { useConfirm } from '@/hooks/useConfirm';
 interface Lists {
     no: number;
     id: number;
@@ -71,6 +75,9 @@ export default function CommentList({
     boardNo,
 }: IProps | any) {
     const [auth] = useAtom(authAtom);
+    const { mutate: commentDeleteMutate } = useCommentDeleteMutation();
+    const { mutate: replyDeleteMutate } = useReplyDeleteMutation();
+    const queryClient = useQueryClient();
 
     const toggleReply = (no: number) => {
         setIsUpdateForm(false);
@@ -107,6 +114,45 @@ export default function CommentList({
         setReply(content);
     };
 
+    const deleteComment = (no: number, id: number, type: string) => {
+        const data: IDeleteData = {
+            no,
+            id,
+        };
+
+        if (type === 'comment') {
+            useConfirm('댓글을 삭제하시겠습니까?', () => {
+                commentDeleteMutate(data, {
+                    onSuccess: (res) => {
+                        if (res.data.message === 'success') {
+                            alert('댓글을 삭제했습니다.');
+                            queryClient.invalidateQueries(['commentList', boardNo]);
+                        }
+                    },
+                    onError: (err) => {
+                        console.log('err', err);
+                        console.error(err);
+                    },
+                });
+            });
+        } else {
+            useConfirm('답글을 삭제하시겠습니까?', () => {
+                replyDeleteMutate(data, {
+                    onSuccess: (res) => {
+                        if (res.data.message === 'success') {
+                            alert('답글을 삭제했습니다.');
+                            queryClient.invalidateQueries(['replyList', boardNo]);
+                        }
+                    },
+                    onError: (err) => {
+                        console.log('err', err);
+                        console.error(err);
+                    },
+                });
+            });
+        }
+    };
+
     return (
         <CommentListBox>
             <dt>
@@ -121,7 +167,7 @@ export default function CommentList({
                 {!!auth?.accessToken && auth.user?.id === lists.id && (
                     <>
                         <em onClick={() => updateForm(lists.no, lists.content)}>수정</em>
-                        <em>삭제</em>
+                        <em onClick={() => deleteComment(lists.no, lists.id, 'comment')}>삭제</em>
                     </>
                 )}
             </dd>
@@ -174,7 +220,7 @@ export default function CommentList({
                                 {!!auth?.accessToken && auth.user?.id === child.id && (
                                     <>
                                         <em onClick={() => replyUpdateForm(child.no, child.content)}>수정</em>
-                                        <em>삭제</em>
+                                        <em onClick={() => deleteComment(child.no, child.id, 'reply')}>삭제</em>
                                     </>
                                 )}
                             </dd>

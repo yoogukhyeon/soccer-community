@@ -11,12 +11,15 @@ export interface IBoard {
 export interface IView {
     readonly no: number;
     readonly category: string;
+    readonly categoryName?: string;
     readonly userId: number;
     readonly title: string;
     readonly content: string;
     readonly like: number;
     readonly view: number;
     readonly regDate: string;
+    readonly commentCnt: number;
+    readonly recommend?: number;
 }
 
 export interface ILikeCount {

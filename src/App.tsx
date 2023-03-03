@@ -19,7 +19,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { getUser } from './api/user';
 import FootballNews from './pages/footballNews';
 import PrivateRouter from './pages/privateRouter';
-
+import NewsCreate from '@/pages/footballNews/Create';
+import FootballNewsDetail from '@/pages/footballNews/detail';
+import FootballNewsUpdate from '@/pages/footballNews/detail/Update';
 const Wrapper = styled.div`
     width: 100%;
 
@@ -36,7 +38,7 @@ const Wrapper = styled.div`
 
 function App() {
     const navigate = useNavigate();
-    const [_, setAuth] = useAtom(authAtom);
+    const [auth, setAuth] = useAtom(authAtom);
     const cookies = new Cookies();
     const accessToken = cookies.get('access_token');
     const refreshToken = cookies.get('refresh_token');
@@ -112,7 +114,28 @@ function App() {
                         <Route path="/course" element={<Course />}>
                             <Route path=":vod" element={<Course />} />
                         </Route>
-                        <Route path="/football-news" element={<FootballNews />} />
+                        <Route path="/football-news" element={<FootballNews />}>
+                            <Route path=":category" element={<FootballNews />} />
+                        </Route>
+                        <Route
+                            path="/football-news/create"
+                            element={
+                                <PrivateRouter>
+                                    <NewsCreate />
+                                </PrivateRouter>
+                            }
+                        />
+                        <Route path="/football-news/detail">
+                            <Route path=":id" element={<FootballNewsDetail />} />
+                            <Route
+                                path=":id/update"
+                                element={
+                                    <PrivateRouter>
+                                        <FootballNewsUpdate />
+                                    </PrivateRouter>
+                                }
+                            />
+                        </Route>
                         <Route path="/user">
                             <Route path="sign-in" element={<SignIn />} />
                             <Route path="sign-up" element={<SignUp />} />

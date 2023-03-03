@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CgChevronLeft } from 'react-icons/cg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface IProps {
     readonly isUpdate?: boolean;
+    readonly type?: string;
 }
 
-export default function WriteNav({ isUpdate }: IProps) {
+export default function WriteNav({ isUpdate, type }: IProps) {
     const navigate = useNavigate();
+    const { state } = useLocation();
 
-    const goToBack = () => navigate(-1);
+    const goToBack = () => navigate(state);
 
     return (
         <Nav>

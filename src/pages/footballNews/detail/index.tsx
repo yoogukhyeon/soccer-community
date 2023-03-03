@@ -10,14 +10,15 @@ import { useAtom } from 'jotai';
 import authAtom from '@/stores/authAtom';
 import CommentBox from '@/components/comment/CommentBox';
 import { useCommentQuery, useReplyQuery } from '@/api/comment';
+import { useNewsDetailQuery } from '@/api/news';
 
 export default function index() {
     const { state } = useLocation();
     const [auth] = useAtom(authAtom);
     const { id } = useParams();
-    const { data, status, refetch } = useBoardDetailQuery(Number(id));
-    const { data: comment, refetch: commentRefetch } = useCommentQuery(Number(id));
-    const { data: reply, refetch: replyRefetch } = useReplyQuery(Number(id));
+    const { data, status, refetch } = useNewsDetailQuery(Number(id));
+    /*     const { data: comment, refetch: commentRefetch } = useCommentQuery(Number(id));
+    const { data: reply, refetch: replyRefetch } = useReplyQuery(Number(id)); */
     const navigate = useNavigate();
     const goToBack = () => navigate(state);
 
@@ -35,8 +36,8 @@ export default function index() {
             </GoToBtn>
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
-            {data && <BoardView view={data} auth={auth} />}
-            {data && comment && reply && (
+            {data && <BoardView view={data} auth={auth} type="news" />}
+            {/*    {data && comment && reply && (
                 <CommentWrap>
                     <CommentBox
                         id={auth?.user?.id}
@@ -45,7 +46,7 @@ export default function index() {
                         data={comment.commentList}
                     />
                 </CommentWrap>
-            )}
+            )} */}
         </>
     );
 }

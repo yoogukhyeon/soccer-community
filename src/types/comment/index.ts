@@ -8,3 +8,8 @@ export interface ICommentData {
 export interface IReplyData extends ICommentData {
     commentNo: number;
 }
+
+export interface IDeleteData {
+    no: number;
+    id: number;
+}
