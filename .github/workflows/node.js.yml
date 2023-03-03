@@ -10,9 +10,8 @@ on:
 jobs:
   build:
 
-    runs-on: 
-      group: self-hosted
-
+    runs-on: self-hosted
+  
     strategy:
       matrix:
         node-version: [16.x]
