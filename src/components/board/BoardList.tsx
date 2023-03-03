@@ -36,7 +36,9 @@ export default function BoardList({ lists, status, type }: IProps) {
 
         if (hitViews) {
             if (type === 'news') {
+
                 console.log('news:::::::::::::::::::::::::');
+                
             } else {
                 viewMutate(
                     { no: id },
