@@ -38,7 +38,7 @@ export default function Home() {
                 </div>
             </CommunityWrap>
             <CourseWrap>
-                <MainTitle>최신 인기축구 영상 CI/CD </MainTitle>
+                <MainTitle>최신 인기축구 영상 CI/CD 빌드</MainTitle>
                 <CourseBox lists={data} status={status} />
             </CourseWrap>
         </MainWrap>
