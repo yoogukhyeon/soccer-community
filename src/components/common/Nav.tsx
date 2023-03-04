@@ -12,7 +12,7 @@ export default function Nav() {
                 <li>커뮤니티</li>
             </ActiveNavLink>
             <ActiveNavLink to="/football-news">
-                <li>축구 소식통</li>
+                <li>축구 소식</li>
             </ActiveNavLink>
         </ul>
     );
