@@ -34,7 +34,6 @@ function App() {
     const accessToken = cookies.get('access_token');
     const refreshToken = cookies.get('refresh_token');
 
-    console.log('process.env.REACT_APP_DOMAIN ::::', process.env.REACT_APP_DOMAIN);
     useEffect(() => {
         const chkAuth = async () => {
             try {
