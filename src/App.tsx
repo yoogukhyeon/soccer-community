@@ -22,18 +22,9 @@ import PrivateRouter from './pages/privateRouter';
 import NewsCreate from '@/pages/footballNews/Create';
 import FootballNewsDetail from '@/pages/footballNews/detail';
 import FootballNewsUpdate from '@/pages/footballNews/detail/Update';
+
 const Wrapper = styled.div`
     width: 100%;
-
-    ${({ theme }) => theme.media.desktop`
-        
-    `}
-    ${({ theme }) => theme.media.tablet`
-    
-    `}
-    ${({ theme }) => theme.media.mobile`
-    
-    `};
 `;
 
 function App() {
