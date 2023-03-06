@@ -49,8 +49,12 @@ const deleteBoard = (data: number) => {
     return api.delete({ url: `/api/boards`, data });
 };
 
-export const useDeleteMutation = () => {
+const deleteNews = (data: number) => {
+    return api.delete({ url: `/api/news`, data });
+};
+
+export const useDeleteMutation = (type?: string) => {
     return useMutation<AxiosResponse, AxiosError, any>((data): any => {
-        return deleteBoard(data);
+        return type === 'news' ? deleteNews(data) : deleteBoard(data);
     });
 };

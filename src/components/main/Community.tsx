@@ -53,7 +53,7 @@ export default function Community({ title }: IProps) {
 }
 
 const CommunityWrap = styled.div`
-    width: 50%;
+    width: 48%;
 
     > h2 {
         font-size: 18px;

@@ -3,9 +3,9 @@ interface LocalStorage {
 }
 
 export const storage: LocalStorage = (key, id) => {
-    const likeVal: string | null = localStorage.getItem(key);
+    const val: string | null = localStorage.getItem(key);
 
-    if (likeVal === null) {
+    if (val === null) {
         localStorage.setItem(key, '[]');
     }
 

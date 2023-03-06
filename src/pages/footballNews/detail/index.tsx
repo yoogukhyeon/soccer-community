@@ -37,16 +37,6 @@ export default function index() {
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
             {data && <BoardView view={data} auth={auth} type="news" />}
-            {/*    {data && comment && reply && (
-                <CommentWrap>
-                    <CommentBox
-                        id={auth?.user?.id}
-                        boardNo={Number(id)}
-                        replyList={reply.replyList}
-                        data={comment.commentList}
-                    />
-                </CommentWrap>
-            )} */}
         </>
     );
 }
