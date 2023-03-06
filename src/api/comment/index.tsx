@@ -15,7 +15,7 @@ export const useCommentQuery = (no: number) => {
 };
 
 const postComment = (data: ICommentData) => {
-    return api.post({ url: '${process.env.REACT_APP_API_URL}/api/comments', data });
+    return api.post({ url: `${process.env.REACT_APP_API_URL}/api/comments`, data });
 };
 
 const putComment = (data: ICommentData) => {
@@ -29,7 +29,7 @@ export const useCommentMutation = (isUpdate: boolean) => {
 };
 
 const deleteComment = (data: number) => {
-    return api.delete({ url: `/api/comments`, data });
+    return api.delete({ url: `${process.env.REACT_APP_API_URL}/api/comments`, data });
 };
 
 export const useCommentDeleteMutation = () => {
@@ -63,7 +63,7 @@ export const useReplyMutation = (isUpdate: boolean) => {
 };
 
 const deleteReply = (data: number) => {
-    return api.delete({ url: `/api/comments/reply`, data });
+    return api.delete({ url: `${process.env.REACT_APP_API_URL}/api/comments/reply`, data });
 };
 
 export const useReplyDeleteMutation = () => {
