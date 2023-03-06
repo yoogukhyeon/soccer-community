@@ -12,38 +12,38 @@ export default function Link() {
         <LinkWrap>
             <MainTitle>바로가기</MainTitle>
             <ul className="link_box">
-                <li onClick={() => goToSite('https://www.youtube.com/')}>
+                <li onClick={() => goToSite('https://www.youtube.com/@feno')}>
                     <span>
                         <img src="/img/youtube.svg" alt="youtube" />
-                        <span>Youtube</span>
+                        <span>Youtube 축구 전문가 페노</span>
                     </span>
                     <i>
                         <CgChevronRight />
                     </i>
                 </li>
-                <li onClick={() => goToSite('https://github.com/yoogukhyeon')}>
+                <li onClick={() => goToSite('https://sports.daum.net')}>
                     <span>
-                        <img src="/img/git.svg" alt="git" />
-                        <span>Github</span>
+                        <img src="/img/daum.webp" alt="daum" />
+                        <span>Daum 스포츠</span>
                     </span>
 
                     <i>
                         <CgChevronRight />
                     </i>
                 </li>
-                <li onClick={() => goToSite('https://cometruedream.tistory.com/')}>
+                <li onClick={() => goToSite('https://rogo.tistory.com')}>
                     <span>
                         <img src="/img/tistory.svg" alt="tistory" />
-                        <span>Tistory</span>
+                        <span>Tistory 축구컬럼</span>
                     </span>
                     <i>
                         <CgChevronRight />
                     </i>
                 </li>
-                <li onClick={() => goToSite('https://blog.naver.com/rnrgus012345')}>
+                <li onClick={() => goToSite('https://sports.news.naver.com/index')}>
                     <span>
                         <img src="/img/naver.webp" alt="naver" />
-                        <span>Naver</span>
+                        <span>Naver 스포츠</span>
                     </span>
                     <i>
                         <CgChevronRight />
@@ -81,8 +81,12 @@ const LinkWrap = styled.div`
             }
 
             &:nth-child(2) {
-                background-color: black;
+                background-color: #6a8df2;
                 color: #fff;
+
+                > span > img {
+                    width: 25px;
+                }
             }
             &:nth-child(3) {
                 color: black;

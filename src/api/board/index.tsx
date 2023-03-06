@@ -17,7 +17,6 @@ export const useBoardQuery = (category: string | any, startNum: string | any, en
     });
 };
 
-
 //프리페치
 export const useBoardPreFetchQuery = (category: string | any, startNum: string | any, endNum: string | any) => {
     return queryClient.prefetchQuery(['boardList', category, startNum], () => getList(category, startNum, endNum));
@@ -52,8 +51,12 @@ const deleteBoard = (data: number) => {
     return api.delete({ url: `${process.env.REACT_APP_API_URL}/api/boards`, data });
 };
 
-export const useDeleteMutation = () => {
+const deleteNews = (data: number) => {
+    return api.delete({ url: `${process.env.REACT_APP_API_URL}/api/news`, data });
+};
+
+export const useDeleteMutation = (type?: string) => {
     return useMutation<AxiosResponse, AxiosError, any>((data): any => {
-        return deleteBoard(data);
+        return type === 'news' ? deleteNews(data) : deleteBoard(data);
     });
 };

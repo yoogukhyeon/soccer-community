@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
+import { FaThumbsUp, FaRegThumbsUp } from 'react-icons/fa';
 import styled from 'styled-components';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Auth, IView } from '@/types/board';
 import { useDeleteMutation } from '@/api/board';
 import { useQueryClient } from '@tanstack/react-query';
 import { useConfirm } from '@/hooks/useConfirm';
 import { storage } from '@/assets/storage';
 import { useBoardLikeMutation } from '@/api/board/options/like';
+import { useNewsRecommentMutation } from '@/api/news/options';
 
 interface IProps {
     view: IView;
@@ -18,30 +20,35 @@ interface IProps {
 
 export default function BoardView({ view, auth, type }: IProps) {
     const queryClient = useQueryClient();
-    const { mutate: boardMutate } = useDeleteMutation();
-    const { mutate: boardLike } = useBoardLikeMutation();
+    const { mutate: boardMutate } = useDeleteMutation(type);
+    const { mutate: boardLike } = useBoardLikeMutation(type);
+    const { mutate: newsRecommend } = useNewsRecommentMutation();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     const goToUpdate = (id: number) => {
         if (type === 'news') {
-            navigate(`/football-news/detail/${id}/update`);
+            navigate(`/football-news/detail/${id}/update`, { state: pathname });
         } else {
-            navigate(`/boards/detail/${id}/update`);
+            navigate(`/boards/detail/${id}/update`, { state: pathname });
         }
     };
 
     const [isLike, setIsLike] = useState<boolean>(false);
+    const [isRecommend, setIsRecommend] = useState<boolean>(false);
     const toggleLike = () => {
         const no = view.no;
-        const hitLikes = storage('likes', no);
+        const typeKey = type === 'news' ? 'newsLikes' : 'boardLikes';
+        const hitLikes = storage(typeKey, no);
         if (hitLikes) {
             boardLike(
                 { no },
                 {
                     onSuccess: (res) => {
                         if (res?.data?.message === 'success') {
-                            queryClient.invalidateQueries(['boardDetail', no]);
+                            const queryKey = type === 'news' ? 'newsDetail' : 'boardDetail';
+                            queryClient.invalidateQueries([queryKey, no]);
+                            setIsLike(true);
                         }
-                        setIsLike(true);
                     },
                     onError: (err) => {
                         console.log('err', err);
@@ -50,32 +57,72 @@ export default function BoardView({ view, auth, type }: IProps) {
                 },
             );
         } else {
-            let chkLikes: any = localStorage.getItem('likes');
+            let chkLikes: any = localStorage.getItem(typeKey);
             chkLikes = JSON.parse(chkLikes);
             const newLikes = chkLikes.filter((val: number) => val !== no);
-            localStorage.setItem('likes', JSON.stringify(newLikes));
+            localStorage.setItem(typeKey, JSON.stringify(newLikes));
             setIsLike(false);
         }
     };
 
+    const toggleRecommend = () => {
+        const no = view.no;
+        const typeKey = 'newsRecommends';
+        const hitRecommend = storage(typeKey, no);
+
+        if (hitRecommend) {
+            newsRecommend(
+                { no },
+                {
+                    onSuccess: (res) => {
+                        if (res?.data?.message === 'success') {
+                            queryClient.invalidateQueries(['newsDetail', no]);
+                            setIsRecommend(true);
+                        }
+                    },
+                    onError: (err) => {
+                        console.log('err', err);
+                        console.error(err);
+                    },
+                },
+            );
+        } else {
+            let chkRecommends: any = localStorage.getItem(typeKey);
+            chkRecommends = JSON.parse(chkRecommends);
+            const newRecommends = chkRecommends.filter((val: number) => val !== no);
+            localStorage.setItem(typeKey, JSON.stringify(newRecommends));
+            setIsRecommend(false);
+        }
+    };
     useEffect(() => {
-        let chkLikes: any = localStorage.getItem('likes');
+        const typeKey = type === 'news' ? 'newsLikes' : 'boardLikes';
+        let chkLikes: any = localStorage.getItem(typeKey);
         chkLikes = JSON.parse(chkLikes);
         if (chkLikes?.includes(view.no)) {
             setIsLike(true);
         } else {
             setIsLike(false);
         }
+
+        let chkRecommend: any = localStorage.getItem('newsRecommends');
+        chkRecommend = JSON.parse(chkRecommend);
+        if (chkRecommend?.includes(view.no)) {
+            setIsRecommend(true);
+        } else {
+            setIsRecommend(false);
+        }
     }, []);
 
     const boardDelete = (id: number) => {
-        const data = { no: id };
+        const data = type === 'news' ? { no: id, id: auth?.user?.id } : { no: id };
         useConfirm('글을 삭제 하시겠습니까?', () =>
             boardMutate(data, {
                 onSuccess: (res) => {
                     if (res.data.message === 'success') {
-                        queryClient.invalidateQueries(['boardList']);
-                        navigate('/boards');
+                        const queryKey = type === 'news' ? 'newsList' : 'boardList';
+                        queryClient.invalidateQueries([queryKey]);
+                        const url = type === 'news' ? '/football-news' : '/boards';
+                        navigate(url);
                     }
                 },
                 onError: (err) => {
@@ -98,7 +145,11 @@ export default function BoardView({ view, auth, type }: IProps) {
                 <div className="view_info">
                     <b>PUD &nbsp;&middot; &nbsp; 2022-12-28 15:57</b>
                     <span className="count_box">
-                        댓글 <b>{view.commentCnt} &middot; </b>
+                        {type !== 'news' && (
+                            <>
+                                댓글 <b>{view.commentCnt} &middot; </b>
+                            </>
+                        )}
                         좋아요 <b>{view.like} &middot; </b>
                         조회수 <b>{view.view} &middot; </b>
                         {type === 'news' && (
@@ -120,9 +171,19 @@ export default function BoardView({ view, auth, type }: IProps) {
                 )}
 
                 <div className="content_info">
-                    <div className="content_like">
-                        <i onClick={toggleLike}>{isLike ? <HiHeart size={25} /> : <HiOutlineHeart size={25} />}</i>
-                        <em>{view.like}</em>
+                    <div>
+                        <div className="content_like">
+                            <i onClick={toggleLike}>{isLike ? <HiHeart size={25} /> : <HiOutlineHeart size={25} />}</i>
+                            <em>{view.like}</em>
+                        </div>
+                        {type === 'news' && (
+                            <div className="content_like">
+                                <i onClick={toggleRecommend}>
+                                    {isRecommend ? <FaThumbsUp size={20} /> : <FaRegThumbsUp size={20} />}
+                                </i>
+                                <em>{view.recommend}</em>
+                            </div>
+                        )}
                     </div>
                     <i>
                         <img src="/img/icon_report.svg" alt="ICON" width={25} height={25} />
@@ -220,6 +281,12 @@ const ViewWrap = styled.div`
         justify-content: space-between;
         align-items: center;
         margin-top: 3px;
+        > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
         .content_like {
             display: flex;
             justify-content: flex-start;
@@ -275,7 +342,7 @@ const ManageWrap = styled.div`
     color: #6a6a82;
     font-size: 16px;
     font-weight: bold;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     a {
         cursor: pointer;
         white-space: nowrap;

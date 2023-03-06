@@ -22,7 +22,7 @@ const getDetail = (id: number) => {
 };
 
 export const useNewsDetailQuery = (id: number) => {
-    return useQuery(['newsList', id], () => getDetail(id), {
+    return useQuery(['newsDetail', id], () => getDetail(id), {
         select: (data) => data?.data?.data?.news,
         refetchOnWindowFocus: false,
     });

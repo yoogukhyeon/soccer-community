@@ -76,11 +76,11 @@ export default function FroalaEditor({ inputs, option, handleModelInput, setEdit
                     const bucket = 'aws-yoo-bucket';
                     const toDay = moment().format('YYYYMMDD');
 
-                    /*       AWS.config.update({
+                    AWS.config.update({
                         region: region,
                         accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
                         secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
-                    }); */
+                    });
 
                     const fileKey = `images/lms/${toDay}/${uuidv4()}.${file.name.split('.')[1]}`;
 

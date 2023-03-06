@@ -28,33 +28,28 @@ export default function BoardList({ lists, status, type }: IProps) {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const queryClient = useQueryClient();
-    const { mutate: viewMutate } = useBoardViewMutation();
+    const { mutate: viewMutate } = useBoardViewMutation(type);
 
     const goToDetail = (id: number) => {
         //localStorage 저장
-        const hitViews = storage('views', id);
+        const hitViews = storage(type === 'news' ? 'news' : 'views', id);
 
         if (hitViews) {
-            if (type === 'news') {
-
-                console.log('news:::::::::::::::::::::::::');
-                
-            } else {
-                viewMutate(
-                    { no: id },
-                    {
-                        onSuccess: (res) => {
-                            if (res?.data?.message === 'success') {
-                                queryClient.invalidateQueries(['boardDetail', id]);
-                            }
-                        },
-                        onError: (err) => {
-                            console.log('err', err);
-                            console.error(err);
-                        },
+            viewMutate(
+                { no: id },
+                {
+                    onSuccess: (res) => {
+                        if (res?.data?.message === 'success') {
+                            const queryKey = type === 'news' ? 'newsDetail' : 'boardDetail';
+                            queryClient.invalidateQueries([queryKey, id]);
+                        }
                     },
-                );
-            }
+                    onError: (err) => {
+                        console.log('err', err);
+                        console.error(err);
+                    },
+                },
+            );
         }
         const url = type === 'news' ? `/football-news/detail/${id}` : `/boards/detail/${id}`;
         navigate(url, { state: pathname });

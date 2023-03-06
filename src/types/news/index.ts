@@ -6,3 +6,7 @@ export interface INews {
     readonly id: number;
     readonly no?: number;
 }
+
+export interface IRecommend {
+    readonly no: number;
+}

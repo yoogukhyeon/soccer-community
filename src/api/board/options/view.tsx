@@ -7,8 +7,12 @@ const putBoardView = (data: IViewCount) => {
     return api.put({ url: `${process.env.REACT_APP_API_URL}/api/boards/view`, data });
 };
 
-export const useBoardViewMutation = () => {
+const putNewsView = (data: IViewCount) => {
+    return api.put({ url: `${process.env.REACT_APP_API_URL}/api/news/view`, data });
+};
+
+export const useBoardViewMutation = (type?: string) => {
     return useMutation<AxiosResponse, AxiosError, IViewCount>((data): any => {
-        return putBoardView(data);
+        return type === 'news' ? putNewsView(data) : putBoardView(data);
     });
 };

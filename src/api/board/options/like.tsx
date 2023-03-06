@@ -7,8 +7,12 @@ const putBoardLike = (data: ILikeCount) => {
     return api.put({ url: `${process.env.REACT_APP_API_URL}/api/boards/like`, data });
 };
 
-export const useBoardLikeMutation = () => {
+const putNewsLike = (data: ILikeCount) => {
+    return api.put({ url: `${process.env.REACT_APP_API_URL}/api/news/like`, data });
+};
+
+export const useBoardLikeMutation = (type?: string) => {
     return useMutation<AxiosResponse, AxiosError, ILikeCount>((data): any => {
-        return putBoardLike(data);
+        return type === 'news' ? putNewsLike(data) : putBoardLike(data);
     });
 };
