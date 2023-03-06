@@ -78,8 +78,8 @@ export default function FroalaEditor({ inputs, option, handleModelInput, setEdit
 
                     AWS.config.update({
                         region: region,
-                        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-                        secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+                        accessKeyId: 'AKIA2R3ARBJU7OONNLGL',
+                        secretAccessKey: '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',
                     });
 
                     const fileKey = `images/lms/${toDay}/${uuidv4()}.${file.name.split('.')[1]}`;
