@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
+import { HiHeart, HiOutlineHeart, HiOutlineLink } from 'react-icons/hi';
 import { FaThumbsUp, FaRegThumbsUp } from 'react-icons/fa';
 import styled from 'styled-components';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
@@ -133,6 +133,20 @@ export default function BoardView({ view, auth, type }: IProps) {
         );
     };
 
+    const urlCopy = (): void => {
+        const textarea = document.createElement('textarea');
+        document.body.appendChild(textarea);
+        let url = window.document.location.href;
+        textarea.value = url;
+        textarea.select();
+        const result = document.execCommand('copy');
+
+        if (result) {
+            alert('URL 링크를 복사했습니다.');
+            document.body.removeChild(textarea);
+        }
+    };
+
     return (
         <ViewWrap>
             <div className="view_header">
@@ -184,6 +198,11 @@ export default function BoardView({ view, auth, type }: IProps) {
                                 <em>{view.recommend}</em>
                             </div>
                         )}
+                        <div className="content_like">
+                            <i onClick={urlCopy}>
+                                <HiOutlineLink size={25} />
+                            </i>
+                        </div>
                     </div>
                     <i>
                         <img src="/img/icon_report.svg" alt="ICON" width={25} height={25} />
