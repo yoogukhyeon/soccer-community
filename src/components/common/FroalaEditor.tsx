@@ -3,9 +3,8 @@ import Editor from 'react-froala-wysiwyg';
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 import 'froala-editor/js/plugins.pkgd.min.js';
-import AWS from 'aws-sdk';
 import { Dispatch, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import moment from 'moment';
 interface IFrolaEditorProps {
     inputs: { content: string };
@@ -72,32 +71,26 @@ export default function FroalaEditor({ inputs, option, handleModelInput, setEdit
                         file = blobToFile;
                     }
 
-                    const region = 'ap-northeast-2';
-                    const bucket = 'aws-yoo-bucket';
-                    const toDay = moment().format('YYYYMMDD');
+                    const formData = new FormData();
+                    formData.append('img', file);
 
-                    AWS.config.update({
-                        region: region,
-                        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-                        secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
-                    });
-
-                    const fileKey = `images/lms/${toDay}/${uuidv4()}.${file.name.split('.')[1]}`;
-
-                    const upload = new AWS.S3.ManagedUpload({
-                        params: {
-                            Bucket: bucket, // 버킷 이름
-                            Key: fileKey, // 유저 아이디
-                            Body: file, // 파일 객체
-                        },
-                    });
-
-                    const result = await upload.promise();
-                    //aws s3 통신 성공
-                    if (result) {
-                        const link = result.Location;
-                        this.image.insert(link, null, null, this.image.get());
-                    }
+                    await axios
+                        .post(`${process.env.REACT_APP_API_URL}/api/file`, formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                                Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+                            },
+                        })
+                        .then((res) => {
+                            if (res.data.message === 'success') {
+                                const link = res.data.link;
+                                this.image.insert(link, null, null, this.image.get());
+                            }
+                        })
+                        .catch(() => {
+                            alert('이미지를 업로드 할 수 없습니다.');
+                            return;
+                        });
                 } catch (err) {
                     alert('이미지 업로드 실패. 관리자에게 문의 바랍니다.');
                     console.log('Error', err);

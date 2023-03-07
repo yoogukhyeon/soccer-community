@@ -17,7 +17,6 @@
         "@types/react-lazy-load-image-component": "^1.5.2",
         "@types/styled-components": "^5.1.26",
         "@types/uuid": "^9.0.0",
-        "aws-sdk": "^2.1312.0",
         "axios": "^1.2.1",
         "babel-jest": "^27.4.2",
         "babel-loader": "^8.2.3",
