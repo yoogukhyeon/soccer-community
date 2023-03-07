@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Loading from '../common/Loading';
-
+import { useNavigate, useLocation } from 'react-router-dom';
 interface Lists {
     no: number;
+    boardNo?: number;
     title?: string;
     content?: string;
     view?: number;
@@ -14,11 +15,31 @@ interface Lists {
 interface IProps {
     readonly title: string;
     readonly lists: Lists[];
-    readonly type?: string;
+    readonly type: string;
     readonly status: any;
 }
 
 export default function Community({ title, lists, type, status }: IProps) {
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const [path, setPath] = useState<string | undefined>('');
+    const goToDetail = (no: number | undefined) => {
+        navigate(`/${path}/detail/${no}`, { state: pathname });
+    };
+
+    useEffect(() => {
+        switch (true) {
+            case type === 'news':
+                setPath('football-news');
+                return;
+            case type === 'boards':
+                setPath('boards');
+                return;
+            default:
+                setPath('boards');
+        }
+    }, []);
+
     return (
         <>
             {status === 'loading' && <Loading size="sm" />}
@@ -30,7 +51,7 @@ export default function Community({ title, lists, type, status }: IProps) {
                     <ul>
                         {lists?.length > 0 ? (
                             lists.map((val: Lists) => (
-                                <li key={val.no}>
+                                <li key={val.no} onClick={() => goToDetail(type === 'comment' ? val.boardNo : val.no)}>
                                     <div className="community_info_wrap">
                                         <p>{type === 'comment' ? val.content : val.title}</p>
                                         <div className="community_info_option">
@@ -69,6 +90,16 @@ const CommunityWrap = styled.div`
         border-bottom: 2px solid #eee;
         padding: 10px 0;
         margin-bottom: 10px;
+    }
+
+    li {
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    li:hover {
+        transform: scale(1.02);
+        transition: all 0.2s ease-in-out;
     }
 
     .community_info_wrap {
