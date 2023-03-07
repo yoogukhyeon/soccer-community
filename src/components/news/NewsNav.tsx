@@ -3,7 +3,8 @@ import { Button } from '../common/Button';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useCategoryQuery } from '@/api/news';
-
+import { useAtom } from 'jotai';
+import authAtom from '@/stores/authAtom';
 interface IProps {
     category: string;
 }
@@ -11,8 +12,9 @@ interface IProps {
 export default function BoardNav({ category }: IProps) {
     const navigate = useNavigate();
     const { pathname } = useLocation();
-
+    const [auth] = useAtom(authAtom);
     const goToWrite = () => {
+        if (!auth?.accessToken) return alert('로그인 후 게시판을 이용해주세요.');
         navigate('/football-news/create', { state: pathname });
     };
 

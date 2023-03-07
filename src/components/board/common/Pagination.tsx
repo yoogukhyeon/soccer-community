@@ -10,9 +10,10 @@ interface IProps {
     category: string;
     start: number;
     end: number;
+    path?: string;
 }
 
-export default function Pagination({ total, pageTotal, category, page, start, end }: IProps) {
+export default function Pagination({ total, pageTotal, category, page, start, end, path }: IProps) {
     const navigate = useNavigate();
     const [totalPageList, setTotalPageList] = useState<any[]>([1]);
 
@@ -39,19 +40,22 @@ export default function Pagination({ total, pageTotal, category, page, start, en
         page = page >= totalPageList.length ? totalPageList.length : page;
         start = (page - 1) * end;
         category = category && `/${category}`;
-        navigate(`/boards${category}?page=${page}&startNum=${start}&endNum=${end}`);
+
+        const pathName = path === 'news' ? 'football-news' : 'boards';
+        navigate(`/${pathName}${category}?page=${page}&startNum=${start}&endNum=${end}`);
     };
 
     const goToPrevAndNext = (type: boolean) => {
         category = category && `/${category}`;
+        const pathName = path === 'news' ? 'football-news' : 'boards';
         if (type) {
             page = page < 1 ? 1 : page - 1;
             start = (page - 1) * end;
-            prev && navigate(`/boards${category}?page=${page}&startNum=${start}&endNum=${end}`);
+            prev && navigate(`/${pathName}${category}?page=${page}&startNum=${start}&endNum=${end}`);
         } else {
             page = page >= totalPageList.length ? totalPageList.length : page + 1;
             start = (page - 1) * end;
-            next && navigate(`/boards${category}?page=${page}&startNum=${start}&endNum=${end}`);
+            next && navigate(`/${pathName}${category}?page=${page}&startNum=${start}&endNum=${end}`);
         }
     };
 

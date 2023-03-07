@@ -12,5 +12,5 @@ export default function PrivateRouter({ children }: IProps) {
     useEffect(() => {
         if (!accessToken) alert('로그인을 해주세요.');
     }, [accessToken]);
-    return accessToken ? children : <Navigate to="/" />;
+    return accessToken ? children : <Navigate to="/user/sign-in" />;
 }

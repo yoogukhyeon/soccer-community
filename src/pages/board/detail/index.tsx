@@ -19,7 +19,8 @@ export default function index() {
     const { data: comment, refetch: commentRefetch } = useCommentQuery(Number(id));
     const { data: reply, refetch: replyRefetch } = useReplyQuery(Number(id));
     const navigate = useNavigate();
-    const goToBack = () => navigate(state);
+
+    const goToBack = () => navigate(state ? state : '/boards');
 
     useEffect(() => {
         refetch();
