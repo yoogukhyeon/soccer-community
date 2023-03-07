@@ -24,7 +24,6 @@ function Board() {
         data?.newsTotal && setPageTotal(Math.ceil(Number(data?.newsTotal) / endNum));
     }, [data]);
 
-    console.log('data:::::::', data);
     return (
         <>
             <MetaTag title="게시판" description="게시판 목록" />
