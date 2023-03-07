@@ -12,6 +12,7 @@ interface List {
     readonly no: number;
     readonly like: number;
     readonly title: string;
+    readonly name: string;
     readonly view: number;
     readonly commentCnt: number;
     readonly recommend?: number;
@@ -71,7 +72,7 @@ export default function BoardList({ lists, status, type }: IProps) {
                         <p>{list.title}</p>
                         <div className="option_box">
                             <div>
-                                <span>pud</span>
+                                <span>{list.name}</span>
                                 <i className="option_dot" />
                                 <span>{list.regDate}</span>
                             </div>

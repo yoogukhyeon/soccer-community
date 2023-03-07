@@ -10,6 +10,7 @@ export interface IBoard {
 
 export interface IView {
     readonly no: number;
+    readonly name: string;
     readonly category: string;
     readonly categoryName?: string;
     readonly userId: number;

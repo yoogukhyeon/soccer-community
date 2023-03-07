@@ -157,7 +157,7 @@ export default function BoardView({ view, auth, type }: IProps) {
                     </div>
                 </div>
                 <div className="view_info">
-                    <b>PUD &nbsp;&middot; &nbsp; 2022-12-28 15:57</b>
+                    <b>{view.name} &nbsp;&middot; &nbsp; 2022-12-28 15:57</b>
                     <span className="count_box">
                         {type !== 'news' && (
                             <>
