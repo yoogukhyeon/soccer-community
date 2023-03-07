@@ -23,6 +23,8 @@ function Board() {
     }, [category, page, startNum]);
 
     useEffect(() => {
+        refetch();
+        setPageTotal(1);
         data?.boardTotal && setPageTotal(Math.ceil(Number(data?.boardTotal) / endNum));
     }, [data]);
 

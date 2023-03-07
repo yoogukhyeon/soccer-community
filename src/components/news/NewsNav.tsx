@@ -10,13 +10,19 @@ interface IProps {
 }
 
 export default function BoardNav({ category }: IProps) {
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const [auth] = useAtom(authAtom);
 
     const goToWrite = () => {
         if (!auth?.accessToken) return alert('로그인 후 게시판을 이용해주세요.');
-        navigate('/football-news/create', { state: pathname });
+        const page = searchParams.get('page');
+        const startNum = searchParams.get('startNum');
+        const endNum = searchParams.get('endNum');
+        const url = page ? `${pathname}?page=${page}&startNum=${startNum}&endNum=${endNum}` : `${pathname}`;
+
+        navigate('/football-news/create', { state: url });
     };
 
     const { data } = useCategoryQuery();

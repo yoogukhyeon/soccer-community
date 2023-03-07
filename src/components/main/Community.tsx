@@ -1,59 +1,67 @@
 import React from 'react';
 import styled from 'styled-components';
+import Loading from '../common/Loading';
 
+interface Lists {
+    no: number;
+    title?: string;
+    content?: string;
+    view?: number;
+    like: number;
+    regDate: string;
+    recommend?: number;
+}
 interface IProps {
     readonly title: string;
+    readonly lists: Lists[];
+    readonly type?: string;
+    readonly status: any;
 }
 
-export default function Community({ title }: IProps) {
+export default function Community({ title, lists, type, status }: IProps) {
     return (
-        <CommunityWrap>
-            <h2>{title}</h2>
-            <ul>
-                <li>
-                    <div className="community_info_wrap">
-                        <p>
-                            안녕하세요 최신글
-                            입니다!!!!!!!!!후후wefefweifjmeowifjoweifjsdvbsbvkjsdbvsdjewoicoweicnowencweiocnowencinklsdnlsnvsjdbwebewybewuyqodjoqiwdj
-                        </p>
-                        <div className="community_info_option">
-                            <span>조회수: 10</span>
-                            <span>좋아요: 20</span>
-                        </div>
-                    </div>
-                </li>
-                <li></li>
-                <li>
-                    <div className="community_info_wrap">
-                        <p>
-                            안녕하세요 최신글
-                            입니다!!!!!!!!!후후wefefweifjmeowifjoweifjsdvbsbvkjsdbvsdjewoicoweicnowencweiocnowencinklsdnlsnvsjdbwebewybewuyqodjoqiwdj
-                        </p>
-                        <div className="community_info_option">
-                            <span>조회수: 10</span>
-                            <span>좋아요: 20</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div className="community_info_wrap">
-                        <p>
-                            안녕하세요 최신글
-                            입니다!!!!!!!!!후후wefefweifjmeowifjoweifjsdvbsbvkjsdbvsdjewoicoweicnowencweiocnowencinklsdnlsnvsjdbwebewybewuyqodjoqiwdj
-                        </p>
-                        <div className="community_info_option">
-                            <span>조회수: 10</span>
-                            <span>좋아요: 20</span>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </CommunityWrap>
+        <>
+            {status === 'loading' && <Loading size="sm" />}
+            {status === 'error' && <div>Server Error...</div>}
+            {/*         {lists?.length < 1 && */}
+            {lists && (
+                <CommunityWrap>
+                    <h2>{title}</h2>
+                    <ul>
+                        {lists?.length > 0 ? (
+                            lists.map((val: Lists) => (
+                                <li key={val.no}>
+                                    <div className="community_info_wrap">
+                                        <p>{type === 'comment' ? val.content : val.title}</p>
+                                        <div className="community_info_option">
+                                            {type !== 'comment' && <span>조회수: {val.view}</span>}
+                                            <span>좋아요: {val.like}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            ))
+                        ) : (
+                            <CommunityMsg>최신 데이터가 없습니다.</CommunityMsg>
+                        )}
+                    </ul>
+                </CommunityWrap>
+            )}
+        </>
     );
 }
 
+const CommunityMsg = styled.div`
+    width: 100%;
+    padding: 20px 0;
+    border-bottom: 1px solid #d3d3e4;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 30px;
+`;
+
 const CommunityWrap = styled.div`
     width: 48%;
+    height: 170px;
 
     > h2 {
         font-size: 18px;
@@ -85,10 +93,11 @@ const CommunityWrap = styled.div`
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 7px;
             > span {
                 color: #94969b;
                 white-space: nowrap;
+                font-size: 13px;
             }
         }
     }
@@ -96,6 +105,7 @@ const CommunityWrap = styled.div`
     @media screen and (max-width: 768px) {
         & {
             width: 100%;
+            height: auto;
         }
     }
 `;

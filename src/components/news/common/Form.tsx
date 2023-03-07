@@ -19,8 +19,8 @@ interface IOption {
 }
 
 const option: IOption[] = [
-    { value: '1', label: '국내축구' },
-    { value: '2', label: '해외축구' },
+    { value: '1', label: '해외축구' },
+    { value: '2', label: '국내축구' },
     { value: '3', label: '최신소식' },
 ];
 

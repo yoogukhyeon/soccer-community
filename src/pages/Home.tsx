@@ -26,20 +26,20 @@ export default function Home() {
             <CommunityWrap>
                 <MainTitle>커뮤니티</MainTitle>
                 <div className="community_box">
-                    <Community title="최근글" />
-                    <Community title="최근·댓글" />
+                    <Community status={status} lists={data?.recentBoardList} title="최근글" />
+                    <Community status={status} lists={data?.recentCommentList} title="최근·댓글" type="comment" />
                 </div>
             </CommunityWrap>
             <CommunityWrap>
                 <MainTitle>축구 소식</MainTitle>
                 <div className="community_box">
-                    <Community title="해외·축구" />
-                    <Community title="국내·축구" />
+                    <Community status={status} lists={data?.recentNewsWorldList} title="해외·축구" />
+                    <Community status={status} lists={data?.recentNewsKoreaList} title="국내·축구" />
                 </div>
             </CommunityWrap>
             <CourseWrap>
                 <MainTitle>최신 인기축구 영상</MainTitle>
-                <CourseBox lists={data} status={status} />
+                <CourseBox lists={data?.courseList} status={status} />
             </CourseWrap>
         </MainWrap>
     );
