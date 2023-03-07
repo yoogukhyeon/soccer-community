@@ -208,6 +208,7 @@ const CourseListWarp = styled.div`
                         -webkit-box-orient: vertical;
                         overflow: hidden;
                         text-overflow: ellipsis;
+                        width: 280px;
                     }
 
                     span {
