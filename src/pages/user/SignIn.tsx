@@ -101,11 +101,11 @@ export default function SignIn() {
                         errors={errors?.password}
                     />
                     {errorMsg && <p className="login_error">{errorMsg?.message}</p>}
-                    <FormOptionBox>
+                    {/* <FormOptionBox>
                         <span>아이디</span>
                         <span>비밀번호</span>
                         <span>찾기</span>
-                    </FormOptionBox>
+                    </FormOptionBox> */}
                     <button type="submit" className="login_btn">
                         로그인
                     </button>
