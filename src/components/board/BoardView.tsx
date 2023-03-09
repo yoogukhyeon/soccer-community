@@ -147,7 +147,6 @@ export default function BoardView({ view, auth, type }: IProps) {
         }
     };
 
-    console.log('auth ', auth?.user?.id);
     return (
         <ViewWrap>
             <div className="view_header">
