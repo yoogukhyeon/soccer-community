@@ -300,7 +300,7 @@ const ViewWrap = styled.div`
         }
 
         .fr-wrapper {
-            > div {
+            :first-child {
                 display: none !important;
             }
         }
