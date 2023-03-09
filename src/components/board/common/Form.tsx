@@ -328,7 +328,7 @@ const EditorWrap = styled.div`
     min-height: 450px;
     margin: 20px 0 40px 0;
 
-    .fr-wrapper {
+    .fr-view {
         > div {
             > a {
                 display: none !important;
