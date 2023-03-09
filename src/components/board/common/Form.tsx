@@ -141,9 +141,8 @@ export default function Form({ isUpdate, view }: IProps) {
 
     useEffect(() => {
         if (view) {
-            const category = option.find((list) => list.value === view.category);
+            const category = option.find((list) => list.label === view.category);
 
-            console.log('category ::', category);
             setSelected(category);
             setInputs({
                 ...inputs,
