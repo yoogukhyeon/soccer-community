@@ -5,6 +5,8 @@ import { FormEvent, SetStateAction, useState, Dispatch } from 'react';
 import { useCommentMutation, useReplyMutation } from '@/api/comment';
 import { ICommentData } from '@/types/comment';
 import { useQueryClient } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
+import authAtom from '@/stores/authAtom';
 interface IProps {
     comment?: string;
     setComment?: Dispatch<SetStateAction<boolean>> | any;
@@ -48,9 +50,16 @@ export default function CommentForm({
 }: IProps) {
     const { mutate: commentMutate, isLoading: isCommentLoading } = useCommentMutation(isUpdate);
     const { mutate: replyMutate, isLoading: isReplyLoading } = useReplyMutation(isUpdate);
+    const [auth] = useAtom(authAtom);
     const queryClient = useQueryClient();
+
     const submitComment = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!auth?.accessToken) {
+            setComment('');
+            return alert('로그인 후에 댓글을 작성해주세요.');
+        }
 
         let data: ICommentData | any = {};
 

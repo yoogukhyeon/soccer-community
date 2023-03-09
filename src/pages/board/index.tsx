@@ -30,7 +30,7 @@ function Board() {
 
     return (
         <>
-            <MetaTag title="게시판" description="게시판 목록" />
+            <MetaTag title="커뮤니티" description="커뮤니티 목록" />
             <BoardNav category={category} />
             <BoardList lists={data?.boardList} status={status} />
             <Pagination

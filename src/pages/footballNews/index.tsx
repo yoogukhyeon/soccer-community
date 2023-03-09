@@ -26,7 +26,7 @@ function Board() {
 
     return (
         <>
-            <MetaTag title="게시판" description="게시판 목록" />
+            <MetaTag title="뉴스소식" description="뉴스소식 목록" />
             <NewsNav category={category} />
             <BoardList lists={data?.newsList} status={status} type="news" />
             <Pagination

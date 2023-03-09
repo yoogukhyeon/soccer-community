@@ -24,7 +24,7 @@ export default function Course() {
 
     return (
         <>
-            <MetaTag title="강의실" description="강의실" />
+            <MetaTag title="축구영상" description="축구영상" />
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
             {data && (

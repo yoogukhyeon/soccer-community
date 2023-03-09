@@ -20,6 +20,7 @@ export default function Footer() {
                     <ul>
                         <li>© 2023 F&FK LTD All Rights Reserved.</li>
                         <li>F&FK 운영자: rnrgus5897@gmail.com</li>
+                        <li>F&FK 운영자: rnrgus5897@gmail.com</li>
                     </ul>
                 </div>
             </ContainerDiv>

@@ -165,7 +165,10 @@ export default function BoardView({ view, auth, type }: IProps) {
                             </>
                         )}
                         좋아요 <b>{view.like} &middot; </b>
-                        조회수 <b>{view.view} &middot; </b>
+                        조회수{' '}
+                        <b>
+                            {view.view} {type === 'news' && <>&middot;</>}
+                        </b>
                         {type === 'news' && (
                             <>
                                 추천수 <b>{view.recommend} </b>

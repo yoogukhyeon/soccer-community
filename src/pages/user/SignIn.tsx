@@ -75,7 +75,7 @@ export default function SignIn() {
 
     return (
         <>
-            <MetaTag title="SignIn" description="로그인 페이지"></MetaTag>
+            <MetaTag title="로그인" description="로그인 페이지"></MetaTag>
             <SignInWrap>
                 <FormWrap onSubmit={handleSubmit(onSubmit)}>
                     <div className="sign_in_title">
@@ -142,6 +142,7 @@ const FormWrap = styled.form`
     }
 
     .login_btn {
+        margin-top: 30px;
         display: block;
         width: 100%;
         height: 70px;

@@ -52,7 +52,7 @@ export default function SignUp() {
 
     return (
         <>
-            <MetaTag title="SignUp" description="회원가입 페이지"></MetaTag>
+            <MetaTag title="회원가입" description="회원가입 페이지"></MetaTag>
             <SignInWrap>
                 <FormWrap onSubmit={handleSubmit(onSubmit)}>
                     <div className="sign_in_title">
