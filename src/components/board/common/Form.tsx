@@ -328,8 +328,10 @@ const EditorWrap = styled.div`
     margin: 20px 0 40px 0;
 
     .fr-wrapper {
-        > div {
-            display: none !important;
+        :first-child {
+            > a {
+                display: none !important;
+            }
         }
     }
 `;
