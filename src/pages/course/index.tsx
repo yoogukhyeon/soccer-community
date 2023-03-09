@@ -24,7 +24,10 @@ export default function Course() {
 
     return (
         <>
-            <MetaTag title="축구영상" description="축구영상" />
+            <MetaTag
+                title="축구영상"
+                description="축구, 축구소식, 최신축구소식, 피파, 피파온라인, 에펨, 축구커뮤니티"
+            />
             {status === 'loading' && <Loading />}
             {status === 'error' && <div>Server Error...</div>}
             {data && (

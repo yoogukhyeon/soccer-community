@@ -75,7 +75,10 @@ export default function SignIn() {
 
     return (
         <>
-            <MetaTag title="로그인" description="로그인 페이지"></MetaTag>
+            <MetaTag
+                title="로그인"
+                description="축구, 축구소식, 최신축구소식, 피파, 피파온라인, 에펨, 축구커뮤니티"
+            ></MetaTag>
             <SignInWrap>
                 <FormWrap onSubmit={handleSubmit(onSubmit)}>
                     <div className="sign_in_title">

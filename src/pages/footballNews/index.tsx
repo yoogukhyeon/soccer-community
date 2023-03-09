@@ -26,7 +26,10 @@ function Board() {
 
     return (
         <>
-            <MetaTag title="뉴스소식" description="뉴스소식 목록" />
+            <MetaTag
+                title="뉴스소식"
+                description="축구, 축구소식, 최신축구소식, 피파, 피파온라인, 에펨, 축구커뮤니티"
+            />
             <NewsNav category={category} />
             <BoardList lists={data?.newsList} status={status} type="news" />
             <Pagination

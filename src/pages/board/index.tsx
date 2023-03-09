@@ -30,7 +30,10 @@ function Board() {
 
     return (
         <>
-            <MetaTag title="커뮤니티" description="커뮤니티 목록" />
+            <MetaTag
+                title="커뮤니티"
+                description="축구, 축구소식, 최신축구소식, 피파, 피파온라인, 에펨, 축구커뮤니티"
+            />
             <BoardNav category={category} />
             <BoardList lists={data?.boardList} status={status} />
             <Pagination
