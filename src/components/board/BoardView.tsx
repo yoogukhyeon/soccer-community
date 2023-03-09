@@ -298,12 +298,6 @@ const ViewWrap = styled.div`
             max-width: 100%;
             height: auto;
         }
-
-        .fr-wrapper {
-            :first-child {
-                display: none !important;
-            }
-        }
     }
 
     .content_info {
