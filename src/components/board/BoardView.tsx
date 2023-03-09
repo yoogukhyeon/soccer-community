@@ -147,6 +147,7 @@ export default function BoardView({ view, auth, type }: IProps) {
         }
     };
 
+    console.log('auth ', auth?.user?.id);
     return (
         <ViewWrap>
             <div className="view_header">
@@ -180,7 +181,7 @@ export default function BoardView({ view, auth, type }: IProps) {
                     <FroalaEditorView model={view.content} />
                 </div>
 
-                {!!auth?.accessToken && view.userId && (
+                {!!auth?.accessToken && view.userId === auth?.user?.id && (
                     <ManageWrap>
                         <a onClick={() => goToUpdate(view.no)}>수정</a>
                         <a onClick={() => boardDelete(view.no)}>삭제</a>
