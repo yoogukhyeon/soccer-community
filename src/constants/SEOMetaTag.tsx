@@ -12,7 +12,6 @@ const MetaTag = ({ title, description }: IProps) => {
             <title>{title}</title>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <meta name="naver-site-verification" content="2a53adaffe60606a0c67121630f9198be0e69cf4" />
             <meta name="description" content={description} />
             <meta name="keywords" content={description} />
             <meta property="og:title" content="fnfsoccer 축구 커뮤니티"></meta>
