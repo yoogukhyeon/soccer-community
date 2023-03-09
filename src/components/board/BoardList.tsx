@@ -161,8 +161,8 @@ const List = styled.li`
                 font-size: 12px;
             }
             p {
-                font-size: 18px;
-                line-height: 24px;
+                font-size: 16px;
+                line-height: 22px;
             }
 
             .option_box {
