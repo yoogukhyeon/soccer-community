@@ -328,7 +328,7 @@ const EditorWrap = styled.div`
     margin: 20px 0 40px 0;
 
     .fr-wrapper {
-        :first-child {
+        > div {
             > a {
                 display: none !important;
             }
