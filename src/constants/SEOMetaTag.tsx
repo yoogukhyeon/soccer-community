@@ -14,7 +14,7 @@ const MetaTag = ({ title, description }: IProps) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name="description" content={description} />
             <meta name="keywords" content={description} />
-            <meta property="og:title" content="fnfsoccer 축구 커뮤니티"></meta>
+            {/*          <meta property="og:title" content="fnfsoccer 축구 커뮤니티"></meta>
             <meta property="og:url" content="https://www.fnfsoccer.com"></meta>
             <meta
                 property="og:description"
@@ -33,7 +33,7 @@ const MetaTag = ({ title, description }: IProps) => {
             <meta property="og:site_name" content={title} />
             <meta property="og:description" content={description} />
 
-            <link rel="shortcut icon" href="/img/favicon.ico" />
+            <link rel="shortcut icon" href="/img/favicon.ico" /> */}
             {/*         <meta property="og:image" content={props.imgsrc} />
         <meta property="og:url" content={props.url} /> */}
 
