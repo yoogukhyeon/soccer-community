@@ -300,7 +300,7 @@ const ViewWrap = styled.div`
         }
 
         .fr-view {
-            :nth-child(2) {
+            > p + p {
                 display: none !important;
             }
         }
