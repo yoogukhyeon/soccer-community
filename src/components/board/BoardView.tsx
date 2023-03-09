@@ -330,6 +330,9 @@ const ViewWrap = styled.div`
         }
     }
     @media screen and (max-width: 768px) {
+        .content_wrap {
+            font-size: 13px !important;
+        }
         .title_box {
             .title_wrap {
                 .category {
@@ -337,7 +340,7 @@ const ViewWrap = styled.div`
                     line-height: 16px;
                 }
                 .title {
-                    font-size: 18px;
+                    font-size: 16px;
                     line-height: 22px;
                 }
             }
