@@ -14,6 +14,13 @@ const MetaTag = ({ title, description }: IProps) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name="description" content={description} />
             <meta name="keywords" content={description} />
+            <meta property="og:title" content="fnfsoccer 축구 커뮤니티"></meta>
+            <meta property="og:url" content="https://www.fnfsoccer.com"></meta>
+            <meta
+                property="og:description"
+                content="에프엔에프, 축구, 축구소식, 최신축구소식, 피파, 피파온라인, 에펨, 축구커뮤니티"
+            ></meta>
+            <meta property="og:image" content="/img/chrome.png" />
 
             <meta
                 property="og:type"
