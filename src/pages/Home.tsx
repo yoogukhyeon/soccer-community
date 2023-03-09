@@ -22,7 +22,6 @@ export default function Home() {
     return (
         <MainWrap>
             {swiperUseStatus && <SwiperList lists={items} />}
-            <Link />
             <CommunityWrap>
                 <MainTitle>커뮤니티</MainTitle>
                 <div className="community_box">
@@ -37,6 +36,7 @@ export default function Home() {
                     <Community status={status} lists={data?.recentNewsKoreaList} title="국내·축구" type="news" />
                 </div>
             </CommunityWrap>
+            <Link />
             <CourseWrap>
                 <MainTitle>최신 인기축구 영상</MainTitle>
                 <CourseBox lists={data?.courseList} status={status} />
