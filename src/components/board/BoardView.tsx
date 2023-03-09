@@ -288,6 +288,7 @@ const ViewWrap = styled.div`
         a {
             text-decoration: underline;
             color: #00a7e1;
+            display: none !important;
         }
         table {
             word-break: break-all;
