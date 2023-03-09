@@ -122,11 +122,12 @@ export default function Form({ isUpdate, view }: IProps) {
         boardMutate(isUpdate ? updateData : data, {
             onSuccess: (res) => {
                 if (res.status === 201 || res.status === 200) {
-                    alert('글 작성을 완료했습니다.');
                     if (!isUpdate) {
+                        alert('글 작성을 완료했습니다.');
                         queryClient.invalidateQueries(['boardList', res.data.data.no]);
                         navigate(`/boards/detail/${res.data.data.no}`);
                     } else {
+                        alert('글 수정을 완료했습니다.');
                         queryClient.invalidateQueries(['boardList', updateData.no]);
                         navigate(`/boards/detail/${updateData.no}`);
                     }
