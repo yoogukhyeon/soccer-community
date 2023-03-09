@@ -73,7 +73,6 @@ export default function FroalaEditor({ inputs, option, handleModelInput, setEdit
 
                     const formData = new FormData();
                     formData.append('img', file);
-
                     await axios
                         .post(`${process.env.REACT_APP_API_URL}/api/file`, formData, {
                             headers: {
