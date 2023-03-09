@@ -20,7 +20,10 @@ const MetaTag = ({ title, description }: IProps) => {
                 property="og:description"
                 content="에프엔에프, 축구, 축구소식, 최신축구소식, 피파, 피파온라인, 에펨, 축구커뮤니티"
             ></meta>
-            <meta property="og:image" content="/img/chrome.png" />
+            <meta
+                property="og:image"
+                content="https://aws-yoo-bucket.s3.ap-northeast-2.amazonaws.com/images/lms/20230309/91f012c6-ccb6-4230-91ab-e467e3b21914.png"
+            />
 
             <meta
                 property="og:type"
