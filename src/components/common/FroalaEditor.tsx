@@ -16,7 +16,7 @@ interface IFrolaEditorProps {
 export default function FroalaEditor({ inputs, option, handleModelInput, setEditorInput }: IFrolaEditorProps) {
     const config = {
         placeholderText: '내용을 입력하세요(10자 이상)',
-        // key: 'AVB8B-21C2E3A2F3A2C1uldC-16yzD5sxvvfxE-13tkG2ytqaD6C4D3E3G3E2G1C9D4C3',
+        key: 'AVB8B-21C2E3A2F3A2C1uldC-16yzD5sxvvfxE-13tkG2ytqaD6C4D3E3G3E2G1C9D4C3',
         language: 'ko',
         attribution: false,
         imageDefaultWidth: 540,
