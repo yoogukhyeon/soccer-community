@@ -163,7 +163,7 @@ export default function CommentList({
             </dt>
             <dd>
                 <em onClick={() => toggleReply(lists.no)}>답글달기</em>
-                <em>신고</em>
+                <em onClick={() => alert('서비스 준비중입니다.')}>신고</em>
                 {!!auth?.accessToken && auth.user?.id === lists.id && (
                     <>
                         <em onClick={() => updateForm(lists.no, lists.content)}>수정</em>
@@ -215,7 +215,7 @@ export default function CommentList({
                                 <p>{child.content}</p>
                             </dt>
                             <dd>
-                                <em>신고</em>
+                                <em onClick={() => alert('서비스 준비중입니다.')}>신고</em>
 
                                 {!!auth?.accessToken && auth.user?.id === child.id && (
                                     <>

@@ -36,6 +36,7 @@ export default function BoardView({ view, auth, type }: IProps) {
     const [isLike, setIsLike] = useState<boolean>(false);
     const [isRecommend, setIsRecommend] = useState<boolean>(false);
     const toggleLike = () => {
+        if (!auth?.accessToken) return alert('로그인을 해주세요.');
         const no = view.no;
         const typeKey = type === 'news' ? 'newsLikes' : 'boardLikes';
         const hitLikes = storage(typeKey, no);
@@ -66,6 +67,7 @@ export default function BoardView({ view, auth, type }: IProps) {
     };
 
     const toggleRecommend = () => {
+        if (!auth?.accessToken) return alert('로그인을 해주세요.');
         const no = view.no;
         const typeKey = 'newsRecommends';
         const hitRecommend = storage(typeKey, no);
@@ -165,7 +167,7 @@ export default function BoardView({ view, auth, type }: IProps) {
                             </>
                         )}
                         좋아요 <b>{view.like} &middot; </b>
-                        조회수{' '}
+                        조회수
                         <b>
                             {view.view} {type === 'news' && <>&middot;</>}
                         </b>
@@ -207,7 +209,7 @@ export default function BoardView({ view, auth, type }: IProps) {
                             </i>
                         </div>
                     </div>
-                    <i>
+                    <i onClick={() => alert('서비스 준비중입니다.')}>
                         <img src="/img/icon_report.svg" alt="ICON" width={25} height={25} />
                     </i>
                 </div>

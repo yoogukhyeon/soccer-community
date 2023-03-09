@@ -77,8 +77,13 @@ export default function BoardList({ lists, status, type }: IProps) {
                                 <span>{list.regDate}</span>
                             </div>
                             <div className="counter_box">
-                                <span>댓글 {list.commentCnt}</span>
-                                <i className="option_dot" />
+                                {type !== 'news' && (
+                                    <>
+                                        <span>댓글 {list.commentCnt}</span>
+                                        <i className="option_dot" />
+                                    </>
+                                )}
+
                                 <span>좋아요 {list.like}</span>
                                 <i className="option_dot" />
                                 <span>조회수 {list.view}</span>

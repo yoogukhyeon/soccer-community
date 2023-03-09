@@ -57,8 +57,14 @@ export default function CommentForm({
         e.preventDefault();
 
         if (!auth?.accessToken) {
-            setComment('');
-            return alert('로그인 후에 댓글을 작성해주세요.');
+            if (isReply) {
+                setReply('');
+                setToggle((prev: boolean) => !prev);
+                return alert('로그인 후에 대댓글을 작성해주세요.');
+            } else {
+                setComment('');
+                return alert('로그인 후에 댓글을 작성해주세요.');
+            }
         }
 
         let data: ICommentData | any = {};
