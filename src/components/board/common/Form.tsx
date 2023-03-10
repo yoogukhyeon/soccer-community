@@ -33,7 +33,7 @@ const subOption: IOption[] = [
 interface IInput {
     title: string;
     content: string;
-    category: string;
+    category?: string;
 }
 
 interface Config {
@@ -143,13 +143,13 @@ export default function Form({ isUpdate, view }: IProps) {
     useEffect(() => {
         if (view) {
             const category = option.find((list) => list.label === view.category);
-
             setSelected(category);
+
             setInputs({
                 ...inputs,
                 title: view.title,
                 content: view.content,
-                category: view.category,
+                category: category?.value,
             });
         }
     }, [view]);
