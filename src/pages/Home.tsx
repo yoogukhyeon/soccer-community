@@ -59,7 +59,7 @@ const CommunityWrap = styled.div`
     .community_box {
         display: flex;
         justify-content: space-around;
-        align-items: center;
+        align-items: flex-start;
         gap: 25px;
     }
 

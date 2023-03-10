@@ -82,7 +82,6 @@ const CommunityMsg = styled.div`
 
 const CommunityWrap = styled.div`
     width: 48%;
-    height: 170px;
 
     > h2 {
         font-size: 18px;
