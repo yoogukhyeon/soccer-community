@@ -75,10 +75,18 @@ export const CommentAndReplyList = css`
         gap: 15px;
         font-size: 14px;
         font-weight: 500;
+        align-items: center;
 
         > em {
             color: #666666;
             cursor: pointer;
+        }
+
+        .like_box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
         }
     }
 `;

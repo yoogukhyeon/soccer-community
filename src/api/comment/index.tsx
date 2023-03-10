@@ -11,6 +11,7 @@ const getCommentList = (no: number) => {
 export const useCommentQuery = (no: number) => {
     return useQuery(['commentList', no], () => getCommentList(no), {
         select: (data) => data?.data,
+        keepPreviousData: true,
     });
 };
 
@@ -45,6 +46,7 @@ const getReplyList = (no: number) => {
 export const useReplyQuery = (no: number) => {
     return useQuery(['replyList', no], () => getReplyList(no), {
         select: (data) => data?.data,
+        keepPreviousData: true,
     });
 };
 

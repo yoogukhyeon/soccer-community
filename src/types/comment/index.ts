@@ -13,3 +13,8 @@ export interface IDeleteData {
     no: number;
     id: number;
 }
+
+export interface ILikeCount {
+    no: number;
+    type: string;
+}

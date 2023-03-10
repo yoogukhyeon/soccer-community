@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { useEffect, useRef, useState } from 'react';
+import { HiHeart, HiOutlineHeart, HiOutlineLink } from 'react-icons/hi';
 import { CommentAndReplyList } from '../../common/style/common';
 import styled from 'styled-components';
 import CommentForm from '@/components/board/common/CommentForm';
@@ -9,6 +10,8 @@ import { useCommentDeleteMutation, useReplyDeleteMutation } from '@/api/comment'
 import { IDeleteData } from '@/types/comment';
 import { useQueryClient } from '@tanstack/react-query';
 import { useConfirm } from '@/hooks/useConfirm';
+import { storage } from '@/assets/storage';
+import { useCommentAndReplyMutation } from '@/api/comment/options/like';
 interface Lists {
     no: number;
     id: number;
@@ -77,6 +80,7 @@ export default function CommentList({
     const [auth] = useAtom(authAtom);
     const { mutate: commentDeleteMutate } = useCommentDeleteMutation();
     const { mutate: replyDeleteMutate } = useReplyDeleteMutation();
+    const { mutate: commentAndReplyMutate } = useCommentAndReplyMutation();
     const queryClient = useQueryClient();
 
     const toggleReply = (no: number) => {
@@ -153,6 +157,95 @@ export default function CommentList({
         }
     };
 
+    const [isCommentLike, setIsCommentLike] = useState<boolean>(false);
+    const [commentIndex, setCommentIndex] = useState<number[]>([]);
+    const [isReplyLike, setIsReplyLike] = useState<boolean>(false);
+    const [replyIndex, setReplyIndex] = useState<number[]>([]);
+    const onClickCommentLike = (no: number) => {
+        const data = {
+            no,
+            type: 'comment',
+        };
+        commentAndReplyMutate(data, {
+            onSuccess: (res) => {
+                if (res?.data?.message === 'success') {
+                    const hitLike = storage('commentLikes', no);
+
+                    if (hitLike) {
+                        queryClient.invalidateQueries(['commentList', boardNo]);
+                        setCommentIndex([...commentIndex, no]);
+                        setIsCommentLike(true);
+                    } else {
+                        let chkLikes: any = localStorage.getItem('commentLikes');
+                        chkLikes = JSON.parse(chkLikes);
+                        const newLikes = chkLikes.filter((val: number) => val !== no);
+                        localStorage.setItem('commentLikes', JSON.stringify(newLikes));
+                        const newCommentIndex = commentIndex.filter((val: number) => val !== no);
+                        setCommentIndex([...newCommentIndex]);
+                        setIsCommentLike(false);
+                    }
+                }
+            },
+            onError: (err) => {
+                console.log('err', err);
+                console.error(err);
+            },
+        });
+    };
+
+    const onClickReplyLike = (no: number) => {
+        const data = {
+            no,
+            type: 'reply',
+        };
+        commentAndReplyMutate(data, {
+            onSuccess: (res) => {
+                if (res?.data?.message === 'success') {
+                    const hitLike = storage('replyLikes', no);
+                    if (hitLike) {
+                        queryClient.invalidateQueries(['replyList', boardNo]);
+                        setReplyIndex([...replyIndex, no]);
+                        setIsReplyLike(true);
+                    } else {
+                        let chkLikes: any = localStorage.getItem('replyLikes');
+                        chkLikes = JSON.parse(chkLikes);
+                        const newLikes = chkLikes.filter((val: number) => val !== no);
+                        localStorage.setItem('replyLikes', JSON.stringify(newLikes));
+                        setIsReplyLike(false);
+                    }
+                }
+            },
+            onError: (err) => {
+                console.log('err', err);
+                console.error(err);
+            },
+        });
+    };
+
+    useEffect(() => {
+        let chkLikes: any = localStorage.getItem('commentLikes');
+        chkLikes = JSON.parse(chkLikes);
+        if (chkLikes?.includes(lists.no)) {
+            setCommentIndex([...commentIndex, lists.no]);
+            setIsCommentLike(true);
+        } else {
+            setIsCommentLike(false);
+        }
+
+        let replyArr = [];
+        for (let i = 0; i < replyList?.length; i++) {
+            let replyLikes: any = localStorage.getItem('replyLikes');
+            replyLikes = JSON.parse(replyLikes);
+            if (replyLikes?.includes(replyList[i].no)) {
+                replyArr.push(replyList[i].no);
+                setIsReplyLike(true);
+            } else {
+                setIsReplyLike(false);
+            }
+        }
+        setReplyIndex(replyArr);
+    }, []);
+
     return (
         <CommentListBox>
             <dt>
@@ -163,6 +256,14 @@ export default function CommentList({
             </dt>
             <dd>
                 <em onClick={() => toggleReply(lists.no)}>답글달기</em>
+                <em className="like_box" onClick={() => onClickCommentLike(lists.no)}>
+                    {isCommentLike && commentIndex.includes(lists.no) ? (
+                        <HiHeart size={18} />
+                    ) : (
+                        <HiOutlineHeart size={18} />
+                    )}
+                    {lists.likes}
+                </em>
                 <em onClick={() => alert('서비스 준비중입니다.')}>신고</em>
                 {!!auth?.accessToken && auth.user?.id === lists.id && (
                     <>
@@ -215,6 +316,14 @@ export default function CommentList({
                                 <p>{child.content}</p>
                             </dt>
                             <dd>
+                                <em className="like_box" onClick={() => onClickReplyLike(child.no)}>
+                                    {isReplyLike && replyIndex.includes(child.no) ? (
+                                        <HiHeart size={18} />
+                                    ) : (
+                                        <HiOutlineHeart size={18} />
+                                    )}
+                                    {child.likes}
+                                </em>
                                 <em onClick={() => alert('서비스 준비중입니다.')}>신고</em>
 
                                 {!!auth?.accessToken && auth.user?.id === child.id && (

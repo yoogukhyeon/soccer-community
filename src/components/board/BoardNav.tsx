@@ -15,7 +15,10 @@ export default function BoardNav({ category }: IProps) {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const goToWrite = () => {
-        if (!auth?.accessToken) return alert('로그인 후 게시판을 이용해주세요.');
+        if (!auth?.accessToken) {
+            alert('로그인 후 게시판을 이용해주세요.');
+            return navigate('/user/sign-in', { state: pathname });
+        }
         const page = searchParams.get('page');
         const startNum = searchParams.get('startNum');
         const endNum = searchParams.get('endNum');
