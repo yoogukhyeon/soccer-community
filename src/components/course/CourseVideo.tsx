@@ -46,7 +46,7 @@ export default function CourseVideo({ video }: IProps) {
                     </i>
                     <span>뒤로가기</span>
                 </div>
-                <div className="window_open">
+                <div className="window_open" onClick={() => alert('서비스 준비중입니다.')}>
                     <i>
                         <MdOpenInNew />
                     </i>
@@ -111,7 +111,7 @@ const CourseVideoWrap = styled.div`
         > div {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
             cursor: pointer;
 
             i {

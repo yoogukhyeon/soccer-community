@@ -265,6 +265,7 @@ const CommentBtn = styled.div`
             color: #ff4c0e;
             font-size: 16px;
             font-weight: 600;
+            font-family: 'Noto Sans KR', sans-serif !important;
         }
 
         > button + button {
