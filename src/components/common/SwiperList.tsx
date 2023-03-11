@@ -39,9 +39,11 @@ export default function SwiperList({ lists }: IItems): JSX.Element {
             <Swiper {...settings}>
                 {lists.map((list, idx) => (
                     <SwiperSlide key={idx}>
-                        <div className="swiper_img">
-                            <LazyLoadImage src={list.img} alt={list.name} />
-                        </div>
+                        <a href="https://fnfsoccer.com" target="_blank">
+                            <div className="swiper_img">
+                                <LazyLoadImage src={list.img} alt={list.name} />
+                            </div>
+                        </a>
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -50,16 +52,24 @@ export default function SwiperList({ lists }: IItems): JSX.Element {
 }
 
 const SwiperWrap = styled.div`
-    height: 210px;
+    height: 230px;
     background-color: #eee;
     border-radius: 7px;
     margin: 15px 0;
     overflow: hidden;
     object-fit: cover;
 
+    a {
+        display: block;
+        width: 100%;
+        height: 230px;
+        cursor: pointer;
+        position: relative;
+        z-index: 9999;
+    }
     .swiper_img {
         width: 100%;
-        height: 210px;
+        height: 230px;
 
         img {
             width: inherit;
