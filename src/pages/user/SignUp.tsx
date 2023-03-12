@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CgCheck } from 'react-icons/cg';
 import MetaTag from '@/constants/SEOMetaTag';
@@ -16,6 +16,7 @@ interface FormValues {
 export default function SignUp() {
     const navigate = useNavigate();
     const { mutate: userMutate, isLoading } = useSignUpMutation();
+    const [errorMsg, setErrorMsg] = useState<boolean>(false);
     const goToSignIn = () => {
         navigate('/user/sign-in');
     };
@@ -46,6 +47,7 @@ export default function SignUp() {
             onError: (err) => {
                 console.log('err', err);
                 console.error(err);
+                setErrorMsg(true);
             },
         });
     };
@@ -106,7 +108,7 @@ export default function SignUp() {
                         placeholder="패스워드를 확인해주세요."
                         errors={errors?.pasword_confirm}
                     />
-
+                    {errorMsg && <p className="login_error">이미 등록된 이메일 입니다.</p>}
                     <button type="submit" className="login_btn">
                         회원가입
                     </button>
@@ -140,6 +142,13 @@ const FormWrap = styled.form`
         font-size: 24px;
         font-weight: 600;
         margin-bottom: 30px;
+    }
+
+    .login_error {
+        width: 100%;
+        margin: 13px 0;
+        text-align: left;
+        color: #ff4c4c;
     }
 
     .login_btn {

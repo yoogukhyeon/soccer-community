@@ -68,7 +68,6 @@ export default function SignIn() {
             onError: (err: any) => {
                 console.log('err', err);
                 console.error(err);
-                alert('중복된 이메일은 등록하실수 없습니다.');
                 setErrorMsg(() => err?.response?.data);
             },
         });
