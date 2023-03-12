@@ -38,14 +38,14 @@ export default function SignIn() {
                     const id = res.data.data.id;
 
                     cookies.set('access_token', accessToken, {
-                        /*      secure: true, */
+                        secure: true,
                         maxAge: 1000 * 60 * 60 * 24 * 7,
                         path: '/',
                         domain: `${process.env.REACT_APP_DOMAIN}`,
                     });
 
                     cookies.set('refresh_token', refreshToken, {
-                        /*       secure: true, */
+                        secure: true,
                         maxAge: 1000 * 60 * 60 * 24 * 7,
                         path: '/',
                         domain: `${process.env.REACT_APP_DOMAIN}`,
@@ -68,6 +68,7 @@ export default function SignIn() {
             onError: (err: any) => {
                 console.log('err', err);
                 console.error(err);
+                alert('중복된 이메일은 등록하실수 없습니다.');
                 setErrorMsg(() => err?.response?.data);
             },
         });
