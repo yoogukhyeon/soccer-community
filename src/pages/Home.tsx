@@ -8,6 +8,8 @@ import CourseBox from '@/components/main/CourseList';
 import { useCourseQuery } from '@/api/course';
 import { banner } from '@/assets/banner';
 import Community from '@/components/main/Community';
+import KakaoSideRightAdfit from '@/components/adfit/kakaoSideRightAdfit';
+import KakaoSideLeftAdfit from '@/components/adfit/kakaoSideLeftAdfit';
 interface IItems {
     readonly img: string;
     readonly name: string;
@@ -21,6 +23,8 @@ export default function Home() {
 
     return (
         <MainWrap>
+            <KakaoSideLeftAdfit />
+            <KakaoSideRightAdfit />
             {swiperUseStatus && <SwiperList lists={items} />}
             <CommunityWrap>
                 <MainTitle>커뮤니티</MainTitle>
