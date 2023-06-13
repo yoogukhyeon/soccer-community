@@ -17,7 +17,7 @@ function kakaoSideLeftAdfit() {
             const script: any = document.createElement('script');
 
             ins.className = 'kakao_ad_area';
-            ins.style = 'display:none; position: fixed; left: 120px; top:100px';
+            ins.style = 'display:none; position: fixed; left: 120px; top:90px';
 
             ins.setAttribute('data-ad-width', '160');
             ins.setAttribute('data-ad-height', '600');
