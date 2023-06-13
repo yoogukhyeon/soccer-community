@@ -12,7 +12,7 @@ function kakaoSideLeftAdfit() {
 
         // 윈도우 사이즈에 따라 광고 사이즈 조정(사이즈마다 해당 광고 단위 ID 적용)
         const winodwSize = window.innerWidth;
-        if (winodwSize > 1100) {
+        if (winodwSize > 1580) {
             const ins: any = document.createElement('ins');
             const script: any = document.createElement('script');
 
