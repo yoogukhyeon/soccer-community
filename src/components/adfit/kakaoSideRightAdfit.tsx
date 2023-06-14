@@ -12,12 +12,32 @@ function kakaoSideRightAdfit() {
 
         // 윈도우 사이즈에 따라 광고 사이즈 조정(사이즈마다 해당 광고 단위 ID 적용)
         const winodwSize = window.innerWidth;
-        if (winodwSize > 980) {
+        if (winodwSize > 1350) {
             const ins: any = document.createElement('ins');
             const script: any = document.createElement('script');
 
             ins.className = 'kakao_ad_area';
             ins.style = 'display:none; position: fixed; right: 120px; top:90px';
+
+            ins.setAttribute('data-ad-width', '160');
+            ins.setAttribute('data-ad-height', '600');
+            ins.setAttribute('data-ad-unit', 'DAN-0B2DjbAPc5ducndB');
+
+            script.async = 'true';
+            script.type = 'text/javascript';
+            script.src = '//t1.daumcdn.net/kas/static/ba.min.js';
+
+            document.querySelector('.aside_side_right_kakaoAdFit')?.appendChild(ins);
+            document.querySelector('.aside_side_right_kakaoAdFit')?.appendChild(script);
+
+            // 광고 로딩 여부 상태 변경
+            adRef.current = true;
+        } else if (winodwSize > 990) {
+            const ins: any = document.createElement('ins');
+            const script: any = document.createElement('script');
+
+            ins.className = 'kakao_ad_area';
+            ins.style = 'display:none; position: fixed; right: 0; top:90px';
 
             ins.setAttribute('data-ad-width', '160');
             ins.setAttribute('data-ad-height', '600');

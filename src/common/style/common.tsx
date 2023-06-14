@@ -18,6 +18,10 @@ export const ContainerDiv = styled.div`
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+
+    @media screen and (max-width: 1355px) {
+        max-width: 650px;
+    }
 `;
 
 export const HeaderAndFooter = css`
