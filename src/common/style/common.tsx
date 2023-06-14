@@ -19,7 +19,7 @@ export const ContainerDiv = styled.div`
     margin: 0 auto;
     padding: 0 20px;
 
-    @media screen and (max-width: 1355px) {
+    @media screen and (max-width: 1367px) {
         max-width: 650px;
     }
 `;
