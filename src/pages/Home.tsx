@@ -10,6 +10,7 @@ import { banner } from '@/assets/banner';
 import Community from '@/components/main/Community';
 import KakaoSideRightAdfit from '@/components/adfit/kakaoSideRightAdfit';
 import KakaoSideLeftAdfit from '@/components/adfit/kakaoSideLeftAdfit';
+import KakaoAdfit from '@/components/adfit/kakaoAdfit';
 interface IItems {
     readonly img: string;
     readonly name: string;
@@ -27,6 +28,7 @@ export default function Home() {
             <KakaoSideRightAdfit />
             {swiperUseStatus && <SwiperList lists={items} />}
             <CommunityWrap>
+                <KakaoAdfit />
                 <MainTitle>커뮤니티</MainTitle>
                 <div className="community_box">
                     <Community status={status} lists={data?.recentBoardList} title="최근글" type="boards" />
