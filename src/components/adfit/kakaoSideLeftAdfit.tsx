@@ -21,7 +21,7 @@ function kakaoSideLeftAdfit() {
 
             ins.setAttribute('data-ad-width', '160');
             ins.setAttribute('data-ad-height', '600');
-            ins.setAttribute('data-ad-unit', 'DAN-J0oP9mOLQZb86gJB');
+            ins.setAttribute('data-ad-unit', 'DAN-S0PnvITFdo8hKNGf');
 
             script.async = 'true';
             script.type = 'text/javascript';
@@ -41,7 +41,7 @@ function kakaoSideLeftAdfit() {
 
             ins.setAttribute('data-ad-width', '160');
             ins.setAttribute('data-ad-height', '600');
-            ins.setAttribute('data-ad-unit', 'DAN-J0oP9mOLQZb86gJB');
+            ins.setAttribute('data-ad-unit', 'DAN-S0PnvITFdo8hKNGf');
 
             script.async = 'true';
             script.type = 'text/javascript';
