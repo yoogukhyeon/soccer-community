@@ -21,7 +21,7 @@ function kakaoSideLeftAdfit() {
 
             ins.setAttribute('data-ad-width', '160');
             ins.setAttribute('data-ad-height', '600');
-            ins.setAttribute('data-ad-unit', 'DAN-0B2DjbAPc5ducndB');
+            ins.setAttribute('data-ad-unit', 'DAN-J0oP9mOLQZb86gJB');
 
             script.async = 'true';
             script.type = 'text/javascript';
